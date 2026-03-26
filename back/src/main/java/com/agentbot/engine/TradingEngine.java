@@ -138,12 +138,24 @@ public class TradingEngine {
                 pnlService.getTotalFees().setScale(4, RoundingMode.HALF_UP),
                 riskManager.isGlobalTradingAllowed() ? "OK" : "PAUSED: " + riskManager.getPauseReason());
 
+        log.info("  Rewards: eligible={} ineligible={} total_paid={}",
+                rewardEngine.getTotalEligibleOrders(),
+                rewardEngine.getTotalIneligibleOrders(),
+                rewardEngine.getTotalRewardsPaid().setScale(4, RoundingMode.HALF_UP));
+
         for (MarketScore scored : latestRankings) {
             SimulatedMarket m = marketScanner.getMarket(scored.getMarketId());
             if (m == null) continue;
-            log.info("  Market {} [{}] mid={} spread={} regime={} informed={}",
+            RewardEngine.RewardMetrics rm = rewardEngine.getMetricsByMarket().get(m.getMarketId());
+            String rewardInfo = rm != null
+                    ? String.format(" reward=%.4f share=%.1f%% elig=%.0f%%",
+                        rm.totalReward.doubleValue(),
+                        rm.lastShare.doubleValue() * 100,
+                        rm.getEligibilityRate() * 100)
+                    : "";
+            log.info("  Market {} [{}] mid={} spread={} regime={} comp={}{}",
                     m.getMarketId(), m.getName(), m.getMidPrice(), m.getSpread(),
-                    m.getRegime(), m.isInformedFlowActive());
+                    m.getRegime(), m.getCompetitionLevel(), rewardInfo);
         }
     }
 }
