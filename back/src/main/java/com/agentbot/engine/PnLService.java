@@ -24,7 +24,11 @@ public class PnLService {
     @Getter
     private BigDecimal totalFees = BigDecimal.ZERO;
 
+    @Getter
+    private BigDecimal totalRewardPnl = BigDecimal.ZERO;
+
     private final Map<String, BigDecimal> realizedByMarket = new ConcurrentHashMap<>();
+    private final Map<String, BigDecimal> rewardByMarket = new ConcurrentHashMap<>();
     private final Map<String, BigDecimal> yesCostBasis = new ConcurrentHashMap<>();
     private final Map<String, BigDecimal> yesQtyBasis = new ConcurrentHashMap<>();
 
@@ -87,5 +91,27 @@ public class PnLService {
 
     public Map<String, BigDecimal> getAllMarketPnl() {
         return Map.copyOf(realizedByMarket);
+    }
+
+    public void recordReward(String marketId, BigDecimal reward) {
+        if (reward.compareTo(BigDecimal.ZERO) <= 0) return;
+        totalRewardPnl = totalRewardPnl.add(reward);
+        rewardByMarket.merge(marketId, reward, BigDecimal::add);
+    }
+
+    public BigDecimal getRewardForMarket(String marketId) {
+        return rewardByMarket.getOrDefault(marketId, BigDecimal.ZERO);
+    }
+
+    public BigDecimal getTotalPnl() {
+        return totalRealizedPnl.add(totalRewardPnl);
+    }
+
+    public BigDecimal getTradingPnl() {
+        return totalRealizedPnl;
+    }
+
+    public Map<String, BigDecimal> getAllMarketRewards() {
+        return Map.copyOf(rewardByMarket);
     }
 }

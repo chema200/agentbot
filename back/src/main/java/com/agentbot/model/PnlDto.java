@@ -15,4 +15,8 @@ public class PnlDto {
     private BigDecimal realized;
     private BigDecimal unrealized;
     private BigDecimal daily;
+    private BigDecimal tradingPnl;
+    private BigDecimal rewardPnl;
+    private BigDecimal totalPnl;
+    private BigDecimal fees;
 }

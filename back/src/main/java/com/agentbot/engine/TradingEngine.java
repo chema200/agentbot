@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Slf4j
@@ -25,6 +27,7 @@ public class TradingEngine {
     private final RiskManager riskManager;
     private final PnLService pnlService;
     private final PerformanceTracker performanceTracker;
+    private final RewardEngine rewardEngine;
 
     @Getter
     private TradingEngineState state = TradingEngineState.STOPPED;
@@ -90,6 +93,11 @@ public class TradingEngine {
             boolean allowed = riskManager.canTrade(market, position, activeForMarket, totalActive);
 
             strategyEngine.executeStrategy(market, position, allowed, riskManager.getMaxOrdersPerSide());
+
+            BigDecimal reward = rewardEngine.distributeRewards(market);
+            if (reward.compareTo(BigDecimal.ZERO) > 0) {
+                pnlService.recordReward(market.getMarketId(), reward);
+            }
         }
 
         if (cycleCount % 15 == 0) {
@@ -123,9 +131,11 @@ public class TradingEngine {
                 inventoryManager.getTotalYesExposure(),
                 inventoryManager.getTotalNoExposure(),
                 inventoryManager.getGlobalNetExposure());
-        log.info("  PnL: {} realized, {} fees | Risk: {}",
-                pnlService.getTotalRealizedPnl(),
-                pnlService.getTotalFees(),
+        log.info("  PnL: trading={} rewards={} total={} fees={} | Risk: {}",
+                pnlService.getTradingPnl().setScale(2, RoundingMode.HALF_UP),
+                pnlService.getTotalRewardPnl().setScale(2, RoundingMode.HALF_UP),
+                pnlService.getTotalPnl().setScale(2, RoundingMode.HALF_UP),
+                pnlService.getTotalFees().setScale(4, RoundingMode.HALF_UP),
                 riskManager.isGlobalTradingAllowed() ? "OK" : "PAUSED: " + riskManager.getPauseReason());
 
         for (MarketScore scored : latestRankings) {

@@ -24,6 +24,7 @@ public class DashboardService {
     private final InventoryManager inventoryManager;
     private final RiskManager riskManager;
     private final PnLService pnlService;
+    private final RewardEngine rewardEngine;
 
     public StatusDto getStatus() {
         TradingEngineState engineState = tradingEngine.getState();
@@ -60,10 +61,17 @@ public class DashboardService {
         BigDecimal unrealized = pnlService.getUnrealizedPnl(
                 inventoryManager.getAllPositions(),
                 marketScanner::getMarket);
+        BigDecimal tradingPnl = pnlService.getTradingPnl();
+        BigDecimal rewardPnl = pnlService.getTotalRewardPnl();
+        BigDecimal totalPnl = tradingPnl.add(rewardPnl);
         return PnlDto.builder()
-                .realized(pnlService.getTotalRealizedPnl().setScale(2, RoundingMode.HALF_UP))
+                .realized(tradingPnl.setScale(2, RoundingMode.HALF_UP))
                 .unrealized(unrealized.setScale(2, RoundingMode.HALF_UP))
-                .daily(pnlService.getTotalRealizedPnl().add(unrealized).setScale(2, RoundingMode.HALF_UP))
+                .daily(totalPnl.add(unrealized).setScale(2, RoundingMode.HALF_UP))
+                .tradingPnl(tradingPnl.setScale(2, RoundingMode.HALF_UP))
+                .rewardPnl(rewardPnl.setScale(2, RoundingMode.HALF_UP))
+                .totalPnl(totalPnl.setScale(2, RoundingMode.HALF_UP))
+                .fees(pnlService.getTotalFees().setScale(4, RoundingMode.HALF_UP))
                 .build();
     }
 

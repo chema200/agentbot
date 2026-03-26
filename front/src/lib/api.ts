@@ -38,6 +38,10 @@ export interface PnL {
   realized: number;
   unrealized: number;
   daily: number;
+  tradingPnl: number;
+  rewardPnl: number;
+  totalPnl: number;
+  fees: number;
 }
 
 export interface Market {
