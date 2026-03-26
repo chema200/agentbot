@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,8 +77,12 @@ public class DashboardService {
     }
 
     public List<MarketDto> getMarkets() {
+        List<MarketScore> fullRanking = rankingEngine.getLatestFullRanking();
+        Map<String, MarketScore> scoreMap = fullRanking.stream()
+                .collect(Collectors.toMap(MarketScore::getMarketId, s -> s, (a, b) -> a));
+
         return marketScanner.getAllMarkets().stream()
-                .map(this::toMarketDto)
+                .map(sm -> toMarketDto(sm, scoreMap.get(sm.getMarketId())))
                 .collect(Collectors.toList());
     }
 
@@ -117,8 +122,8 @@ public class DashboardService {
                 .build();
     }
 
-    private MarketDto toMarketDto(SimulatedMarket sm) {
-        return MarketDto.builder()
+    private MarketDto toMarketDto(SimulatedMarket sm, MarketScore ms) {
+        MarketDto.MarketDtoBuilder builder = MarketDto.builder()
                 .marketId(sm.getMarketId())
                 .name(sm.getName())
                 .bestBid(sm.getBestBid())
@@ -126,6 +131,16 @@ public class DashboardService {
                 .spread(sm.getSpread())
                 .volume(sm.getVolume().setScale(0, RoundingMode.HALF_UP))
                 .liquidityScore(sm.getLiquidityScore().setScale(1, RoundingMode.HALF_UP))
-                .build();
+                .regime(sm.getRegime().name());
+
+        if (ms != null) {
+            builder.edgeScore(ms.getEdgeScore())
+                    .rewardEfficiency(ms.getRewardEfficiency())
+                    .competitionDensity(ms.getCompetitionDensity())
+                    .volatilityPenalty(ms.getVolatilityPenalty())
+                    .selected(ms.isSelected());
+        }
+
+        return builder.build();
     }
 }

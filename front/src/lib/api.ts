@@ -52,6 +52,12 @@ export interface Market {
   spread: number;
   volume: number;
   liquidityScore: number;
+  edgeScore: number | null;
+  rewardEfficiency: number | null;
+  competitionDensity: number | null;
+  volatilityPenalty: number | null;
+  selected: boolean;
+  regime: string | null;
 }
 
 export interface BotStatus {

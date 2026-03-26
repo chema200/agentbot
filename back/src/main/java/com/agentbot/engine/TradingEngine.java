@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -39,6 +40,7 @@ public class TradingEngine {
     private List<MarketScore> latestRankings = List.of();
 
     private int lastProcessedFillIndex = 0;
+    private Set<String> previousActiveMarkets = Set.of();
 
     public void start() {
         if (state == TradingEngineState.RUNNING) return;
@@ -75,6 +77,14 @@ public class TradingEngine {
         marketScanner.tickAll();
 
         latestRankings = rankingEngine.getTopMarkets(marketScanner.getAllMarkets(), TOP_MARKETS);
+
+        Set<String> currentActiveMarkets = rankingEngine.getActiveMarketIds();
+        Set<String> exitedMarkets = rankingEngine.getExitedMarkets(previousActiveMarkets, currentActiveMarkets);
+        for (String exitedId : exitedMarkets) {
+            orderManager.getActiveOrdersForMarket(exitedId)
+                    .forEach(o -> orderManager.cancelOrder(o.getOrderId()));
+        }
+        previousActiveMarkets = Set.copyOf(currentActiveMarkets);
 
         processNewFills();
 
@@ -143,19 +153,27 @@ public class TradingEngine {
                 rewardEngine.getTotalIneligibleOrders(),
                 rewardEngine.getTotalRewardsPaid().setScale(4, RoundingMode.HALF_UP));
 
-        for (MarketScore scored : latestRankings) {
+        log.info("  Market Selection: active={}/{} markets",
+                rankingEngine.getActiveMarketIds().size(),
+                marketScanner.getAllMarkets().size());
+
+        for (MarketScore scored : rankingEngine.getLatestFullRanking()) {
             SimulatedMarket m = marketScanner.getMarket(scored.getMarketId());
             if (m == null) continue;
             RewardEngine.RewardMetrics rm = rewardEngine.getMetricsByMarket().get(m.getMarketId());
             String rewardInfo = rm != null
-                    ? String.format(" reward=%.4f share=%.1f%% elig=%.0f%%",
+                    ? String.format(" rwd=%.4f share=%.1f%%",
                         rm.totalReward.doubleValue(),
-                        rm.lastShare.doubleValue() * 100,
-                        rm.getEligibilityRate() * 100)
+                        rm.lastShare.doubleValue() * 100)
                     : "";
-            log.info("  Market {} [{}] mid={} spread={} regime={} comp={}{}",
-                    m.getMarketId(), m.getName(), m.getMidPrice(), m.getSpread(),
-                    m.getRegime(), m.getCompetitionLevel(), rewardInfo);
+            String status = scored.isSelected() ? "ACTIVE" : "SKIP:" + scored.getRejectionReason();
+            log.info("  {} {} edge={} rwdEff={} compDens={} volPen={} spread={} regime={} [{}]{}",
+                    status, m.getMarketId(),
+                    scored.getEdgeScore(),
+                    scored.getRewardEfficiency(),
+                    scored.getCompetitionDensity(),
+                    scored.getVolatilityPenalty(),
+                    m.getSpread(), m.getRegime(), m.getName(), rewardInfo);
         }
     }
 }

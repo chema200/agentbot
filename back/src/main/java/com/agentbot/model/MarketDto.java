@@ -19,4 +19,10 @@ public class MarketDto {
     private BigDecimal spread;
     private BigDecimal volume;
     private BigDecimal liquidityScore;
+    private BigDecimal edgeScore;
+    private BigDecimal rewardEfficiency;
+    private BigDecimal competitionDensity;
+    private BigDecimal volatilityPenalty;
+    private boolean selected;
+    private String regime;
 }

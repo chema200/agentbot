@@ -16,4 +16,13 @@ public class MarketScore {
     private BigDecimal liquidityComponent;
     private BigDecimal riskComponent;
     private int rank;
+
+    private BigDecimal edgeScore;
+    private BigDecimal rewardEfficiency;
+    private BigDecimal competitionDensity;
+    private BigDecimal rewardPerCompetition;
+    private BigDecimal volatilityPenalty;
+    @Builder.Default
+    private boolean selected = false;
+    private String rejectionReason;
 }
