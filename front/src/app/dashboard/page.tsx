@@ -4,6 +4,7 @@ import InventoryPanel from "@/components/InventoryPanel";
 import PnlPanel from "@/components/PnlPanel";
 import MarketTable from "@/components/MarketTable";
 import ControlsPanel from "@/components/ControlsPanel";
+import QuickStats from "@/components/QuickStats";
 
 export default function DashboardPage() {
   return (
@@ -16,7 +17,7 @@ export default function DashboardPage() {
             </div>
             <h1 className="text-lg font-semibold text-dark-100">AgentBot Dashboard</h1>
           </div>
-          <p className="text-xs text-dark-500">Polymarket Trading System</p>
+          <p className="text-xs text-dark-500">Polymarket Trading Engine</p>
         </div>
       </header>
 
@@ -29,29 +30,7 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
           <PnlPanel />
-          <div className="card">
-            <h2 className="text-sm font-medium text-dark-400 uppercase tracking-wider mb-2">
-              Quick Stats
-            </h2>
-            <div className="grid grid-cols-2 gap-4 mt-3">
-              <div>
-                <p className="text-xs text-dark-500">Active Orders</p>
-                <p className="text-2xl font-bold font-mono text-dark-100">3</p>
-              </div>
-              <div>
-                <p className="text-xs text-dark-500">Total Fills</p>
-                <p className="text-2xl font-bold font-mono text-dark-100">3</p>
-              </div>
-              <div>
-                <p className="text-xs text-dark-500">Markets Tracked</p>
-                <p className="text-2xl font-bold font-mono text-dark-100">6</p>
-              </div>
-              <div>
-                <p className="text-xs text-dark-500">Win Rate</p>
-                <p className="text-2xl font-bold font-mono text-accent-green">68%</p>
-              </div>
-            </div>
-          </div>
+          <QuickStats />
         </div>
 
         <div className="grid grid-cols-1 gap-5 mb-5">

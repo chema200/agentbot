@@ -4,34 +4,38 @@ import { useApi } from "@/hooks/useApi";
 import { api, BotStatus } from "@/lib/api";
 
 export default function StatusCard() {
-  const { data, loading } = useApi<BotStatus>(api.getStatus);
+  const { data, loading } = useApi<BotStatus>(api.getStatus, 2000);
 
   if (loading) return <StatusSkeleton />;
 
-  const isRunning = data?.botStatus === "RUNNING";
+  const state = data?.botStatus || "STOPPED";
   const isConnected = data?.connection === "OK";
+
+  const stateColor: Record<string, string> = {
+    RUNNING: "bg-accent-green animate-pulse",
+    PAUSED: "bg-accent-yellow",
+    STOPPED: "bg-dark-500",
+    STARTING: "bg-accent-blue animate-pulse",
+    ERROR: "bg-accent-red animate-pulse",
+  };
 
   return (
     <div className="card">
       <h2 className="text-sm font-medium text-dark-400 uppercase tracking-wider mb-4">
-        Bot Status
+        Engine Status
       </h2>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`h-3 w-3 rounded-full ${isRunning ? "bg-accent-green animate-pulse" : "bg-accent-yellow"}`} />
-          <span className="text-lg font-semibold">
-            {data?.botStatus || "UNKNOWN"}
-          </span>
+          <div className={`h-3 w-3 rounded-full ${stateColor[state] || "bg-dark-500"}`} />
+          <span className="text-lg font-semibold">{state}</span>
         </div>
         <div className={`text-sm font-medium ${isConnected ? "text-accent-green" : "text-accent-red"}`}>
           {isConnected ? "Connected" : "Disconnected"}
         </div>
       </div>
-      {data?.uptime && (
-        <p className="text-xs text-dark-500 mt-3">
-          Uptime: {formatUptime(data.uptime)}
-        </p>
-      )}
+      <p className="text-xs text-dark-500 mt-3">
+        Cycles: <span className="text-dark-300 font-mono">{data?.uptime ?? 0}</span>
+      </p>
     </div>
   );
 }
@@ -43,13 +47,4 @@ function StatusSkeleton() {
       <div className="h-6 w-32 bg-dark-700 rounded" />
     </div>
   );
-}
-
-function formatUptime(seconds: number): string {
-  const d = Math.floor(seconds / 86400);
-  const h = Math.floor((seconds % 86400) / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  if (d > 0) return `${d}d ${h}h ${m}m`;
-  if (h > 0) return `${h}h ${m}m`;
-  return `${m}m`;
 }

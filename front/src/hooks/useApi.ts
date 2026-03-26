@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 interface UseApiResult<T> {
   data: T | null;
@@ -9,14 +9,16 @@ interface UseApiResult<T> {
   refetch: () => void;
 }
 
-export function useApi<T>(fetcher: () => Promise<T>, intervalMs = 5000): UseApiResult<T> {
+export function useApi<T>(fetcher: () => Promise<T>, intervalMs = 3000): UseApiResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const fetcherRef = useRef(fetcher);
+  fetcherRef.current = fetcher;
 
   const fetchData = useCallback(async () => {
     try {
-      const result = await fetcher();
+      const result = await fetcherRef.current();
       setData(result);
       setError(null);
     } catch (err) {
@@ -24,7 +26,7 @@ export function useApi<T>(fetcher: () => Promise<T>, intervalMs = 5000): UseApiR
     } finally {
       setLoading(false);
     }
-  }, [fetcher]);
+  }, []);
 
   useEffect(() => {
     fetchData();

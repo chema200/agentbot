@@ -51,9 +51,18 @@ export interface Market {
 }
 
 export interface BotStatus {
-  botStatus: "RUNNING" | "PAUSED";
+  botStatus: "RUNNING" | "PAUSED" | "STOPPED" | "STARTING" | "ERROR";
   connection: "OK" | "ERROR";
   uptime: number;
+}
+
+async function postApi<T>(endpoint: string): Promise<T> {
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    method: "POST",
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  return res.json();
 }
 
 export const api = {
@@ -63,4 +72,7 @@ export const api = {
   getInventory: () => fetchApi<Inventory>("/api/inventory"),
   getPnl: () => fetchApi<PnL>("/api/pnl"),
   getMarkets: () => fetchApi<Market[]>("/api/markets"),
+  startEngine: () => postApi<{ status: string }>("/api/engine/start"),
+  pauseEngine: () => postApi<{ status: string }>("/api/engine/pause"),
+  stopEngine: () => postApi<{ status: string }>("/api/engine/stop"),
 };
