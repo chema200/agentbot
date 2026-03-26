@@ -1,7 +1,6 @@
 package com.agentbot.engine;
 
 import com.agentbot.engine.model.EngineFill;
-import com.agentbot.engine.model.EngineOrder;
 import com.agentbot.engine.model.SimulatedMarket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -103,6 +102,19 @@ public class PerformanceTracker {
 
     public Map<String, MarketPerformance> getAllPerformance() {
         return Map.copyOf(marketPerf);
+    }
+
+    public double getProfitPerFill(String marketId) {
+        MarketPerformance perf = marketPerf.get(marketId);
+        if (perf == null || perf.totalFills.get() == 0) return 0.0;
+        double netSlippage = perf.totalSlippage.negate().doubleValue();
+        double fees = perf.totalFees.doubleValue();
+        return (netSlippage - fees) / perf.totalFills.get();
+    }
+
+    public BigDecimal getTotalVolume(String marketId) {
+        MarketPerformance perf = marketPerf.get(marketId);
+        return perf != null ? perf.totalVolume : BigDecimal.ZERO;
     }
 
     public static class MarketPerformance {

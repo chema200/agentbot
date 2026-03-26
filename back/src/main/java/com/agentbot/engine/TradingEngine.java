@@ -90,6 +90,11 @@ public class TradingEngine {
 
         riskManager.evaluateGlobalRisk(inventoryManager.getGlobalNetExposure());
 
+        BigDecimal totalEdge = latestRankings.stream()
+                .map(MarketScore::getEdgeScore)
+                .filter(e -> e.compareTo(BigDecimal.ZERO) > 0)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
         for (MarketScore scored : latestRankings) {
             SimulatedMarket market = marketScanner.getMarket(scored.getMarketId());
             if (market == null) continue;
@@ -102,7 +107,13 @@ public class TradingEngine {
 
             boolean allowed = riskManager.canTrade(market, position, activeForMarket, totalActive);
 
-            strategyEngine.executeStrategy(market, position, allowed, riskManager.getMaxOrdersPerSide());
+            BigDecimal capitalShare = totalEdge.compareTo(BigDecimal.ZERO) > 0
+                    ? scored.getEdgeScore().max(BigDecimal.ZERO)
+                        .divide(totalEdge, 6, RoundingMode.HALF_UP)
+                    : new BigDecimal("0.2");
+
+            strategyEngine.executeStrategy(market, position, allowed,
+                    riskManager.getMaxOrdersPerSide(), scored, capitalShare);
 
             BigDecimal reward = rewardEngine.distributeRewards(market);
             if (reward.compareTo(BigDecimal.ZERO) > 0) {
@@ -157,23 +168,34 @@ public class TradingEngine {
                 rankingEngine.getActiveMarketIds().size(),
                 marketScanner.getAllMarkets().size());
 
+        BigDecimal logTotalEdge = rankingEngine.getLatestFullRanking().stream()
+                .filter(MarketScore::isSelected)
+                .map(MarketScore::getEdgeScore)
+                .filter(e -> e.compareTo(BigDecimal.ZERO) > 0)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
         for (MarketScore scored : rankingEngine.getLatestFullRanking()) {
             SimulatedMarket m = marketScanner.getMarket(scored.getMarketId());
             if (m == null) continue;
             RewardEngine.RewardMetrics rm = rewardEngine.getMetricsByMarket().get(m.getMarketId());
             String rewardInfo = rm != null
-                    ? String.format(" rwd=%.4f share=%.1f%%",
-                        rm.totalReward.doubleValue(),
-                        rm.lastShare.doubleValue() * 100)
+                    ? String.format(" rwd=%.4f", rm.totalReward.doubleValue())
                     : "";
             String status = scored.isSelected() ? "ACTIVE" : "SKIP:" + scored.getRejectionReason();
-            log.info("  {} {} edge={} rwdEff={} compDens={} volPen={} spread={} regime={} [{}]{}",
+            String capInfo = "";
+            if (scored.isSelected() && logTotalEdge.compareTo(BigDecimal.ZERO) > 0) {
+                BigDecimal capShare = scored.getEdgeScore().max(BigDecimal.ZERO)
+                        .divide(logTotalEdge, 4, RoundingMode.HALF_UP);
+                int fills = performanceTracker.getTotalFills(m.getMarketId());
+                double ppf = performanceTracker.getProfitPerFill(m.getMarketId());
+                capInfo = String.format(" cap=%.0f%% fills=%d ppf=%.2f",
+                        capShare.doubleValue() * 100, fills, ppf);
+            }
+            log.info("  {} {} edge={} rwdEff={} volPen={} regime={} [{}]{}{}",
                     status, m.getMarketId(),
-                    scored.getEdgeScore(),
-                    scored.getRewardEfficiency(),
-                    scored.getCompetitionDensity(),
+                    scored.getEdgeScore(), scored.getRewardEfficiency(),
                     scored.getVolatilityPenalty(),
-                    m.getSpread(), m.getRegime(), m.getName(), rewardInfo);
+                    m.getRegime(), m.getName(), capInfo, rewardInfo);
         }
     }
 }
