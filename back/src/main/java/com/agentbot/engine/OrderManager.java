@@ -6,17 +6,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 public class OrderManager {
+
+    private static final long MIN_LATENCY_MS = 50;
+    private static final long MAX_LATENCY_MS = 300;
+    private static final long CANCEL_LATENCY_MS = 80;
 
     private final Map<String, EngineOrder> orders = new ConcurrentHashMap<>();
 
@@ -25,6 +31,12 @@ public class OrderManager {
 
     public EngineOrder createOrder(String marketId, String marketName,
                                     EngineOrder.Side side, BigDecimal price, BigDecimal size) {
+        ThreadLocalRandom rng = ThreadLocalRandom.current();
+        long latency = rng.nextLong(MIN_LATENCY_MS, MAX_LATENCY_MS);
+
+        BigDecimal queueAhead = size.multiply(BigDecimal.valueOf(rng.nextDouble(0.5, 3.0)))
+                .setScale(0, RoundingMode.HALF_UP);
+
         EngineOrder order = EngineOrder.builder()
                 .orderId(UUID.randomUUID().toString().substring(0, 8))
                 .marketId(marketId)
@@ -37,10 +49,14 @@ public class OrderManager {
                 .status(EngineOrder.Status.OPEN)
                 .createdAt(Instant.now())
                 .updatedAt(Instant.now())
+                .visibleAfter(Instant.now().plusMillis(latency))
+                .queuePosition(rng.nextInt(3, 12))
+                .queueAhead(queueAhead)
                 .build();
 
         orders.put(order.getOrderId(), order);
-        log.debug("Created order {} {} {} @ {} x{}", order.getOrderId(), side, marketName, price, size);
+        log.debug("Created order {} {} {} @ {} x{} (latency: {}ms, queue: {})",
+                order.getOrderId(), side, marketName, price, size, latency, queueAhead);
         return order;
     }
 

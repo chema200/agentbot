@@ -17,4 +17,11 @@ public class EngineFill {
     private BigDecimal size;
     private BigDecimal fee;
     private Instant filledAt;
+
+    @Builder.Default
+    private BigDecimal midAtFill = BigDecimal.ZERO;
+    @Builder.Default
+    private BigDecimal slippage = BigDecimal.ZERO;
+    @Builder.Default
+    private boolean toxicFlow = false;
 }

@@ -26,13 +26,22 @@ public class StrategyEngine {
     private static final BigDecimal MAX_QUOTE_PRICE = new BigDecimal("0.98");
     private static final BigDecimal MAX_HALF_SPREAD = new BigDecimal("0.10");
     private static final BigDecimal MIN_HALF_SPREAD = new BigDecimal("0.01");
+    private static final BigDecimal TICK = new BigDecimal("0.01");
 
     private final OrderManager orderManager;
     private final PerformanceTracker performanceTracker;
 
     public void executeStrategy(SimulatedMarket market, InventoryPosition inventory,
                                 boolean riskAllowed, int maxOrdersPerSide) {
-        if (!riskAllowed) {
+        if (!riskAllowed) return;
+
+        if (market.isCrisis()) {
+            log.debug("Skipping {} - CRISIS regime", market.getMarketId());
+            return;
+        }
+
+        if (market.isInformedFlowActive()) {
+            log.debug("Skipping {} - informed flow active", market.getMarketId());
             return;
         }
 
@@ -54,6 +63,10 @@ public class StrategyEngine {
         BigDecimal adaptiveHalfSpread = calculateAdaptiveHalfSpread(market);
         BigDecimal orderSize = calculateOrderSize(inventory);
 
+        if (market.getRegime() == SimulatedMarket.VolatilityRegime.VOLATILE) {
+            orderSize = orderSize.multiply(new BigDecimal("0.6")).setScale(0, RoundingMode.HALF_UP).max(MIN_ORDER_SIZE);
+        }
+
         boolean buyAllowed = shouldAllowBuy(inventory);
         boolean sellAllowed = shouldAllowSell(inventory);
 
@@ -62,11 +75,11 @@ public class StrategyEngine {
                     .subtract(adaptiveHalfSpread)
                     .subtract(SAFETY_BUFFER)
                     .subtract(inventorySkew);
+            BigDecimal behindCompetitor = market.getCompetitorBestBid().subtract(TICK);
             BigDecimal behindTouchBid = market.getBestBid().subtract(SAFETY_BUFFER);
-            BigDecimal bidPrice = rawBid.min(behindTouchBid).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal bidPrice = rawBid.min(behindTouchBid).min(behindCompetitor).setScale(2, RoundingMode.HALF_UP);
 
             if (bidPrice.compareTo(MIN_QUOTE_PRICE) > 0
-                    && bidPrice.compareTo(market.getBestBid()) <= 0
                     && bidPrice.compareTo(market.getBestAsk()) < 0) {
                 orderManager.createOrder(
                         market.getMarketId(), market.getName(),
@@ -79,11 +92,11 @@ public class StrategyEngine {
                     .add(adaptiveHalfSpread)
                     .add(SAFETY_BUFFER)
                     .add(inventorySkew);
+            BigDecimal behindCompetitor = market.getCompetitorBestAsk().add(TICK);
             BigDecimal behindTouchAsk = market.getBestAsk().add(SAFETY_BUFFER);
-            BigDecimal askPrice = rawAsk.max(behindTouchAsk).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal askPrice = rawAsk.max(behindTouchAsk).max(behindCompetitor).setScale(2, RoundingMode.HALF_UP);
 
             if (askPrice.compareTo(MAX_QUOTE_PRICE) < 0
-                    && askPrice.compareTo(market.getBestAsk()) >= 0
                     && askPrice.compareTo(market.getBestBid()) > 0) {
                 orderManager.createOrder(
                         market.getMarketId(), market.getName(),
@@ -134,11 +147,16 @@ public class StrategyEngine {
             fillIntensityWiden = new BigDecimal("0.003");
         }
 
+        BigDecimal regimeWiden = market.getVolatilityMultiplier()
+                .subtract(BigDecimal.ONE).max(BigDecimal.ZERO)
+                .multiply(new BigDecimal("0.01"));
+
         BigDecimal result = baseHalfSpread
                 .multiply(volMultiplier)
                 .add(perfAdjustment)
                 .add(adverseFineTune)
                 .add(fillIntensityWiden)
+                .add(regimeWiden)
                 .max(MIN_HALF_SPREAD)
                 .min(MAX_HALF_SPREAD);
 

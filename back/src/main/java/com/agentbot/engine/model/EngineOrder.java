@@ -23,11 +23,23 @@ public class EngineOrder {
     private Instant createdAt;
     private Instant updatedAt;
 
+    @Builder.Default
+    private int queuePosition = 0;
+    @Builder.Default
+    private BigDecimal queueAhead = BigDecimal.ZERO;
+
+    @Builder.Default
+    private Instant visibleAfter = Instant.now();
+
     public enum Side { BUY, SELL }
     public enum Status { OPEN, PARTIALLY_FILLED, FILLED, CANCELLED }
 
     public boolean isActive() {
         return status == Status.OPEN || status == Status.PARTIALLY_FILLED;
+    }
+
+    public boolean isVisible() {
+        return Instant.now().isAfter(visibleAfter);
     }
 
     public void fill(BigDecimal qty) {
@@ -45,5 +57,13 @@ public class EngineOrder {
     public void cancel() {
         this.status = Status.CANCELLED;
         this.updatedAt = Instant.now();
+    }
+
+    public void drainQueue(BigDecimal volumeTraded) {
+        this.queueAhead = this.queueAhead.subtract(volumeTraded).max(BigDecimal.ZERO);
+    }
+
+    public boolean isQueueCleared() {
+        return queueAhead.compareTo(BigDecimal.ZERO) <= 0;
     }
 }

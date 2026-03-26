@@ -30,6 +30,16 @@ public class RiskManager {
                             int activeOrdersForMarket, int totalActiveOrders) {
         if (!globalTradingAllowed) return false;
 
+        if (market.isCrisis()) {
+            log.debug("Risk: CRISIS regime for {}", market.getMarketId());
+            return false;
+        }
+
+        if (market.isInformedFlowActive()) {
+            log.debug("Risk: informed flow active for {}", market.getMarketId());
+            return false;
+        }
+
         if (market.getVolatility().compareTo(limits.getMaxVolatilityThreshold()) > 0) {
             log.debug("Risk: vol too high for {}", market.getMarketId());
             return false;

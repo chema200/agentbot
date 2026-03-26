@@ -25,17 +25,15 @@ public class PerformanceTracker {
         perf.totalVolume = perf.totalVolume.add(fill.getSize());
         perf.totalFees = perf.totalFees.add(fill.getFee());
 
-        BigDecimal midAtFill = market.getMidPrice();
-        BigDecimal slippage;
-        if (fill.getSide() == EngineOrder.Side.BUY) {
-            slippage = fill.getPrice().subtract(midAtFill);
-        } else {
-            slippage = midAtFill.subtract(fill.getPrice());
-        }
+        BigDecimal slippage = fill.getSlippage();
         perf.totalSlippage = perf.totalSlippage.add(slippage.multiply(fill.getSize()));
 
         if (slippage.compareTo(BigDecimal.ZERO) > 0) {
             perf.adverseFills.incrementAndGet();
+        }
+
+        if (fill.isToxicFlow()) {
+            perf.toxicFills.incrementAndGet();
         }
     }
 
@@ -50,6 +48,12 @@ public class PerformanceTracker {
         MarketPerformance perf = marketPerf.get(marketId);
         if (perf == null || perf.totalFills.get() == 0) return 0.0;
         return (double) perf.adverseFills.get() / perf.totalFills.get();
+    }
+
+    public double getToxicFlowRate(String marketId) {
+        MarketPerformance perf = marketPerf.get(marketId);
+        if (perf == null || perf.totalFills.get() == 0) return 0.0;
+        return (double) perf.toxicFills.get() / perf.totalFills.get();
     }
 
     public BigDecimal getAvgSlippagePerUnit(String marketId) {
@@ -67,19 +71,29 @@ public class PerformanceTracker {
     public boolean isMarketProfitable(String marketId) {
         MarketPerformance perf = marketPerf.get(marketId);
         if (perf == null || perf.totalFills.get() < 5) return true;
+        if (perf.toxicFills.get() > perf.totalFills.get() / 3) return false;
         return perf.totalSlippage.compareTo(perf.totalFees.negate()) < 0;
     }
 
     public boolean shouldWidenSpread(String marketId) {
-        return getAdverseSelectionRate(marketId) > 0.5;
+        double adverseRate = getAdverseSelectionRate(marketId);
+        double toxicRate = getToxicFlowRate(marketId);
+        return adverseRate > 0.5 || toxicRate > 0.3;
     }
 
     public BigDecimal getSpreadAdjustment(String marketId) {
         double adverseRate = getAdverseSelectionRate(marketId);
-        if (adverseRate > 0.6) return new BigDecimal("0.03");
-        if (adverseRate > 0.4) return new BigDecimal("0.015");
-        if (adverseRate < 0.2) return new BigDecimal("-0.005");
-        return BigDecimal.ZERO;
+        double toxicRate = getToxicFlowRate(marketId);
+        BigDecimal adj = BigDecimal.ZERO;
+
+        if (adverseRate > 0.6) adj = adj.add(new BigDecimal("0.03"));
+        else if (adverseRate > 0.4) adj = adj.add(new BigDecimal("0.015"));
+        else if (adverseRate < 0.2) adj = adj.add(new BigDecimal("-0.005"));
+
+        if (toxicRate > 0.4) adj = adj.add(new BigDecimal("0.02"));
+        else if (toxicRate > 0.2) adj = adj.add(new BigDecimal("0.01"));
+
+        return adj;
     }
 
     public int getTotalFills(String marketId) {
@@ -94,6 +108,7 @@ public class PerformanceTracker {
     public static class MarketPerformance {
         public final AtomicInteger totalFills = new AtomicInteger(0);
         public final AtomicInteger adverseFills = new AtomicInteger(0);
+        public final AtomicInteger toxicFills = new AtomicInteger(0);
         public final AtomicLong moveCount = new AtomicLong(0);
         public BigDecimal totalVolume = BigDecimal.ZERO;
         public BigDecimal totalSlippage = BigDecimal.ZERO;

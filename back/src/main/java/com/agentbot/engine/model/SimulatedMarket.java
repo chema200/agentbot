@@ -28,6 +28,22 @@ public class SimulatedMarket {
     private final Deque<BigDecimal> priceHistory = new ArrayDeque<>();
     private static final int HISTORY_SIZE = 20;
 
+    private VolatilityRegime regime = VolatilityRegime.CALM;
+    private int regimeTicksRemaining = 0;
+
+    private BigDecimal bidQueueDepth = new BigDecimal("300");
+    private BigDecimal askQueueDepth = new BigDecimal("300");
+
+    private BigDecimal competitorBestBid;
+    private BigDecimal competitorBestAsk;
+
+    private boolean informedFlowActive = false;
+    private BigDecimal informedDirection = BigDecimal.ZERO;
+
+    private BigDecimal tickVolume = BigDecimal.ZERO;
+
+    public enum VolatilityRegime { CALM, NORMAL, VOLATILE, CRISIS }
+
     public SimulatedMarket(String marketId, String name, BigDecimal initialMid) {
         this.marketId = marketId;
         this.name = name;
@@ -41,6 +57,8 @@ public class SimulatedMarket {
         this.rewardScore = new BigDecimal("5.0");
         this.competitionLevel = new BigDecimal("0.5");
         this.lastUpdate = Instant.now();
+        this.competitorBestBid = this.bestBid;
+        this.competitorBestAsk = this.bestAsk;
     }
 
     public void updateMomentum() {
@@ -87,7 +105,21 @@ public class SimulatedMarket {
     }
 
     public boolean isHighVolatility() {
-        return realizedVolatility.compareTo(volatility.multiply(new BigDecimal("1.5"))) > 0;
+        return regime == VolatilityRegime.VOLATILE || regime == VolatilityRegime.CRISIS
+                || realizedVolatility.compareTo(volatility.multiply(new BigDecimal("1.5"))) > 0;
+    }
+
+    public boolean isCrisis() {
+        return regime == VolatilityRegime.CRISIS;
+    }
+
+    public BigDecimal getVolatilityMultiplier() {
+        return switch (regime) {
+            case CALM -> new BigDecimal("0.5");
+            case NORMAL -> BigDecimal.ONE;
+            case VOLATILE -> new BigDecimal("2.5");
+            case CRISIS -> new BigDecimal("5.0");
+        };
     }
 
     public BigDecimal getLiquidityScore() {

@@ -113,14 +113,27 @@ public class TradingEngine {
     }
 
     private void logSnapshot() {
-        log.info("Cycle #{} | Active: {} | YES: {} NO: {} Net: {} | PnL: {} realized, {} fees | Risk: {}",
-                cycleCount,
-                orderManager.activeOrderCount(),
+        long totalFills = quoteSupervisor.getFills().size();
+        long toxicFills = quoteSupervisor.getFills().stream().filter(f -> f.isToxicFlow()).count();
+
+        log.info("=== Cycle #{} ===", cycleCount);
+        log.info("  Orders: {} active | Fills: {} total ({} toxic)",
+                orderManager.activeOrderCount(), totalFills, toxicFills);
+        log.info("  Inventory: YES={} NO={} Net={}",
                 inventoryManager.getTotalYesExposure(),
                 inventoryManager.getTotalNoExposure(),
-                inventoryManager.getGlobalNetExposure(),
+                inventoryManager.getGlobalNetExposure());
+        log.info("  PnL: {} realized, {} fees | Risk: {}",
                 pnlService.getTotalRealizedPnl(),
                 pnlService.getTotalFees(),
                 riskManager.isGlobalTradingAllowed() ? "OK" : "PAUSED: " + riskManager.getPauseReason());
+
+        for (MarketScore scored : latestRankings) {
+            SimulatedMarket m = marketScanner.getMarket(scored.getMarketId());
+            if (m == null) continue;
+            log.info("  Market {} [{}] mid={} spread={} regime={} informed={}",
+                    m.getMarketId(), m.getName(), m.getMidPrice(), m.getSpread(),
+                    m.getRegime(), m.isInformedFlowActive());
+        }
     }
 }
