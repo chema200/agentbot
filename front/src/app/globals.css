@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-dark-700;
+  }
+  body {
+    @apply bg-dark-950 text-dark-100;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-dark-900 rounded-xl border border-dark-700 p-5 shadow-lg shadow-black/20;
+  }
+  .badge-green {
+    @apply inline-flex items-center rounded-full bg-accent-green/15 px-2.5 py-0.5 text-xs font-medium text-accent-green;
+  }
+  .badge-red {
+    @apply inline-flex items-center rounded-full bg-accent-red/15 px-2.5 py-0.5 text-xs font-medium text-accent-red;
+  }
+  .badge-blue {
+    @apply inline-flex items-center rounded-full bg-accent-blue/15 px-2.5 py-0.5 text-xs font-medium text-accent-blue;
+  }
+  .badge-yellow {
+    @apply inline-flex items-center rounded-full bg-accent-yellow/15 px-2.5 py-0.5 text-xs font-medium text-accent-yellow;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #202123;
+}
+::-webkit-scrollbar-thumb {
+  background: #40414f;
+  border-radius: 3px;
+}

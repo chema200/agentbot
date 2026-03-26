@@ -1,0 +1,7 @@
+back/build/
+back/.gradle/
+front/node_modules/
+front/.next/
+.env*.local
+*.class
+*.jar
