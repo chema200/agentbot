@@ -28,6 +28,7 @@ public class ShadowConfig {
     private double maxNoExposure = 200.0;
     private double maxNetExposure = 100.0;
     private double inventoryPenaltyK = 0.5;
+    private double inventoryMinScale = 0.15;
     private boolean rebalanceBiasEnabled = true;
     private int minOrderSize = 5;
     private int maxOrderSize = 25;

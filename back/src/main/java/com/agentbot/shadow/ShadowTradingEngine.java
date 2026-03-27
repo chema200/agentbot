@@ -259,16 +259,36 @@ public class ShadowTradingEngine {
         double net = getNetExposure().abs().doubleValue();
         double maxNet = cfg.getMaxNetExposure();
         if (maxNet <= 0) return 1.0;
-        return Math.max(0.0, 1.0 - cfg.getInventoryPenaltyK() * (net / maxNet));
+        double ratio = net / maxNet;
+        return Math.max(cfg.getInventoryMinScale(), 1.0 - cfg.getInventoryPenaltyK() * ratio);
     }
 
-    private boolean isInventoryBlocked(String side) {
+    /**
+     * Instead of hard blocking, returns a scaling factor [inventoryMinScale..1.0].
+     * At the hard limit (100%), returns inventoryMinScale (e.g. 0.15).
+     * Beyond 120% of limit, returns 0 (true hard block).
+     * This prevents the "everything blocked" pattern while still limiting exposure.
+     */
+    private double computeInventorySideScale(String side) {
+        double maxYes = cfg.getMaxYesExposure();
+        double maxNo = cfg.getMaxNoExposure();
+        double maxNet = cfg.getMaxNetExposure();
+        double minScale = cfg.getInventoryMinScale();
+
         if ("BUY".equals(side)) {
-            return getYesExposure().doubleValue() >= cfg.getMaxYesExposure()
-                    || getNetExposure().doubleValue() >= cfg.getMaxNetExposure();
+            double yesRatio = maxYes > 0 ? getYesExposure().doubleValue() / maxYes : 0;
+            double netRatio = maxNet > 0 ? Math.max(0, getNetExposure().doubleValue()) / maxNet : 0;
+            double worstRatio = Math.max(yesRatio, netRatio);
+            if (worstRatio >= 1.2) return 0.0;
+            if (worstRatio >= 0.5) return Math.max(minScale, 1.0 - (worstRatio - 0.5) / 0.5 * (1.0 - minScale));
+            return 1.0;
         } else {
-            return getNoExposure().doubleValue() >= cfg.getMaxNoExposure()
-                    || getNetExposure().negate().doubleValue() >= cfg.getMaxNetExposure();
+            double noRatio = maxNo > 0 ? getNoExposure().doubleValue() / maxNo : 0;
+            double netRatio = maxNet > 0 ? Math.max(0, getNetExposure().negate().doubleValue()) / maxNet : 0;
+            double worstRatio = Math.max(noRatio, netRatio);
+            if (worstRatio >= 1.2) return 0.0;
+            if (worstRatio >= 0.5) return Math.max(minScale, 1.0 - (worstRatio - 0.5) / 0.5 * (1.0 - minScale));
+            return 1.0;
         }
     }
 
@@ -420,28 +440,40 @@ public class ShadowTradingEngine {
             if (!hasBuy) {
                 if (bidPrice.compareTo(MIN_PRICE) <= 0 || bidPrice.compareTo(MAX_PRICE) >= 0) {
                     logOrderReject(tokenId, "BUY", bidPrice, "price_out_of_range");
-                } else if (isInventoryBlocked("BUY")) {
-                    log.debug("[BLOCKED]\nmarket={}\nside=BUY\nreason=inventory_limit", shortId(tokenId));
                 } else {
-                    ShadowOrder buy = fillModel.createHypotheticalOrder(
-                            tokenId, s.getQuestion(), s.getOutcome(),
-                            "BUY", bidPrice, finalSize, s, finalEdge, capShare);
-                    activeOrders.add(buy);
-                    metrics.recordQuote();
+                    double buyInvScale = computeInventorySideScale("BUY");
+                    if (buyInvScale <= 0.0) {
+                        log.debug("[BLOCKED]\nmarket={}\nside=BUY\nreason=inventory_hard_limit", shortId(tokenId));
+                    } else {
+                        BigDecimal buySize = finalSize.multiply(BigDecimal.valueOf(buyInvScale))
+                                .setScale(0, RoundingMode.FLOOR)
+                                .max(BigDecimal.valueOf(cfg.getMinOrderSize()));
+                        ShadowOrder buy = fillModel.createHypotheticalOrder(
+                                tokenId, s.getQuestion(), s.getOutcome(),
+                                "BUY", bidPrice, buySize, s, finalEdge, capShare);
+                        activeOrders.add(buy);
+                        metrics.recordQuote();
+                    }
                 }
             }
 
             if (!hasSell) {
                 if (askPrice.compareTo(MIN_PRICE) <= 0 || askPrice.compareTo(MAX_PRICE) >= 0) {
                     logOrderReject(tokenId, "SELL", askPrice, "price_out_of_range");
-                } else if (isInventoryBlocked("SELL")) {
-                    log.debug("[BLOCKED]\nmarket={}\nside=SELL\nreason=inventory_limit", shortId(tokenId));
                 } else {
-                    ShadowOrder sell = fillModel.createHypotheticalOrder(
-                            tokenId, s.getQuestion(), s.getOutcome(),
-                            "SELL", askPrice, finalSize, s, finalEdge, capShare);
-                    activeOrders.add(sell);
-                    metrics.recordQuote();
+                    double sellInvScale = computeInventorySideScale("SELL");
+                    if (sellInvScale <= 0.0) {
+                        log.debug("[BLOCKED]\nmarket={}\nside=SELL\nreason=inventory_hard_limit", shortId(tokenId));
+                    } else {
+                        BigDecimal sellSize = finalSize.multiply(BigDecimal.valueOf(sellInvScale))
+                                .setScale(0, RoundingMode.FLOOR)
+                                .max(BigDecimal.valueOf(cfg.getMinOrderSize()));
+                        ShadowOrder sell = fillModel.createHypotheticalOrder(
+                                tokenId, s.getQuestion(), s.getOutcome(),
+                                "SELL", askPrice, sellSize, s, finalEdge, capShare);
+                        activeOrders.add(sell);
+                        metrics.recordQuote();
+                    }
                 }
             }
         }

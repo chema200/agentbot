@@ -35,13 +35,14 @@ shadow:
   regime-penalty-crisis: 0.0
   block-volatile-markets: false
   cooldown-cycles: 15
-  min-edge-after-penalty: 0.005
+  min-edge-after-penalty: 0.02
   edge-clamp-min: 0.0
   edge-clamp-max: 1.0
-  max-yes-exposure: 200.0
-  max-no-exposure: 200.0
-  max-net-exposure: 100.0
-  inventory-penalty-k: 0.5
+  max-yes-exposure: 500.0
+  max-no-exposure: 500.0
+  max-net-exposure: 300.0
+  inventory-penalty-k: 0.3
+  inventory-min-scale: 0.15
   rebalance-bias-enabled: true
   min-order-size: 5
   max-order-size: 25
@@ -50,7 +51,7 @@ shadow:
   size-scale-normal: 0.8
   size-scale-calm: 1.0
   min-active-markets: 2
-  quote-aggressiveness: 0.5
+  quote-aggressiveness: 0.65
   cycle-summary-interval: 15
   stale-order-timeout-sec: 30
   # Market Guard

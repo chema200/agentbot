@@ -15,7 +15,7 @@ public class ShadowFillModel {
 
     private static final BigDecimal FEE_RATE = new BigDecimal("0.002");
     /** Fraction of initial gap (creation BBO → our limit) that must close to count as “moved toward” fill. */
-    private static final BigDecimal TOWARD_FILL_FRACTION = new BigDecimal("0.5");
+    private static final BigDecimal TOWARD_FILL_FRACTION = new BigDecimal("0.30");
 
     public Optional<ShadowFill> evaluateFill(ShadowOrder order, LiveMarketState liveState) {
         String marketShort = shortMarket(order.getTokenId());
@@ -42,19 +42,25 @@ public class ShadowFillModel {
         boolean wouldFill;
         String reason;
 
+        BigDecimal ONE_TICK = new BigDecimal("0.01");
+
         if ("BUY".equals(side)) {
             crossed = liveAsk.compareTo(p) <= 0;
+            boolean touchedAtQuote = liveAsk.subtract(p).abs().compareTo(ONE_TICK) <= 0;
             wouldFill = crossed
                     || liveBid.compareTo(p) >= 0
                     || liveMid.compareTo(p) <= 0
+                    || touchedAtQuote
                     || buyAskWalkedTowardFromCreation(order, liveAsk, liveMid, liveBid);
-            reason = buyFillReason(crossed, wouldFill, order, liveBid, liveAsk, liveMid);
+            reason = buyFillReason(crossed, wouldFill, touchedAtQuote, order, liveBid, liveAsk, liveMid);
         } else {
             crossed = liveBid.compareTo(p) >= 0;
+            boolean touchedAtQuote = p.subtract(liveBid).abs().compareTo(ONE_TICK) <= 0;
             wouldFill = crossed
                     || liveMid.compareTo(p) >= 0
+                    || touchedAtQuote
                     || sellBidWalkedTowardFromCreation(order, liveBid, liveMid, liveAsk);
-            reason = sellFillReason(crossed, wouldFill, order, liveBid, liveAsk, liveMid);
+            reason = sellFillReason(crossed, wouldFill, touchedAtQuote, order, liveBid, liveAsk, liveMid);
         }
 
         logFillCheck(order, marketShort, liveBid, liveAsk, liveMid, spread, crossed, wouldFill, reason);
@@ -188,42 +194,34 @@ public class ShadowFillModel {
         return midMovedToward || askMovedToward;
     }
 
-    private static String buyFillReason(boolean crossed, boolean wouldFill, ShadowOrder order,
+    private static String buyFillReason(boolean crossed, boolean wouldFill, boolean touchedAtQuote,
+                                        ShadowOrder order,
                                         BigDecimal liveBid, BigDecimal liveAsk, BigDecimal liveMid) {
         if (!wouldFill) {
-            return "no_touch_no_bid_at_quote_mid_above_quote_insufficient_ask_move_from_creation";
+            return "no_touch_ask_away_from_quote";
         }
         BigDecimal p = order.getPrice();
-        if (crossed) {
-            return "ask_crossed_limit";
-        }
-        if (liveBid.compareTo(p) >= 0) {
-            return "bid_reached_quote";
-        }
-        if (liveMid.compareTo(p) <= 0) {
-            return "mid_through_buy";
-        }
-        if (buyAskWalkedTowardFromCreation(order, liveAsk, liveMid, liveBid)) {
-            return "ask_walked_half_gap_from_creation_bbo";
-        }
+        if (crossed) return "ask_crossed_limit";
+        if (liveBid.compareTo(p) >= 0) return "bid_reached_quote";
+        if (liveMid.compareTo(p) <= 0) return "mid_through_buy";
+        if (touchedAtQuote) return "ask_touched_within_tick";
+        if (buyAskWalkedTowardFromCreation(order, liveAsk, liveMid, liveBid))
+            return "ask_walked_toward_from_creation";
         return "filled";
     }
 
-    private static String sellFillReason(boolean crossed, boolean wouldFill, ShadowOrder order,
+    private static String sellFillReason(boolean crossed, boolean wouldFill, boolean touchedAtQuote,
+                                         ShadowOrder order,
                                          BigDecimal liveBid, BigDecimal liveAsk, BigDecimal liveMid) {
         if (!wouldFill) {
-            return "no_touch_mid_below_quote_insufficient_bid_move_from_creation";
+            return "no_touch_bid_away_from_quote";
         }
         BigDecimal p = order.getPrice();
-        if (crossed) {
-            return "bid_crossed_limit";
-        }
-        if (liveMid.compareTo(p) >= 0) {
-            return "mid_through_sell";
-        }
-        if (sellBidWalkedTowardFromCreation(order, liveBid, liveMid, liveAsk)) {
-            return "bid_walked_half_gap_from_creation_bbo";
-        }
+        if (crossed) return "bid_crossed_limit";
+        if (liveMid.compareTo(p) >= 0) return "mid_through_sell";
+        if (touchedAtQuote) return "bid_touched_within_tick";
+        if (sellBidWalkedTowardFromCreation(order, liveBid, liveMid, liveAsk))
+            return "bid_walked_toward_from_creation";
         return "filled";
     }
 
