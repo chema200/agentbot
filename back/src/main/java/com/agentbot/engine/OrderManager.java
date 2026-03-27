@@ -32,15 +32,28 @@ public class OrderManager {
     @lombok.Setter
     private boolean backtestMode = false;
 
+    public record MarketSnapshot(
+            BigDecimal edgeScore, BigDecimal rewardEfficiency,
+            BigDecimal competitionDensity, BigDecimal volatilityPenalty,
+            BigDecimal capitalShare, BigDecimal spread,
+            BigDecimal bestBid, BigDecimal bestAsk, BigDecimal mid,
+            String regime) {}
+
     public EngineOrder createOrder(String marketId, String marketName,
                                     EngineOrder.Side side, BigDecimal price, BigDecimal size) {
+        return createOrder(marketId, marketName, side, price, size, null);
+    }
+
+    public EngineOrder createOrder(String marketId, String marketName,
+                                    EngineOrder.Side side, BigDecimal price, BigDecimal size,
+                                    MarketSnapshot snapshot) {
         ThreadLocalRandom rng = ThreadLocalRandom.current();
         long latency = backtestMode ? 0L : rng.nextLong(MIN_LATENCY_MS, MAX_LATENCY_MS);
         BigDecimal queueAhead = backtestMode ? BigDecimal.ZERO
                 : size.multiply(BigDecimal.valueOf(rng.nextDouble(0.5, 3.0)))
                     .setScale(0, RoundingMode.HALF_UP);
 
-        EngineOrder order = EngineOrder.builder()
+        var builder = EngineOrder.builder()
                 .orderId(UUID.randomUUID().toString().substring(0, 8))
                 .marketId(marketId)
                 .marketName(marketName)
@@ -54,9 +67,22 @@ public class OrderManager {
                 .updatedAt(Instant.now())
                 .visibleAfter(backtestMode ? Instant.EPOCH : Instant.now().plusMillis(latency))
                 .queuePosition(backtestMode ? 0 : rng.nextInt(3, 12))
-                .queueAhead(queueAhead)
-                .build();
+                .queueAhead(queueAhead);
 
+        if (snapshot != null) {
+            builder.snapshotEdgeScore(snapshot.edgeScore())
+                    .snapshotRewardEfficiency(snapshot.rewardEfficiency())
+                    .snapshotCompetitionDensity(snapshot.competitionDensity())
+                    .snapshotVolatilityPenalty(snapshot.volatilityPenalty())
+                    .snapshotCapitalShare(snapshot.capitalShare())
+                    .snapshotSpread(snapshot.spread())
+                    .snapshotBestBid(snapshot.bestBid())
+                    .snapshotBestAsk(snapshot.bestAsk())
+                    .snapshotMid(snapshot.mid())
+                    .snapshotRegime(snapshot.regime());
+        }
+
+        EngineOrder order = builder.build();
         orders.put(order.getOrderId(), order);
         log.debug("Created order {} {} {} @ {} x{} (latency: {}ms, queue: {})",
                 order.getOrderId(), side, marketName, price, size, latency, queueAhead);
@@ -100,7 +126,11 @@ public class OrderManager {
     }
 
     public EngineOrder getOrder(String orderId) {
-        return orders.get(orderId);
+        EngineOrder o = orders.get(orderId);
+        if (o != null) return o;
+        return orderHistory.stream()
+                .filter(h -> h.getOrderId().equals(orderId))
+                .findFirst().orElse(null);
     }
 
     public void markFilled(String orderId, BigDecimal filledQty) {

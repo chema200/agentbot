@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,7 @@ public class DashboardService {
     private final OrderManager orderManager;
     private final QuoteSupervisor quoteSupervisor;
     private final InventoryManager inventoryManager;
-    private final RiskManager riskManager;
     private final PnLService pnlService;
-    private final RewardEngine rewardEngine;
 
     public StatusDto getStatus() {
         TradingEngineState engineState = tradingEngine.getState();
@@ -90,6 +89,87 @@ public class DashboardService {
     public void pauseEngine() { tradingEngine.pause(); }
     public void stopEngine() { tradingEngine.stop(); }
 
+    public OrderDetailDto getOrderDetail(String orderId) {
+        EngineOrder eo = orderManager.getOrder(orderId);
+        if (eo == null) return null;
+
+        List<EngineFill> orderFills = quoteSupervisor.getFills().stream()
+                .filter(f -> f.getOrderId().equals(orderId))
+                .toList();
+
+        List<OrderDetailDto.FillDetail> fillDetails = orderFills.stream().map(f -> {
+            BigDecimal pnl = BigDecimal.ZERO;
+            if (f.getSide() == EngineOrder.Side.SELL) {
+                pnl = f.getPrice().subtract(f.getMidAtFill()).multiply(f.getSize()).subtract(f.getFee());
+            } else {
+                pnl = f.getFee().negate();
+            }
+            return OrderDetailDto.FillDetail.builder()
+                    .fillId(f.getFillId())
+                    .side(f.getSide().name())
+                    .fillPrice(f.getPrice())
+                    .fillSize(f.getSize())
+                    .fee(f.getFee())
+                    .slippage(f.getSlippage())
+                    .midAtFill(f.getMidAtFill())
+                    .toxicFlow(f.isToxicFlow())
+                    .filledAt(f.getFilledAt())
+                    .estimatedPnl(pnl.setScale(4, RoundingMode.HALF_UP))
+                    .build();
+        }).toList();
+
+        OrderDetailDto.MarketSnapshotDto snapshot = OrderDetailDto.MarketSnapshotDto.builder()
+                .edgeScore(eo.getSnapshotEdgeScore())
+                .rewardEfficiency(eo.getSnapshotRewardEfficiency())
+                .competitionDensity(eo.getSnapshotCompetitionDensity())
+                .volatilityPenalty(eo.getSnapshotVolatilityPenalty())
+                .capitalShare(eo.getSnapshotCapitalShare())
+                .spread(eo.getSnapshotSpread())
+                .bestBid(eo.getSnapshotBestBid())
+                .bestAsk(eo.getSnapshotBestAsk())
+                .mid(eo.getSnapshotMid())
+                .regime(eo.getSnapshotRegime())
+                .build();
+
+        String mktId = eo.getMarketId();
+        int marketFills = (int) quoteSupervisor.getFills().stream()
+                .filter(f -> f.getMarketId().equals(mktId)).count();
+        InventoryPosition pos = inventoryManager.getPosition(mktId);
+        int activeCount = orderManager.activeOrderCountForMarket(mktId);
+
+        OrderDetailDto.MarketSummaryDto summary = OrderDetailDto.MarketSummaryDto.builder()
+                .totalFills(marketFills)
+                .tradingPnl(pnlService.getRealizedForMarket(mktId).setScale(4, RoundingMode.HALF_UP))
+                .rewardPnl(pnlService.getRewardForMarket(mktId).setScale(4, RoundingMode.HALF_UP))
+                .netExposure(pos.getNetExposure().setScale(2, RoundingMode.HALF_UP))
+                .activeOrders(activeCount)
+                .build();
+
+        long age = Duration.between(eo.getCreatedAt(), Instant.now()).getSeconds();
+
+        return OrderDetailDto.builder()
+                .orderId(eo.getOrderId())
+                .marketId(mktId)
+                .marketName(eo.getMarketName())
+                .side(eo.getSide().name())
+                .price(eo.getPrice())
+                .originalSize(eo.getOriginalSize())
+                .remainingSize(eo.getRemainingSize())
+                .filledSize(eo.getFilledSize())
+                .status(eo.getStatus().name())
+                .createdAt(eo.getCreatedAt())
+                .updatedAt(eo.getUpdatedAt())
+                .ageSeconds(age)
+                .queueAhead(eo.getQueueAhead())
+                .queuePosition(eo.getQueuePosition())
+                .visibleAfter(eo.getVisibleAfter())
+                .lastActionReason(eo.getLastActionReason())
+                .fills(fillDetails)
+                .marketSnapshot(snapshot)
+                .marketSummary(summary)
+                .build();
+    }
+
     private Order toOrderDto(EngineOrder eo) {
         Order.OrderStatus status = switch (eo.getStatus()) {
             case OPEN, PARTIALLY_FILLED -> Order.OrderStatus.OPEN;
@@ -100,6 +180,7 @@ public class DashboardService {
 
         return Order.builder()
                 .id(Math.abs(eo.getOrderId().hashCode()) % 100000L)
+                .orderId(eo.getOrderId())
                 .market(eo.getMarketName())
                 .side(side)
                 .price(eo.getPrice())

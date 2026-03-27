@@ -20,6 +20,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Transient
+    private String orderId;
+
     private String market;
 
     @Enumerated(EnumType.STRING)

@@ -65,6 +65,8 @@ public class StrategyEngine {
 
         BigDecimal aggressionOffset = calculateAggressionOffset(edgeScore, rewardEfficiency, market);
 
+        OrderManager.MarketSnapshot snapshot = buildSnapshot(market, scored, capitalShare);
+
         if (buyAllowed && buyCount < maxOrdersPerSide) {
             BigDecimal rawBid = market.getMidPrice()
                     .subtract(adaptiveHalfSpread)
@@ -79,7 +81,7 @@ public class StrategyEngine {
                     && bidPrice.compareTo(market.getBestAsk()) < 0) {
                 orderManager.createOrder(
                         market.getMarketId(), market.getName(),
-                        EngineOrder.Side.BUY, bidPrice, orderSize);
+                        EngineOrder.Side.BUY, bidPrice, orderSize, snapshot);
             }
         }
 
@@ -97,7 +99,7 @@ public class StrategyEngine {
                     && askPrice.compareTo(market.getBestBid()) > 0) {
                 orderManager.createOrder(
                         market.getMarketId(), market.getName(),
-                        EngineOrder.Side.SELL, askPrice, orderSize);
+                        EngineOrder.Side.SELL, askPrice, orderSize, snapshot);
             }
         }
     }
@@ -279,5 +281,21 @@ public class StrategyEngine {
     private boolean shouldAllowSell(InventoryPosition inventory) {
         if (inventory == null) return true;
         return inventory.getNetExposure().compareTo(MAX_INVENTORY_NET.negate()) > 0;
+    }
+
+    private OrderManager.MarketSnapshot buildSnapshot(SimulatedMarket market,
+                                                       MarketScore scored, BigDecimal capitalShare) {
+        return new OrderManager.MarketSnapshot(
+                scored != null ? scored.getEdgeScore() : BigDecimal.ZERO,
+                scored != null && scored.getRewardEfficiency() != null ? scored.getRewardEfficiency() : BigDecimal.ZERO,
+                scored != null && scored.getCompetitionDensity() != null ? scored.getCompetitionDensity() : BigDecimal.ZERO,
+                scored != null && scored.getVolatilityPenalty() != null ? scored.getVolatilityPenalty() : BigDecimal.ZERO,
+                capitalShare != null ? capitalShare : BigDecimal.ZERO,
+                market.getSpread(),
+                market.getBestBid(),
+                market.getBestAsk(),
+                market.getMidPrice(),
+                market.getRegime().name()
+        );
     }
 }

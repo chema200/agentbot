@@ -10,12 +10,69 @@ async function fetchApi<T>(endpoint: string): Promise<T> {
 
 export interface Order {
   id: number;
+  orderId: string;
   market: string;
   side: "BUY" | "SELL";
   price: number;
   size: number;
   status: "OPEN" | "CANCELLED" | "FILLED";
   createdAt: string;
+}
+
+export interface FillDetail {
+  fillId: string;
+  side: string;
+  fillPrice: number;
+  fillSize: number;
+  fee: number;
+  slippage: number;
+  midAtFill: number;
+  toxicFlow: boolean;
+  filledAt: string;
+  estimatedPnl: number;
+}
+
+export interface MarketSnapshotDetail {
+  edgeScore: number;
+  rewardEfficiency: number;
+  competitionDensity: number;
+  volatilityPenalty: number;
+  capitalShare: number;
+  spread: number;
+  bestBid: number;
+  bestAsk: number;
+  mid: number;
+  regime: string;
+}
+
+export interface MarketSummaryDetail {
+  totalFills: number;
+  tradingPnl: number;
+  rewardPnl: number;
+  netExposure: number;
+  activeOrders: number;
+}
+
+export interface OrderDetail {
+  orderId: string;
+  marketId: string;
+  marketName: string;
+  side: string;
+  price: number;
+  originalSize: number;
+  remainingSize: number;
+  filledSize: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  ageSeconds: number;
+  queueAhead: number;
+  queuePosition: number;
+  visibleAfter: string | null;
+  lastActionReason: string | null;
+  fills: FillDetail[];
+  marketSnapshot: MarketSnapshotDetail;
+  marketSummary: MarketSummaryDetail;
 }
 
 export interface Fill {
@@ -122,6 +179,7 @@ export interface MonteCarloResult {
 export const api = {
   getStatus: () => fetchApi<BotStatus>("/api/status"),
   getOrders: () => fetchApi<Order[]>("/api/orders"),
+  getOrderDetail: (orderId: string) => fetchApi<OrderDetail>(`/api/orders/${orderId}`),
   getFills: () => fetchApi<Fill[]>("/api/fills"),
   getInventory: () => fetchApi<Inventory>("/api/inventory"),
   getPnl: () => fetchApi<PnL>("/api/pnl"),

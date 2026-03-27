@@ -31,6 +31,18 @@ public class EngineOrder {
     @Builder.Default
     private Instant visibleAfter = Instant.now();
 
+    @Builder.Default private BigDecimal snapshotEdgeScore = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotRewardEfficiency = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotCompetitionDensity = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotVolatilityPenalty = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotCapitalShare = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotSpread = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotBestBid = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotBestAsk = BigDecimal.ZERO;
+    @Builder.Default private BigDecimal snapshotMid = BigDecimal.ZERO;
+    private String snapshotRegime;
+    private String lastActionReason;
+
     public enum Side { BUY, SELL }
     public enum Status { OPEN, PARTIALLY_FILLED, FILLED, CANCELLED }
 

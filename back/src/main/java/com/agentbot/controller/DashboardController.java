@@ -26,6 +26,13 @@ public class DashboardController {
         return dashboardService.getOrders();
     }
 
+    @GetMapping("/orders/{orderId}")
+    public ResponseEntity<OrderDetailDto> getOrderDetail(@PathVariable String orderId) {
+        OrderDetailDto detail = dashboardService.getOrderDetail(orderId);
+        if (detail == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(detail);
+    }
+
     @GetMapping("/fills")
     public List<Fill> getFills() {
         return dashboardService.getFills();
