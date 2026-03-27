@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <!-- Console: equivalent to default Spring Boot console output (pattern unified per requirements) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="SHADOW_ENGINE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/shadow-engine.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/shadow-engine.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="TRADING_ENGINE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/trading-engine.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/trading-engine.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="AGENTBOT_REVIEW_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/agentbot-review.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/agentbot-review.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <springProfile name="dev">
+        <logger name="com.agentbot.shadow" level="DEBUG" additivity="true">
+            <appender-ref ref="SHADOW_ENGINE_FILE"/>
+            <appender-ref ref="AGENTBOT_REVIEW_FILE"/>
+        </logger>
+        <logger name="com.agentbot.polymarket" level="DEBUG" additivity="true">
+            <appender-ref ref="SHADOW_ENGINE_FILE"/>
+            <appender-ref ref="AGENTBOT_REVIEW_FILE"/>
+        </logger>
+        <logger name="com.agentbot.engine" level="INFO" additivity="true">
+            <appender-ref ref="TRADING_ENGINE_FILE"/>
+            <appender-ref ref="AGENTBOT_REVIEW_FILE"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!dev">
+        <logger name="com.agentbot.shadow" level="INFO" additivity="true">
+            <appender-ref ref="SHADOW_ENGINE_FILE"/>
+            <appender-ref ref="AGENTBOT_REVIEW_FILE"/>
+        </logger>
+        <logger name="com.agentbot.polymarket" level="INFO" additivity="true">
+            <appender-ref ref="SHADOW_ENGINE_FILE"/>
+            <appender-ref ref="AGENTBOT_REVIEW_FILE"/>
+        </logger>
+        <logger name="com.agentbot.engine" level="INFO" additivity="true">
+            <appender-ref ref="TRADING_ENGINE_FILE"/>
+            <appender-ref ref="AGENTBOT_REVIEW_FILE"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>

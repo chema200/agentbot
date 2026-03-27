@@ -176,6 +176,66 @@ export interface MonteCarloResult {
   individualRuns?: BacktestResult[];
 }
 
+export interface ShadowStatus {
+  status: string;
+  wsConnected: boolean;
+  cycleCount: number;
+  liveMarkets: number;
+  activeOrders: number;
+  totalFills: number;
+  startedAt: string | null;
+  metrics: Record<string, any>;
+}
+
+export interface ShadowMarket {
+  tokenId: string;
+  question: string;
+  outcome: string;
+  liveBestBid: number;
+  liveBestAsk: number;
+  liveMid: number;
+  liveSpread: number;
+  tradeCount: number;
+  lastUpdate: string;
+  regime: string;
+}
+
+export interface ShadowOrder {
+  orderId: string;
+  tokenId: string;
+  question: string;
+  outcome: string;
+  side: string;
+  price: number;
+  size: number;
+  status: string;
+  createdAt: string;
+  liveBestBid: number;
+  liveBestAsk: number;
+  liveMid: number;
+  edgeScore: number;
+  capitalShare: number;
+  regime: string;
+}
+
+export interface ShadowFillItem {
+  fillId: string;
+  tokenId: string;
+  question: string;
+  outcome: string;
+  side: string;
+  fillPrice: number;
+  fillSize: number;
+  fee: number;
+  slippage: number;
+  midAtFill: number;
+  liveBidAtFill: number;
+  liveAskAtFill: number;
+  toxic: boolean;
+  estimatedPnl: number;
+  filledAt: string;
+}
+
 export const api = {
   getStatus: () => fetchApi<BotStatus>("/api/status"),
   getOrders: () => fetchApi<Order[]>("/api/orders"),
@@ -195,4 +255,12 @@ export const api = {
   getMcRuns: () => fetchApi<MonteCarloResult[]>("/api/backtest/monte-carlo/runs"),
   getProfiles: () => fetchApi<string[]>("/api/backtest/profiles"),
   getComparison: () => fetchApi<Record<string, any>>("/api/backtest/comparison"),
+
+  shadowStart: () => postApi<{ status: string }>("/api/shadow/start"),
+  shadowStop: () => postApi<{ status: string }>("/api/shadow/stop"),
+  shadowStatus: () => fetchApi<ShadowStatus>("/api/shadow/status"),
+  shadowMarkets: () => fetchApi<ShadowMarket[]>("/api/shadow/markets"),
+  shadowOrders: () => fetchApi<ShadowOrder[]>("/api/shadow/orders"),
+  shadowFills: () => fetchApi<ShadowFillItem[]>("/api/shadow/fills"),
+  shadowPnl: () => fetchApi<Record<string, any>>("/api/shadow/pnl"),
 };

@@ -17,3 +17,39 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+polymarket:
+  gamma-api-base: https://gamma-api.polymarket.com
+  clob-api-base: https://clob.polymarket.com
+  clob-ws-url: wss://ws-subscriptions-clob.polymarket.com/ws/market
+
+shadow:
+  enabled: true
+  max-markets: 5
+  refresh-interval-ms: 10000
+  cycle-interval-ms: 3000
+  max-capital-share-per-market: 0.25
+  regime-penalty-calm: 1.0
+  regime-penalty-normal: 0.8
+  regime-penalty-volatile: 0.35
+  regime-penalty-crisis: 0.0
+  block-volatile-markets: false
+  cooldown-cycles: 15
+  min-edge-after-penalty: 0.02
+  edge-clamp-min: 0.0
+  edge-clamp-max: 1.0
+  max-yes-exposure: 200.0
+  max-no-exposure: 200.0
+  max-net-exposure: 100.0
+  inventory-penalty-k: 0.5
+  rebalance-bias-enabled: true
+  min-order-size: 5
+  max-order-size: 25
+  size-scale-volatile: 0.5
+  size-scale-crisis: 0.0
+  size-scale-normal: 0.8
+  size-scale-calm: 1.0
+  min-active-markets: 2
+  quote-aggressiveness: 0.5
+  cycle-summary-interval: 15
+  stale-order-timeout-sec: 30
