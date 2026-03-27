@@ -7157,21 +7157,3 @@ requested_cap=0.6244
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 15:14:26.065 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.6244
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 15:14:28.077 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.6244
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 15:14:30.086 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.6244
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
