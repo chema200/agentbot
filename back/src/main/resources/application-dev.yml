@@ -54,15 +54,41 @@ shadow:
   quote-aggressiveness: 0.65
   cycle-summary-interval: 15
   stale-order-timeout-sec: 30
-  # Market Guard
-  guard-pnl5m-threshold: -0.05
+  # Market Guard (classification + penalties + strong cooldowns)
   guard-fills-share-threshold: 0.35
   guard-max-consecutive-negative: 6
-  guard-stale-cancel-rate-threshold: 0.80
-  guard-avg-slippage-threshold: 0.002
   guard-soft-cooldown-cycles: 100
   guard-hard-cooldown-cycles: 200
   guard-quality-snapshot-interval: 15
+  guard-winner-min-fills-5m: 2
+  guard-max-penalty-winner: 0.10
+  guard-winner-churn-override-stale: 0.92
+  guard-min-fills-for-classification: 2
+  guard-toxic-rate-classification: 0.34
+  guard-toxic-rate-hard-cooldown: 0.34
+  guard-churn-stale-rate-5m: 0.88
+  guard-churn-min-stale-events-5m: 8
+  guard-churn-max-fills-5m: 2
+  guard-loser-pnl-5m-threshold: -0.03
+  guard-penalty-base-winner: 0.0
+  guard-penalty-base-neutral: 0.03
+  guard-penalty-base-loser: 0.12
+  guard-penalty-base-toxic: 0.45
+  guard-penalty-base-high-churn: 0.10
+  guard-loss-penalty-k: 2.5
+  guard-toxicity-penalty-extra: 0.25
+  guard-toxicity-penalty-k: 0.35
+  guard-churn-penalty-k: 0.22
+  guard-concentration-share-soft: 0.28
+  guard-concentration-penalty-k-loss: 0.55
+  guard-concentration-penalty-k-winner: 0.12
+  guard-hard-cooldown-pnl-5m-threshold: -0.02
+  guard-extreme-churn-stale-5m: 0.92
+  guard-extreme-churn-min-stale: 10
+  guard-soft-cooldown-pnl-5m-threshold: -0.08
+  guard-soft-cooldown-min-fills-5m: 5
+  guard-disabled-session-pnl-threshold: -0.50
+  guard-disabled-min-session-fills: 15
 
 
 trading:

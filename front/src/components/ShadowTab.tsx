@@ -11,6 +11,7 @@ type SubTab = "overview" | "markets" | "orders" | "fills" | "guard" | "logs";
 interface GuardMarketData {
   tokenId: string;
   status: string;
+  classification?: string;
   sessionFills: number;
   sessionPnl: number;
   fillsShare: number;
@@ -338,6 +339,7 @@ function GuardContent({ markets, summary }: { markets: GuardMarketData[]; summar
       <DataTable
         columns={[
           { key: "status", label: "Guard", render: (m: GuardMarketData) => <GuardStatusBadge status={m.status} /> },
+          { key: "classification", label: "Class", render: (m: GuardMarketData) => <ClassBadge c={m.classification ?? "NEUTRAL"} /> },
           { key: "tokenId", label: "Market", render: (m: GuardMarketData) => <span className="font-mono text-[10px] max-w-[120px] truncate block">{m.tokenId.substring(0, 16)}</span> },
           { key: "fills", label: "Fills", align: "right", render: (m: GuardMarketData) => <span className="font-mono">{m.sessionFills}</span>, sortable: true, sortValue: (m) => m.sessionFills },
           { key: "pnl", label: "PnL", align: "right", render: (m: GuardMarketData) => <span className={`font-mono ${m.sessionPnl >= 0 ? "text-accent-green" : "text-accent-red"}`}>{m.sessionPnl.toFixed(4)}</span>, sortable: true, sortValue: (m) => m.sessionPnl },
@@ -356,12 +358,23 @@ function GuardContent({ markets, summary }: { markets: GuardMarketData[]; summar
         data={markets}
         rowKey={(m) => m.tokenId}
         emptyMessage="No hay datos de guard todavia. Espera unos ciclos."
-        searchFilter={(m, q) => m.tokenId.includes(q) || m.status.toLowerCase().includes(q) || m.lastReason.toLowerCase().includes(q)}
+        searchFilter={(m, q) => m.tokenId.includes(q) || m.status.toLowerCase().includes(q) || m.lastReason.toLowerCase().includes(q) || (m.classification ?? "").toLowerCase().includes(q)}
         searchPlaceholder="Buscar por market, status, reason..."
         maxHeight="500px"
       />
     </div>
   );
+}
+
+function ClassBadge({ c }: { c: string }) {
+  const cls: Record<string, string> = {
+    WINNER: "bg-emerald-900/40 text-emerald-400",
+    NEUTRAL: "bg-dark-700 text-dark-400",
+    LOSER: "bg-orange-900/40 text-orange-400",
+    TOXIC: "bg-red-900/40 text-red-400",
+    HIGH_CHURN: "bg-yellow-900/40 text-yellow-400",
+  };
+  return <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${cls[c] ?? "bg-dark-700 text-dark-400"}`}>{c}</span>;
 }
 
 function GuardStatusBadge({ status }: { status: string }) {

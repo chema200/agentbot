@@ -160,8 +160,6 @@ public class ShadowTradingEngine {
     private void runShadowCycle() {
         if (!"RUNNING".equals(status)) return;
         try {
-            guardService.setCycleCount(cycleCount);
-            guardService.tick(cycleCount);
             cancelStaleOrders();
             evaluateFills();
             placeHypotheticalQuotes();
@@ -320,7 +318,12 @@ public class ShadowTradingEngine {
 
     // ── Quoting ──────────────────────────────────────────────────────────
 
+    @Getter
+    private volatile int lastCycleMarketsPassedEdgeFilter = 0;
+
     private void placeHypotheticalQuotes() {
+        guardService.beforeQuoteCycle(liveMarkets.keySet(), cycleCount);
+
         BigDecimal maxCapShare = BigDecimal.valueOf(cfg.getMaxCapitalSharePerMarket());
         BigDecimal totalBudget = getTotalBudget();
         BigDecimal maxSizePerMarket = totalBudget.multiply(maxCapShare);
@@ -364,11 +367,12 @@ public class ShadowTradingEngine {
             } else {
                 double gp = guardService.getGuardPenalty(tokenId);
                 if (gp > 0.0) {
+                    BigDecimal edgeBeforeGuard = finalEdge;
                     BigDecimal guardedEdge = finalEdge.multiply(BigDecimal.valueOf(1.0 - gp));
-                    log.debug("[MARKET_GUARD_PENALTY]\nmarket={}\nraw_edge={}\nguard_penalty={}\nfinal_edge={}\nreason=guard_applied",
-                            shortId(tokenId), fmt(finalEdge), String.format("%.4f", gp), fmt(guardedEdge));
                     finalEdge = guardedEdge;
-                    if (finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
+                    boolean belowMin = finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty();
+                    guardService.logMarketGuardPenaltyWithEdges(tokenId, edgeBeforeGuard, finalEdge, belowMin);
+                    if (belowMin) {
                         decisionStatus = "SKIP"; decisionReason = "edge_below_min_after_guard";
                     }
                 }
@@ -384,6 +388,8 @@ public class ShadowTradingEngine {
                     shortId(tokenId), decisionStatus, decisionReason,
                     fmt(rawEdge), fmt(penalizedEdge), fmt(finalEdge), regime, fmt(spread), fmt(mid));
         }
+
+        lastCycleMarketsPassedEdgeFilter = edgeMap.size();
 
         if (edgeMap.isEmpty()) return;
 
@@ -584,7 +590,7 @@ public class ShadowTradingEngine {
                 "\npnl_trading={}\npnl_reward=0.0000\npnl_total={}\nfees={}" +
                 "\nyes_exposure={}\nno_exposure={}\nnet_exposure={}" +
                 "\nmax_yes_exposure={}\nmax_no_exposure={}\nmax_net_exposure={}" +
-                "\nactive_markets={}\ncooldown_markets={}\nvolatile_markets={}\ncrisis_markets={}" +
+                "\nmarkets_with_open_orders={}\nmarkets_passed_edge_filter={}\ncooldown_markets={}\nvolatile_markets={}\ncrisis_markets={}" +
                 "\ncap_violation_count={}" +
                 "\nguard_soft_cooldown={}\nguard_hard_cooldown={}\nguard_disabled={}" +
                 "\ntop_market={}\ntop_market_pnl={}" +
@@ -595,7 +601,7 @@ public class ShadowTradingEngine {
                 feesNow.setScale(6, RoundingMode.HALF_UP),
                 fmt(getYesExposure()), fmt(getNoExposure()), fmt(getNetExposure()),
                 fmt(metrics.getMaxYes()), fmt(metrics.getMaxNo()), fmt(metrics.getMaxNet()),
-                countActiveTokens(), cooled,
+                countActiveTokens(), lastCycleMarketsPassedEdgeFilter, cooled,
                 countByRegime(Regime.VOLATILE), countByRegime(Regime.CRISIS),
                 capViolationCount.get(),
                 guardSoft, guardHard, guardDisabled,

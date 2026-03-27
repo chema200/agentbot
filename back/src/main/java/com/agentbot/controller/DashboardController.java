@@ -254,7 +254,8 @@ public class DashboardController {
                 "ORDER_REJECT", "CAP_CLAMP", "CAP_VIOLATION", "REGIME_BLOCK",
                 "COOLDOWN_START", "COOLDOWN_END", "EDGE_CLAMP", "REAL_SNAPSHOT",
                 "METRICS_INCONSISTENCY", "SIM_CYCLE_SUMMARY",
-                "MARKET_GUARD_STATE", "MARKET_GUARD_PENALTY", "MARKET_QUALITY_SNAPSHOT", "MARKET_DISABLED"};
+                "MARKET_GUARD_STATE", "MARKET_GUARD_PENALTY", "MARKET_GUARD_CLASSIFICATION",
+                "MARKET_GUARD_DECISION", "MARKET_QUALITY_SNAPSHOT", "MARKET_DISABLED"};
 
         for (Path logFile : List.of(
                 Path.of("logs/shadow-engine.log"),

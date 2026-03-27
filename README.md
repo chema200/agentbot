@@ -109,40 +109,44 @@ Without the guard, the shadow engine would:
 | `HARD_COOLDOWN` | Market paused for ~10 min (200 cycles at 3s/cycle) |
 | `DISABLED_SESSION` | Market disabled for the rest of the session |
 
-### Guard Rules
+### Classification (`MarketGuardClassification`)
 
-| # | Condition | Action |
-|---|-----------|--------|
-| 1 | `rolling_pnl_5m < -0.05` | SOFT_COOLDOWN |
-| 2 | `fills_share > 35%` AND `session_pnl < 0` | HARD_COOLDOWN |
-| 3 | `consecutive_negative_fills >= 6` | HARD_COOLDOWN |
-| 4 | `stale_cancel_rate > 80%` AND `fill_rate < 5%` | Edge penalty +0.30 |
-| 5 | `avg_slippage > 0.002` (after 5+ fills) | Edge penalty +0.20 |
-| 6 | One-sided flow >80% (after 10+ fills) | Edge penalty +0.15 |
-| 7 | `session_pnl < 5x threshold` AND `fills >= 10` | DISABLED_SESSION |
+Each market gets a rolling label (recomputed every cycle before quoting):
 
-### Per-Market Metrics Tracked
+| Value | Meaning |
+|-------|---------|
+| `WINNER` | `pnl_5m > 0`, `toxic_rate_5m == 0`, enough fills in 5m |
+| `NEUTRAL` | Default / mixed signals |
+| `LOSER` | Weak rolling PnL or several consecutive negative fills |
+| `TOXIC` | Elevated toxic rate in the 5m window |
+| `HIGH_CHURN` | Many stale cancels in 5m vs very few fills |
 
-- `sessionFills`, `fillsBuy`, `fillsSell` - fill counts and side breakdown
-- `sessionPnl` - cumulative PnL for this market
-- `rollingPnl1m`, `rollingPnl5m` - time-windowed PnL
-- `avgSlippage` - average absolute slippage per fill
-- `staleCancelRate` - stale cancels / (cancels + fills)
-- `fillRate` - fills / quote attempts
-- `consecutiveNegativeFills` - streak of losing fills
-- `quoteAttempts`, `cancelCount`, `staleCancelCount`
-- `guardPenalty` - accumulated edge penalty (0.0 to 0.9)
-- `sessionToxicFills`, `transitionCount`
+### Penalty (compound, not binary)
+
+Per cycle, before edge selection: `final_penalty = min(0.95, base + loss + toxicity + churn + concentration)` with class-based `base`, then **winner protection**: if `WINNER`, zero toxicity, and churn below override, `final_penalty` is capped by `guard-max-penalty-winner` (default **0.10**) so profitable markets are not pushed out by `edge_below_min_after_guard`.
+
+### Strong cooldowns (on fill only)
+
+| Action | Typical trigger |
+|--------|-----------------|
+| `HARD_COOLDOWN` | `consecutive_negative_fills >= N` **and** `pnl_5m <=` hard threshold **and** not `WINNER`; or toxic rate in 5m with enough fills; or concentration + session loss; or extreme churn 5m |
+| `SOFT_COOLDOWN` | `LOSER`, `pnl_5m` very negative, enough fills in 5m, not a protected winner |
+| `DISABLED_SESSION` | Session PnL below deep threshold with enough fills |
+
+Weak signals alone no longer trigger `HARD_COOLDOWN`.
+
+### Per-Market Metrics (rolling 5m where noted)
+
+- `pnl_1m`, `pnl_5m`, `fills_5m`, `toxic_rate_5m`, `stale_cancel_rate_5m`, `avg_slippage_5m`, `fill_share_5m`
+- Session: `sessionPnl`, `fill_share` (session), `consecutiveNegativeFills`
 
 ### Guard Flow
 
-1. Every cycle, `tick()` checks cooldown expirations and reactivates markets
-2. On every fill, `recordFill()` updates rolling stats and evaluates guard rules
-3. On every cancel, `recordCancel()` tracks stale cancels
-4. On every quote attempt, `recordQuoteAttempt()` tracks participation
-5. Before quoting, `shouldQuote(tokenId)` blocks markets in cooldown/disabled state
-6. `getGuardPenalty(tokenId)` reduces effective edge for degraded markets
-7. Every N cycles, `logQualitySnapshots()` emits `[MARKET_QUALITY_SNAPSHOT]` for all active markets
+1. Start of each quote cycle: `beforeQuoteCycle()` runs `tick()`, prunes events, classifies, computes penalty cache
+2. On fill: rolling events stored; **only strong rules** may change cooldown state
+3. `shouldQuote(tokenId)` respects cooldown/disabled
+4. `getGuardPenalty(tokenId)` returns cached penalty; engine applies `edge * (1 - penalty)` and logs `[MARKET_GUARD_PENALTY]` with `raw_edge` / `final_edge` (INFO when edge killed or high penalty; DEBUG for light winner trims)
+5. `[SHADOW_CYCLE_SUMMARY]` includes `markets_with_open_orders` and `markets_passed_edge_filter` (clarifies “active” vs “passed edge”)
 
 ### Concentration Control (HHI)
 
@@ -154,18 +158,15 @@ The guard calculates a Herfindahl-Hirschman Index (HHI) to measure fill concentr
 
 ### Guard Configuration
 
-All guard parameters are in `application-dev.yml`:
+See `application-dev.yml` under `shadow:` — keys include `guard-winner-min-fills-5m`, `guard-max-penalty-winner`, `guard-toxic-rate-classification`, `guard-penalty-base-*`, `guard-loss-penalty-k`, `guard-hard-cooldown-pnl-5m-threshold`, `guard-soft-cooldown-*`, `guard-disabled-session-pnl-threshold`, etc.
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `guard-pnl5m-threshold` | -0.05 | Rolling PnL 5m to trigger soft cooldown |
-| `guard-fills-share-threshold` | 0.35 | Max fill share before hard cooldown (if losing) |
-| `guard-max-consecutive-negative` | 6 | Consecutive losses to trigger hard cooldown |
-| `guard-stale-cancel-rate-threshold` | 0.80 | Stale cancel rate to trigger edge penalty |
-| `guard-avg-slippage-threshold` | 0.002 | Avg slippage to trigger edge penalty |
-| `guard-soft-cooldown-cycles` | 100 | Soft cooldown duration (~5 min) |
-| `guard-hard-cooldown-cycles` | 200 | Hard cooldown duration (~10 min) |
-| `guard-quality-snapshot-interval` | 15 | Cycles between quality snapshots |
+### Structured logs (guard)
+
+- `[MARKET_GUARD_CLASSIFICATION]` — class + rolling metrics when class changes or penalty shifts materially
+- `[MARKET_GUARD_PENALTY]` — `base/loss/toxicity/churn/concentration`, `final_penalty`, `raw_edge`, `final_edge`, `cooldown_state`
+- `[MARKET_GUARD_DECISION]` — `ALLOW` / `SOFT_COOLDOWN` / `HARD_COOLDOWN` / `DISABLED_SESSION` with `reason`
+- `[MARKET_GUARD_STATE]` — legacy transition line (kept for parsers)
+- `[MARKET_QUALITY_SNAPSHOT]` — includes `classification`
 
 ## Risk Controls
 
@@ -177,9 +178,9 @@ All configurable via `application-dev.yml`:
 | `regimePenaltyCalm/Normal/Volatile/Crisis` | 1.0/0.8/0.35/0.0 | Edge multipliers by regime |
 | `blockVolatileMarkets` | false | Block all VOLATILE markets |
 | `cooldownCycles` | 15 | Cycles to pause after toxic fill |
-| `minEdgeAfterPenalty` | 0.005 | Minimum penalized edge to quote |
+| `minEdgeAfterPenalty` | 0.02 (dev) | Minimum penalized edge to quote |
 | `edgeClampMin/Max` | 0.0/1.0 | Edge normalization bounds |
-| `maxYes/No/NetExposure` | 200/200/100 | Inventory limits |
+| `maxYes/No/NetExposure` | 500/500/300 (dev) | Inventory limits |
 | `inventoryPenaltyK` | 0.5 | Inventory skew penalty factor |
 | `minOrderSize/maxOrderSize` | 5/25 | Order size bounds |
 

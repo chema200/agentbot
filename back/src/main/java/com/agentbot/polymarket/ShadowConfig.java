@@ -41,13 +41,48 @@ public class ShadowConfig {
     private int cycleSummaryInterval = 15;
     private int staleOrderTimeoutSec = 30;
 
-    // Market Guard
-    private double guardPnl5mThreshold = -0.05;
+    // Market Guard (classification + proportional penalties + strong cooldowns)
     private double guardFillsShareThreshold = 0.35;
     private int guardMaxConsecutiveNegative = 6;
-    private double guardStaleCancelRateThreshold = 0.80;
-    private double guardAvgSlippageThreshold = 0.002;
-    private int guardSoftCooldownCycles = 100;    // ~5min at 3s/cycle
-    private int guardHardCooldownCycles = 200;    // ~10min at 3s/cycle
+    private int guardSoftCooldownCycles = 100;
+    private int guardHardCooldownCycles = 200;
     private int guardQualitySnapshotInterval = 15;
+
+    private int guardWinnerMinFills5m = 2;
+    private double guardMaxPenaltyWinner = 0.10;
+    private double guardWinnerChurnOverrideStale = 0.92;
+
+    private int guardMinFillsForClassification = 2;
+    private double guardToxicRateClassification = 0.34;
+    private double guardToxicRateHardCooldown = 0.34;
+
+    private double guardChurnStaleRate5m = 0.88;
+    private int guardChurnMinStaleEvents5m = 8;
+    private int guardChurnMaxFills5m = 2;
+
+    private double guardLoserPnl5mThreshold = -0.03;
+
+    private double guardPenaltyBaseWinner = 0.0;
+    private double guardPenaltyBaseNeutral = 0.03;
+    private double guardPenaltyBaseLoser = 0.12;
+    private double guardPenaltyBaseToxic = 0.45;
+    private double guardPenaltyBaseHighChurn = 0.10;
+
+    private double guardLossPenaltyK = 2.5;
+    private double guardToxicityPenaltyExtra = 0.25;
+    private double guardToxicityPenaltyK = 0.35;
+    private double guardChurnPenaltyK = 0.22;
+    private double guardConcentrationShareSoft = 0.28;
+    private double guardConcentrationPenaltyKLoss = 0.55;
+    private double guardConcentrationPenaltyKWinner = 0.12;
+
+    private double guardHardCooldownPnl5mThreshold = -0.02;
+    private double guardExtremeChurnStale5m = 0.92;
+    private int guardExtremeChurnMinStale = 10;
+
+    private double guardSoftCooldownPnl5mThreshold = -0.08;
+    private int guardSoftCooldownMinFills5m = 5;
+
+    private double guardDisabledSessionPnlThreshold = -0.50;
+    private int guardDisabledMinSessionFills = 15;
 }

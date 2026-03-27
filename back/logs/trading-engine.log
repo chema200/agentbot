@@ -1,77 +1,31 @@
-2026-03-27 16:18:26.830 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship] exited=[mkt-eth-merge] active=5
-2026-03-27 16:18:26.830 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
+2026-03-27 17:28:15.950 [main] INFO  com.agentbot.engine.MarketScanner - MarketScanner initialized with 10 markets
+2026-03-27 17:28:39.905 [http-nio-8080-exec-9] INFO  com.agentbot.engine.TradingEngine - Trading engine STARTED max_cap=0.25 block_volatile=false cooldown_cycles=15
+2026-03-27 17:28:40.872 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-trump28, mkt-inflation] exited=[] active=2
+2026-03-27 17:28:40.874 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 16:18:26.830 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+2026-03-27 17:28:40.877 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
 market=mkt-inflation
-requested_cap=0.2644
+requested_cap=0.5000
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 16:18:28.841 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:28.841 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-inflation
-requested_cap=0.2644
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:30.842 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:30.843 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-inflation
-requested_cap=0.2644
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:32.855 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:32.855 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-inflation
-requested_cap=0.2644
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:34.867 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:34.867 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-inflation
-requested_cap=0.2644
-applied_cap=0.2500
-max_cap=0.2500
-reason=hard_limit
-2026-03-27 16:18:34.867 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
-cycle=135
-active_markets=5
-orders_active=7
-fills_total=4
+2026-03-27 17:28:40.878 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=0
+active_markets=2
+orders_active=4
+fills_total=0
 fills_toxic=0
-pnl_trading=14.9060
-pnl_reward=5.4395
-pnl_total=20.3455
-fees=0.214000
-yes_exposure=138.00
-no_exposure=18.00
-net_exposure=120.00
+pnl_trading=0.0000
+pnl_reward=0.0000
+pnl_total=0.0000
+fees=0.000000
+yes_exposure=0.00
+no_exposure=0.00
+net_exposure=0.00
 volatile_active_count=0
 crisis_active_count=0
 cooled_down=0
@@ -80,13 +34,228 @@ max_cap_seen=0.2500
 markets_over_cap=[]
 blocked_by_regime=[]
 blocked_by_cooldown=[]
-2026-03-27 16:18:34.867 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=1.6156 cap=25.0% regime=NORMAL fills=2 ppf=1.09 [SpaceX Starship orbital success?]
-2026-03-27 16:18:34.867 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=1.4627 cap=25.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
-2026-03-27 16:18:34.867 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=1.3479 cap=24.2% regime=CALM fills=1 ppf=0.47 [EUR/USD above 1.15 by Q4?]
-2026-03-27 16:18:34.868 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.6189 cap=11.1% regime=CALM fills=0 ppf=0.00 [AGI achieved before 2030?]
-2026-03-27 16:18:34.868 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.5261 cap=9.4% regime=CALM fills=0 ppf=0.00 [Fed rate cut before July 2026?]
-2026-03-27 16:18:34.868 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.5159 cap=0.0% regime=CALM fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
-2026-03-27 16:18:34.868 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=0.4646 cap=0.0% regime=CALM fills=0 ppf=0.00 [Trump wins 2028 election?]
-2026-03-27 16:18:34.868 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.1371 cap=0.0% regime=CALM fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
-2026-03-27 16:18:34.868 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.0211 cap=0.0% regime=CALM fills=1 ppf=0.25 [Ethereum above $5k by EOY?]
-2026-03-27 16:18:34.868 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=-0.2821 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [Trump wins 2028 election?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-eth-merge edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-starship edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-ai-agi edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [AGI achieved before 2030?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-btc100k edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.116 mkt-usd-eur edge=0.1163 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:volatile_low_penalized_edge=-0,2314 mkt-fed-cut edge=-0.6610 cap=0.0% regime=VOLATILE fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:volatile_low_penalized_edge=-0,2664 mkt-sp500 edge=-0.7610 cap=0.0% regime=VOLATILE fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:crisis_regime mkt-gdp-q2 edge=-2.3283 cap=0.0% regime=CRISIS fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 17:28:42.883 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:42.885 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-inflation
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:44.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:44.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-inflation
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:46.905 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:46.906 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-inflation
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:48.912 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:48.913 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-inflation
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:50.924 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-gdp-q2] exited=[] active=3
+2026-03-27 17:28:50.925 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:52.937 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:54.948 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:56.959 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:58.972 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:00.981 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:02.995 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[] active=4
+2026-03-27 17:29:02.995 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:02.995 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.008 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.008 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.010 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: fda1f2c1 SELL Trump wins 2028 election? @ 0.50 x35 (slip: -0.02, fee: 0.0350)
+2026-03-27 17:29:07.018 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:07.019 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:09.032 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:09.032 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:11.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:11.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=15
+active_markets=4
+orders_active=4
+fills_total=1
+fills_toxic=0
+pnl_trading=17.4650
+pnl_reward=0.4496
+pnl_total=17.9146
+fees=0.035000
+yes_exposure=0.00
+no_exposure=35.00
+net_exposure=35.00
+volatile_active_count=0
+crisis_active_count=0
+cooled_down=0
+cap_violation_count=0
+max_cap_seen=0.2500
+markets_over_cap=[]
+blocked_by_regime=[]
+blocked_by_cooldown=[]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=4.5864 cap=25.0% regime=NORMAL fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=4.4073 cap=25.0% regime=NORMAL fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=3.6746 cap=0.0% regime=CALM fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=2.9583 cap=0.0% regime=VOLATILE fills=0 ppf=0.00 [AGI achieved before 2030?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.4979 cap=5.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=0.4298 cap=4.3% regime=CALM fills=1 ppf=0.66 [Trump wins 2028 election?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.2113 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.1564 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=-0.4476 cap=0.0% regime=CRISIS fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=-1.7361 cap=0.0% regime=CRISIS fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 17:29:13.052 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:13.053 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:15.066 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-ai-agi] exited=[] active=5
+2026-03-27 17:29:15.066 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.3704
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:15.067 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.3584
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:17.076 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.3704
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:17.076 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.3584
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit

@@ -1,14 +1,120 @@
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:12.439 [main] INFO  com.agentbot.AgentbotApplication - Starting AgentbotApplication using Java 21.0.4 with PID 45356 (C:\Users\jmma_\Documents\git\agentbot\back\build\classes\java\main started by jmma_ in C:\Users\jmma_\Documents\git\agentbot\back)
+2026-03-27 17:28:12.441 [main] INFO  com.agentbot.AgentbotApplication - The following 1 profile is active: "dev"
+2026-03-27 17:28:13.059 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27 17:28:13.127 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 61 ms. Found 5 JPA repository interfaces.
+2026-03-27 17:28:13.788 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-27 17:28:13.801 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-03-27 17:28:13.805 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-27 17:28:13.806 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-03-27 17:28:13.877 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-27 17:28:13.877 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1386 ms
+2026-03-27 17:28:13.907 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-27 17:28:14.101 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:agentbot user=SA
+2026-03-27 17:28:14.102 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-27 17:28:14.112 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:agentbot'
+2026-03-27 17:28:14.373 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:h2:mem:agentbot (H2 2.2)
+2026-03-27 17:28:14.382 [main] WARN  o.f.c.i.database.base.Database - Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2026-03-27 17:28:14.406 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table "PUBLIC"."flyway_schema_history" does not exist yet
+2026-03-27 17:28:14.408 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 3 migrations (execution time 00:00.014s)
+2026-03-27 17:28:14.415 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2026-03-27 17:28:14.445 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "PUBLIC": << Empty Schema >>
+2026-03-27 17:28:14.454 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "1 - create tables"
+2026-03-27 17:28:14.480 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "2 - backtest tables"
+2026-03-27 17:28:14.501 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "3 - shadow tables"
+2026-03-27 17:28:14.515 [main] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 3 migrations to schema "PUBLIC", now at version v3 (execution time 00:00.029s)
+2026-03-27 17:28:14.629 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-27 17:28:14.694 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-03-27 17:28:14.742 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-27 17:28:15.101 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27 17:28:15.145 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27 17:28:15.934 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27 17:28:15.937 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27 17:28:15.950 [main] INFO  com.agentbot.engine.MarketScanner - MarketScanner initialized with 10 markets
+2026-03-27 17:28:16.431 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27 17:28:16.706 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-03-27 17:28:16.716 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-27 17:28:16.723 [main] INFO  com.agentbot.AgentbotApplication - Started AgentbotApplication in 4.998 seconds (process running for 5.398)
+2026-03-27 17:28:18.292 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-27 17:28:18.292 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-27 17:28:18.293 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-03-27 17:28:39.905 [http-nio-8080-exec-9] INFO  com.agentbot.engine.TradingEngine - Trading engine STARTED max_cap=0.25 block_volatile=false cooldown_cycles=15
+2026-03-27 17:28:39.951 [http-nio-8080-exec-10] INFO  c.a.shadow.ShadowTradingEngine - Shadow engine STARTED budget=375 max_cap=0.25 edge_clamp=[0.0,1.0] min_price=0.03 max_price=0.97
+2026-03-27 17:28:40.709 [pool-1-thread-1] INFO  c.a.p.PolymarketMarketDiscoveryService - Discovered 45 active markets from Polymarket (from 50 total)
+2026-03-27 17:28:40.711 [pool-1-thread-1] INFO  c.a.p.PolymarketMarketDiscoveryService - Built 30 live market states from 15 markets
+2026-03-27 17:28:40.872 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-trump28, mkt-inflation] exited=[] active=2
+2026-03-27 17:28:40.874 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:40.877 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-inflation
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:40.878 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=0
+active_markets=2
+orders_active=4
+fills_total=0
+fills_toxic=0
+pnl_trading=0.0000
+pnl_reward=0.0000
+pnl_total=0.0000
+fees=0.000000
+yes_exposure=0.00
+no_exposure=0.00
+net_exposure=0.00
+volatile_active_count=0
+crisis_active_count=0
+cooled_down=0
+cap_violation_count=0
+max_cap_seen=0.2500
+markets_over_cap=[]
+blocked_by_regime=[]
+blocked_by_cooldown=[]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [Trump wins 2028 election?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-eth-merge edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-starship edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 17:28:40.879 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-ai-agi edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [AGI achieved before 2030?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-btc100k edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.116 mkt-usd-eur edge=0.1163 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:volatile_low_penalized_edge=-0,2314 mkt-fed-cut edge=-0.6610 cap=0.0% regime=VOLATILE fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:volatile_low_penalized_edge=-0,2664 mkt-sp500 edge=-0.7610 cap=0.0% regime=VOLATILE fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 17:28:40.880 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:crisis_regime mkt-gdp-q2 edge=-2.3283 cap=0.0% regime=CRISIS fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 17:28:41.070 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 303577679474: bid=0.993 ask=0.994
+2026-03-27 17:28:41.121 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 585276110734: bid=0.89 ask=0.9
+2026-03-27 17:28:41.172 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 100681609576: bid=0.993 ask=0.995
+2026-03-27 17:28:41.222 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 691731683185: bid=0.94 ask=0.95
+2026-03-27 17:28:41.272 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 454710415690: bid=0.1 ask=0.11
+2026-03-27 17:28:41.322 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 754118738832: bid=0.62 ask=0.64
+2026-03-27 17:28:41.374 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 253643157741: bid=0.005 ask=0.007
+2026-03-27 17:28:41.421 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 840694739351: bid=0.003 ask=0.005
+2026-03-27 17:28:41.468 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 985605659351: bid=0.995 ask=0.997
+2026-03-27 17:28:41.520 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 735334341092: bid=0.002 ask=0.004
+2026-03-27 17:28:41.573 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 112794903050: bid=0.001 ask=0.002
+2026-03-27 17:28:41.617 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 167339636917: bid=0.998 ask=0.999
+2026-03-27 17:28:41.663 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 640139224668: bid=0.36 ask=0.38
+2026-03-27 17:28:41.706 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 230713655300: bid=0.45 ask=0.46
+2026-03-27 17:28:41.749 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 290614988104: bid=0.998 ask=0.999
+2026-03-27 17:28:41.793 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 323907736017: bid=0.998 ask=0.999
+2026-03-27 17:28:41.842 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 959061334717: bid=0.001 ask=0.002
+2026-03-27 17:28:41.885 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 257042768466: bid=0.996 ask=0.997
+2026-03-27 17:28:41.934 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 226739898186: bid=0.003 ask=0.004
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=3035776794748028
 status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0010
-mid=0.9935
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=5852761107342028
 status=SKIP
 reason=edge_below_min
@@ -18,83 +124,77 @@ final_edge=0.0056
 regime=CALM
 spread=0.0100
 mid=0.8950
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=3920746601874875
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
 status=SKIP
-reason=extreme_price
-raw_edge=0.2727
-penalized_edge=0.2727
-final_edge=0.2727
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0030
-mid=0.0055
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=6917316831855586
 status=SKIP
-reason=edge_below_min
-raw_edge=0.0053
-penalized_edge=0.0053
-final_edge=0.0053
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0100
-mid=0.9350
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=8075713065807537
-status=SKIP
-reason=edge_below_min
-raw_edge=0.0161
-penalized_edge=0.0161
-final_edge=0.0161
-regime=CALM
-spread=0.0200
-mid=0.6200
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=5844191053254788
-status=BLOCKED
-reason=market_guard_HARD_COOLDOWN
-raw_edge=0.0625
-penalized_edge=0.0625
-final_edge=0.0625
-regime=CALM
-spread=0.0200
-mid=0.1600
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_GUARD_PENALTY]
-market=4547104156900142
-raw_edge=0.0476
-guard_penalty=0,8000
-final_edge=0.0095
-reason=guard_applied
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=4547104156900142
 status=SKIP
-reason=edge_below_min_after_guard
-raw_edge=0.0476
-penalized_edge=0.0476
-final_edge=0.0095
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0100
-mid=0.1050
-2026-03-27 16:18:26.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=8406947393516535
 status=SKIP
 reason=extreme_price
-raw_edge=0.1111
-penalized_edge=0.1111
-final_edge=0.1111
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
 regime=CALM
-spread=0.0010
-mid=0.0045
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=0.0020
+mid=0.0040
+2026-03-27 17:28:41.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=9856056593517274
 status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0010
-mid=0.9955
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=7353343410922814
 status=SKIP
 reason=extreme_price
@@ -104,17 +204,7 @@ final_edge=0.3333
 regime=CALM
 spread=0.0020
 mid=0.0030
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=7319905339105997
-status=SKIP
-reason=extreme_price
-raw_edge=0.0025
-penalized_edge=0.0025
-final_edge=0.0025
-regime=CALM
-spread=0.0050
-mid=0.9895
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:41.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1127949030502987
 status=SKIP
 reason=extreme_price
@@ -124,47 +214,57 @@ final_edge=0.3333
 regime=CALM
 spread=0.0010
 mid=0.0015
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:41.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1673396369176958
 status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0010
-mid=0.9985
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=2906149881043172
-status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
-regime=CALM
-spread=0.0010
-mid=0.9985
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=3239077360171980
-status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
-regime=CALM
-spread=0.0010
-mid=0.9985
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=2816118342224237
-status=BLOCKED
-reason=market_guard_HARD_COOLDOWN
-raw_edge=0.0263
-penalized_edge=0.0263
-final_edge=0.0263
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=ACTIVE
+reason=ok
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
 regime=CALM
 spread=0.0200
-mid=0.3800
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+mid=0.3700
+2026-03-27 17:28:41.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:28:41.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=9590613347179419
 status=SKIP
 reason=extreme_price
@@ -174,47 +274,17 @@ final_edge=0.3333
 regime=CALM
 spread=0.0010
 mid=0.0015
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=2570427684668312
 status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0010
-mid=0.9965
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=2197169245359793
-status=SKIP
-reason=edge_below_min
-raw_edge=0.0119
-penalized_edge=0.0119
-final_edge=0.0119
-regime=CALM
-spread=0.0200
-mid=0.8400
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=9337307006531956
-status=SKIP
-reason=extreme_price
-raw_edge=0.0015
-penalized_edge=0.0015
-final_edge=0.0015
-regime=CALM
-spread=0.0030
-mid=0.9945
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=4238137648240995
-status=SKIP
-reason=extreme_price
-raw_edge=0.2381
-penalized_edge=0.2381
-final_edge=0.2381
-regime=CALM
-spread=0.0050
-mid=0.0105
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=2267398981867305
 status=SKIP
 reason=extreme_price
@@ -224,33 +294,37 @@ final_edge=0.1429
 regime=CALM
 spread=0.0010
 mid=0.0035
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=4949002902242971
 status=SKIP
 reason=edge_below_min
-raw_edge=0.0097
-penalized_edge=0.0097
-final_edge=0.0097
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
 regime=CALM
-spread=0.0010
-mid=0.0515
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_GUARD_PENALTY]
-market=7952819236650734
-raw_edge=0.0769
-guard_penalty=0,8000
-final_edge=0.0154
-reason=guard_applied
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=7952819236650734
+spread=0.0020
+mid=0.0530
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
 status=SKIP
-reason=edge_below_min_after_guard
-raw_edge=0.0769
-penalized_edge=0.0769
-final_edge=0.0154
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0909
 regime=CALM
 spread=0.0100
-mid=0.0650
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+mid=0.0550
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1110393545217508
 status=SKIP
 reason=extreme_price
@@ -260,27 +334,27 @@ final_edge=0.0769
 regime=CALM
 spread=0.0010
 mid=0.0065
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=2459752339868188
 status=SKIP
-reason=extreme_price
-raw_edge=0.0010
-penalized_edge=0.0010
-final_edge=0.0010
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0020
-mid=0.9970
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=7474791618225180
-status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
-regime=CALM
-spread=0.0010
-mid=0.9935
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1367290952473846
 status=SKIP
 reason=extreme_price
@@ -290,17 +364,37 @@ final_edge=0.3333
 regime=CALM
 spread=0.0010
 mid=0.0015
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:41.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=4428357775501875
 status=SKIP
-reason=edge_below_min
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
 regime=CALM
-spread=0.0010
-mid=0.9485
-2026-03-27 16:18:26.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=1.0000
+mid=0.0000
+2026-03-27 17:28:41.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1842492808731868
 status=SKIP
 reason=extreme_price
@@ -310,32 +404,219 @@ final_edge=0.0769
 regime=CALM
 spread=0.0010
 mid=0.0065
-2026-03-27 16:18:26.830 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship] exited=[mkt-eth-merge] active=5
-2026-03-27 16:18:26.830 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
+2026-03-27 17:28:41.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.7708
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 16:18:26.830 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+2026-03-27 17:28:41.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=6401392246688485
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0270
+2026-03-27 17:28:41.962 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=787c0846
+market=6401392246688485
+side=BUY
+price=0.3700
+size=5
+bid=0.36
+ask=0.38
+mid=0.3700
+regime=CALM
+2026-03-27 17:28:41.962 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=8c16e609
+market=6401392246688485
+side=SELL
+price=0.3700
+size=5
+bid=0.36
+ask=0.38
+mid=0.3700
+regime=CALM
+2026-03-27 17:28:41.962 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0909
+2026-03-27 17:28:41.962 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=73916c68
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:41.962 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=e3a02a8c
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:41.979 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 494900290224: bid=0.052 ask=0.054
+2026-03-27 17:28:42.028 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 908726398549: bid=0.54 ask=0.55
+2026-03-27 17:28:42.074 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 795281923665: bid=0.05 ask=0.06
+2026-03-27 17:28:42.128 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 111039354521: bid=0.006 ask=0.007
+2026-03-27 17:28:42.176 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 268321237417: bid=0 ask=0.001
+2026-03-27 17:28:42.221 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 245975233986: bid=0.996 ask=0.998
+2026-03-27 17:28:42.268 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 136729095247: bid=0.001 ask=0.002
+2026-03-27 17:28:42.320 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 747479161822: bid=0.993 ask=0.994
+2026-03-27 17:28:42.368 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 551394862283: bid=0.999 ask=1
+2026-03-27 17:28:42.416 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 442835777550: bid=0.946 ask=0.948
+2026-03-27 17:28:42.468 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 184249280873: bid=0.006 ask=0.007
+2026-03-27 17:28:42.468 [pool-1-thread-1] INFO  c.a.p.PolymarketMarketDiscoveryService - Fetched order books for 30/30 tokens
+2026-03-27 17:28:42.688 [WebSocketConnectReadThread-55] INFO  c.a.p.PolymarketMarketDataClient - WebSocket connected to Polymarket
+2026-03-27 17:28:42.691 [WebSocketConnectReadThread-55] INFO  c.a.p.PolymarketMarketDataClient - Subscribed to 30 asset IDs
+2026-03-27 17:28:42.691 [pool-1-thread-1] INFO  c.a.shadow.ShadowTradingEngine - WebSocket: CONNECTED
+2026-03-27 17:28:42.691 [pool-1-thread-1] INFO  c.a.shadow.ShadowTradingEngine - Shadow engine initialized with 30 tokens
+2026-03-27 17:28:42.883 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:42.885 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
 market=mkt-inflation
-requested_cap=0.2644
+requested_cap=0.5000
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 16:18:28.841 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
+2026-03-27 17:28:44.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 16:18:28.841 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+2026-03-27 17:28:44.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
 market=mkt-inflation
-requested_cap=0.2644
+requested_cap=0.5000
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.960 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=787c0846
+market=6401392246688485
+side=BUY
+order_price=0.3700
+best_bid=0.36
+best_ask=0.38
+mid=0.3700
+spread=0.02
+crossed=false
+would_fill=true
+reason=mid_through_buy
+2026-03-27 17:28:44.963 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=787c0846
+market=6401392246688485
+side=BUY
+price=0.3700
+size=5
+fee=0.003700
+slippage=0.000000
+pnl=-0.003700
+toxic=false
+2026-03-27 17:28:44.967 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=8c16e609
+market=6401392246688485
+side=SELL
+order_price=0.3700
+best_bid=0.36
+best_ask=0.38
+mid=0.3700
+spread=0.02
+crossed=false
+would_fill=true
+reason=mid_through_sell
+2026-03-27 17:28:44.967 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=8c16e609
+market=6401392246688485
+side=SELL
+price=0.3700
+size=5
+fee=0.003700
+slippage=0.000000
+pnl=-0.003700
+toxic=false
+2026-03-27 17:28:44.967 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=73916c68
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:44.967 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=73916c68
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:28:44.968 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=e3a02a8c
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:44.968 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=e3a02a8c
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:28:44.969 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_CLASSIFICATION]
+market=6401392246688485
+classification=NEUTRAL
+pnl_1m=-0.0074
+pnl_5m=-0.0074
+fills_5m=2
+toxic_rate_5m=0,0000
+stale_cancel_rate_5m=0,0000
+avg_slippage_5m=0.0000
+consecutive_negative_fills=2
+fill_share_5m=0,5000
+2026-03-27 17:28:44.969 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_CLASSIFICATION]
+market=7952819236650734
+classification=WINNER
+pnl_1m=0.0489
+pnl_5m=0.0489
+fills_5m=2
+toxic_rate_5m=0,0000
+stale_cancel_rate_5m=0,0000
+avg_slippage_5m=0.0050
+consecutive_negative_fills=0
+fill_share_5m=0,5000
+2026-03-27 17:28:44.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=3035776794748028
 status=SKIP
 reason=extreme_price
@@ -345,7 +626,7 @@ final_edge=0.0005
 regime=CALM
 spread=0.0010
 mid=0.9935
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.970 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=5852761107342028
 status=SKIP
 reason=edge_below_min
@@ -355,17 +636,17 @@ final_edge=0.0056
 regime=CALM
 spread=0.0100
 mid=0.8950
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=3920746601874875
+2026-03-27 17:28:44.970 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
 status=SKIP
 reason=extreme_price
-raw_edge=0.2727
-penalized_edge=0.2727
-final_edge=0.2727
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
 regime=CALM
-spread=0.0030
-mid=0.0055
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=0.0020
+mid=0.9940
+2026-03-27 17:28:44.970 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=6917316831855586
 status=SKIP
 reason=edge_below_min
@@ -374,64 +655,58 @@ penalized_edge=0.0053
 final_edge=0.0053
 regime=CALM
 spread=0.0100
-mid=0.9350
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=8075713065807537
-status=SKIP
-reason=edge_below_min
-raw_edge=0.0161
-penalized_edge=0.0161
-final_edge=0.0161
-regime=CALM
-spread=0.0200
-mid=0.6200
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=5844191053254788
-status=BLOCKED
-reason=market_guard_HARD_COOLDOWN
-raw_edge=0.0625
-penalized_edge=0.0625
-final_edge=0.0625
-regime=CALM
-spread=0.0200
-mid=0.1600
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_GUARD_PENALTY]
+mid=0.9450
+2026-03-27 17:28:44.970 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=4547104156900142
-raw_edge=0.0476
-guard_penalty=0,8000
-final_edge=0.0095
-reason=guard_applied
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=4547104156900142
-status=SKIP
-reason=edge_below_min_after_guard
+status=ACTIVE
+reason=ok
 raw_edge=0.0476
 penalized_edge=0.0476
-final_edge=0.0095
+final_edge=0.0476
 regime=CALM
 spread=0.0100
 mid=0.1050
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.970 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=8406947393516535
 status=SKIP
 reason=extreme_price
-raw_edge=0.1111
-penalized_edge=0.1111
-final_edge=0.1111
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
 regime=CALM
-spread=0.0010
-mid=0.0045
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=0.0020
+mid=0.0040
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=9856056593517274
 status=SKIP
 reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
 regime=CALM
-spread=0.0010
-mid=0.9955
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+spread=0.0020
+mid=0.9960
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=7353343410922814
 status=SKIP
 reason=extreme_price
@@ -441,17 +716,7 @@ final_edge=0.3333
 regime=CALM
 spread=0.0020
 mid=0.0030
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=7319905339105997
-status=SKIP
-reason=extreme_price
-raw_edge=0.0025
-penalized_edge=0.0025
-final_edge=0.0025
-regime=CALM
-spread=0.0050
-mid=0.9895
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1127949030502987
 status=SKIP
 reason=extreme_price
@@ -461,7 +726,7 @@ final_edge=0.3333
 regime=CALM
 spread=0.0010
 mid=0.0015
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1673396369176958
 status=SKIP
 reason=extreme_price
@@ -471,7 +736,39 @@ final_edge=0.0005
 regime=CALM
 spread=0.0010
 mid=0.9985
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.971 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=6401392246688485
+classification=NEUTRAL
+base_penalty=0,0300
+loss_penalty=0,0185
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,1210
+final_penalty=0,1695
+raw_edge=0.0270
+final_edge=0.0224
+cooldown_state=ACTIVE
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=ACTIVE
+reason=ok
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0224
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:28:44.971 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=2906149881043172
 status=SKIP
 reason=extreme_price
@@ -481,7 +778,7 @@ final_edge=0.0005
 regime=CALM
 spread=0.0010
 mid=0.9985
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=3239077360171980
 status=SKIP
 reason=extreme_price
@@ -491,17 +788,7 @@ final_edge=0.0005
 regime=CALM
 spread=0.0010
 mid=0.9985
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=2816118342224237
-status=BLOCKED
-reason=market_guard_HARD_COOLDOWN
-raw_edge=0.0263
-penalized_edge=0.0263
-final_edge=0.0263
-regime=CALM
-spread=0.0200
-mid=0.3800
-2026-03-27 16:18:29.030 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=9590613347179419
 status=SKIP
 reason=extreme_price
@@ -511,7 +798,7 @@ final_edge=0.3333
 regime=CALM
 spread=0.0010
 mid=0.0015
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=2570427684668312
 status=SKIP
 reason=extreme_price
@@ -521,37 +808,7 @@ final_edge=0.0005
 regime=CALM
 spread=0.0010
 mid=0.9965
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=2197169245359793
-status=SKIP
-reason=edge_below_min
-raw_edge=0.0119
-penalized_edge=0.0119
-final_edge=0.0119
-regime=CALM
-spread=0.0200
-mid=0.8400
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=9337307006531956
-status=SKIP
-reason=extreme_price
-raw_edge=0.0015
-penalized_edge=0.0015
-final_edge=0.0015
-regime=CALM
-spread=0.0030
-mid=0.9945
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=4238137648240995
-status=SKIP
-reason=extreme_price
-raw_edge=0.2381
-penalized_edge=0.2381
-final_edge=0.2381
-regime=CALM
-spread=0.0050
-mid=0.0105
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=2267398981867305
 status=SKIP
 reason=extreme_price
@@ -561,33 +818,49 @@ final_edge=0.1429
 regime=CALM
 spread=0.0010
 mid=0.0035
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=4949002902242971
 status=SKIP
 reason=edge_below_min
-raw_edge=0.0097
-penalized_edge=0.0097
-final_edge=0.0097
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
 regime=CALM
-spread=0.0010
-mid=0.0515
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_GUARD_PENALTY]
-market=7952819236650734
-raw_edge=0.0769
-guard_penalty=0,8000
-final_edge=0.0154
-reason=guard_applied
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=7952819236650734
+spread=0.0020
+mid=0.0530
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
 status=SKIP
-reason=edge_below_min_after_guard
-raw_edge=0.0769
-penalized_edge=0.0769
-final_edge=0.0154
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
 regime=CALM
 spread=0.0100
-mid=0.0650
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+mid=0.5450
+2026-03-27 17:28:44.972 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0264
+final_penalty=0,0264
+raw_edge=0.0909
+final_edge=0.0885
+cooldown_state=ACTIVE
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0885
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1110393545217508
 status=SKIP
 reason=extreme_price
@@ -597,7 +870,17 @@ final_edge=0.0769
 regime=CALM
 spread=0.0010
 mid=0.0065
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=2459752339868188
 status=SKIP
 reason=extreme_price
@@ -607,17 +890,7 @@ final_edge=0.0010
 regime=CALM
 spread=0.0020
 mid=0.9970
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=7474791618225180
-status=SKIP
-reason=extreme_price
-raw_edge=0.0005
-penalized_edge=0.0005
-final_edge=0.0005
-regime=CALM
-spread=0.0010
-mid=0.9935
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1367290952473846
 status=SKIP
 reason=extreme_price
@@ -627,17 +900,37 @@ final_edge=0.3333
 regime=CALM
 spread=0.0010
 mid=0.0015
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
-market=4428357775501875
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
 status=SKIP
-reason=edge_below_min
+reason=extreme_price
 raw_edge=0.0005
 penalized_edge=0.0005
 final_edge=0.0005
 regime=CALM
 spread=0.0010
-mid=0.9485
-2026-03-27 16:18:29.031 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+mid=0.9935
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
 market=1842492808731868
 status=SKIP
 reason=extreme_price
@@ -647,15 +940,4761 @@ final_edge=0.0769
 regime=CALM
 spread=0.0010
 mid=0.0065
-2026-03-27 16:18:30.842 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
-market=mkt-starship
-requested_cap=0.2805
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3003
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
-2026-03-27 16:18:30.843 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.5582
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:44.973 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0476
+2026-03-27 17:28:44.974 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=efb10b0f
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:44.974 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=befb66b2
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:44.974 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=6401392246688485
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0224
+2026-03-27 17:28:44.974 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=255d69e1
+market=6401392246688485
+side=BUY
+price=0.3700
+size=5
+bid=0.36
+ask=0.38
+mid=0.3700
+regime=CALM
+2026-03-27 17:28:44.974 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=59f8f23a
+market=6401392246688485
+side=SELL
+price=0.3700
+size=5
+bid=0.36
+ask=0.38
+mid=0.3700
+regime=CALM
+2026-03-27 17:28:44.974 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0885
+2026-03-27 17:28:44.974 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=e0bd6dc5
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:44.974 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=77256a24
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:46.905 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:46.906 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
 market=mkt-inflation
-requested_cap=0.2644
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:47.958 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=efb10b0f
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:47.958 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=efb10b0f
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:28:47.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=befb66b2
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:47.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=befb66b2
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:28:47.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=255d69e1
+market=6401392246688485
+side=BUY
+order_price=0.3700
+best_bid=0.36
+best_ask=0.38
+mid=0.3700
+spread=0.02
+crossed=false
+would_fill=true
+reason=mid_through_buy
+2026-03-27 17:28:47.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=255d69e1
+market=6401392246688485
+side=BUY
+price=0.3700
+size=5
+fee=0.003700
+slippage=0.000000
+pnl=-0.003700
+toxic=false
+2026-03-27 17:28:47.960 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=59f8f23a
+market=6401392246688485
+side=SELL
+order_price=0.3700
+best_bid=0.36
+best_ask=0.38
+mid=0.3700
+spread=0.02
+crossed=false
+would_fill=true
+reason=mid_through_sell
+2026-03-27 17:28:47.960 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=59f8f23a
+market=6401392246688485
+side=SELL
+price=0.3700
+size=5
+fee=0.003700
+slippage=0.000000
+pnl=-0.003700
+toxic=false
+2026-03-27 17:28:47.960 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_DECISION]
+market=6401392246688485
+action=HARD_COOLDOWN
+reason=concentration_with_loss
+classification=LOSER
+final_penalty=0.0000
+disable_until=201
+2026-03-27 17:28:47.960 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_STATE]
+market=6401392246688485
+prev_state=ACTIVE
+new_state=HARD_COOLDOWN
+reason=concentration_with_loss
+rolling_pnl_1m=-0.0074
+rolling_pnl_5m=-0.0074
+fills_share=50,00%
+stale_cancel_rate=0,00%
+avg_slippage=0.0000
+consecutive_negative_fills=4
+2026-03-27 17:28:47.960 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=e0bd6dc5
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:47.960 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=e0bd6dc5
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:28:47.964 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=77256a24
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:47.965 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=77256a24
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:28:47.965 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_CLASSIFICATION]
+market=6401392246688485
+classification=LOSER
+pnl_1m=-0.0148
+pnl_5m=-0.0148
+fills_5m=4
+toxic_rate_5m=0,0000
+stale_cancel_rate_5m=0,0000
+avg_slippage_5m=0.0000
+consecutive_negative_fills=4
+fill_share_5m=0,4000
+2026-03-27 17:28:47.966 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_CLASSIFICATION]
+market=4547104156900142
+classification=WINNER
+pnl_1m=0.0479
+pnl_5m=0.0479
+fills_5m=2
+toxic_rate_5m=0,0000
+stale_cancel_rate_5m=0,0000
+avg_slippage_5m=0.0050
+consecutive_negative_fills=0
+fill_share_5m=0,2000
+2026-03-27 17:28:47.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:47.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:28:47.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:28:47.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:28:47.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0476
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:28:47.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:28:47.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:28:47.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:28:47.968 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:28:47.968 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:28:47.968 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:28:47.969 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:28:47.970 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:28:47.970 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:28:47.975 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0144
+final_penalty=0,0144
+raw_edge=0.0909
+final_edge=0.0896
+cooldown_state=ACTIVE
+2026-03-27 17:28:47.981 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0896
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:28:47.982 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:47.983 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3470
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:47.983 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6530
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:47.983 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0476
+2026-03-27 17:28:47.983 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=bcbba276
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:47.983 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=58d17519
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:47.983 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0896
+2026-03-27 17:28:47.983 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=5abdf275
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:48.001 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=a3352332
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:48.912 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:48.913 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-inflation
+requested_cap=0.5000
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:50.013 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 303577679474: bid=0.993 ask=0.994
+2026-03-27 17:28:50.064 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 585276110734: bid=0.89 ask=0.9
+2026-03-27 17:28:50.110 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 100681609576: bid=0.993 ask=0.995
+2026-03-27 17:28:50.163 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 691731683185: bid=0.94 ask=0.95
+2026-03-27 17:28:50.208 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 454710415690: bid=0.1 ask=0.11
+2026-03-27 17:28:50.261 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 754118738832: bid=0.62 ask=0.64
+2026-03-27 17:28:50.311 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 253643157741: bid=0.005 ask=0.007
+2026-03-27 17:28:50.358 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 840694739351: bid=0.003 ask=0.005
+2026-03-27 17:28:50.403 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 985605659351: bid=0.995 ask=0.997
+2026-03-27 17:28:50.455 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 735334341092: bid=0.002 ask=0.004
+2026-03-27 17:28:50.500 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 112794903050: bid=0.001 ask=0.002
+2026-03-27 17:28:50.552 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 167339636917: bid=0.998 ask=0.999
+2026-03-27 17:28:50.599 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 640139224668: bid=0.36 ask=0.38
+2026-03-27 17:28:50.652 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 230713655300: bid=0.45 ask=0.46
+2026-03-27 17:28:50.701 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 290614988104: bid=0.998 ask=0.999
+2026-03-27 17:28:50.746 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 323907736017: bid=0.998 ask=0.999
+2026-03-27 17:28:50.790 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 959061334717: bid=0.001 ask=0.002
+2026-03-27 17:28:50.837 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 257042768466: bid=0.996 ask=0.997
+2026-03-27 17:28:50.881 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 226739898186: bid=0.003 ask=0.004
+2026-03-27 17:28:50.924 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 494900290224: bid=0.052 ask=0.054
+2026-03-27 17:28:50.924 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-gdp-q2] exited=[] active=3
+2026-03-27 17:28:50.925 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:50.955 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=bcbba276
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:50.955 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=bcbba276
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:28:50.955 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=58d17519
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:50.955 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=58d17519
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:28:50.955 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=5abdf275
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:50.955 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=5abdf275
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:28:50.955 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=a3352332
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:50.955 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=a3352332
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:28:50.955 [pool-1-thread-2] INFO  c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_CLASSIFICATION]
+market=6401392246688485
+classification=LOSER
+pnl_1m=-0.0148
+pnl_5m=-0.0148
+fills_5m=4
+toxic_rate_5m=0,0000
+stale_cancel_rate_5m=0,0000
+avg_slippage_5m=0.0000
+consecutive_negative_fills=4
+fill_share_5m=0,2857
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0007
+final_penalty=0,0007
+raw_edge=0.0476
+final_edge=0.0476
+cooldown_state=ACTIVE
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0476
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:50.956 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0178
+final_penalty=0,0178
+raw_edge=0.0909
+final_edge=0.0893
+cooldown_state=ACTIVE
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0893
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:28:50.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:28:50.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:50.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3477
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:50.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6523
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:50.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0476
+2026-03-27 17:28:50.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=1751a4ce
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:50.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=f7334dd7
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:50.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0893
+2026-03-27 17:28:50.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=be88dd7e
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:50.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=107a2d49
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:50.967 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 908726398549: bid=0.54 ask=0.55
+2026-03-27 17:28:51.011 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 795281923665: bid=0.05 ask=0.06
+2026-03-27 17:28:51.062 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 111039354521: bid=0.006 ask=0.007
+2026-03-27 17:28:51.113 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 268321237417: bid=0 ask=0.001
+2026-03-27 17:28:51.158 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 245975233986: bid=0.996 ask=0.998
+2026-03-27 17:28:51.201 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 136729095247: bid=0.001 ask=0.002
+2026-03-27 17:28:51.249 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 747479161822: bid=0.993 ask=0.994
+2026-03-27 17:28:51.297 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 551394862283: bid=0.999 ask=1
+2026-03-27 17:28:51.344 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 442835777550: bid=0.946 ask=0.948
+2026-03-27 17:28:51.389 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 184249280873: bid=0.006 ask=0.007
+2026-03-27 17:28:51.389 [pool-1-thread-1] INFO  c.a.p.PolymarketMarketDiscoveryService - Fetched order books for 30/30 tokens
+2026-03-27 17:28:52.937 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:53.957 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=1751a4ce
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:53.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=1751a4ce
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:28:53.957 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=f7334dd7
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:53.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=f7334dd7
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:28:53.957 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=be88dd7e
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:53.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=be88dd7e
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:28:53.957 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=107a2d49
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:53.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=107a2d49
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:28:53.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0064
+final_penalty=0,0064
+raw_edge=0.0476
+final_edge=0.0473
+cooldown_state=ACTIVE
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0473
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:53.958 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0197
+final_penalty=0,0197
+raw_edge=0.0909
+final_edge=0.0891
+cooldown_state=ACTIVE
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0891
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:28:53.959 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:53.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:53.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:28:53.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:28:53.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:53.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3468
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:53.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6532
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:53.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0473
+2026-03-27 17:28:53.961 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=7674c850
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:53.961 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=fa4a9ebb
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:53.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0891
+2026-03-27 17:28:53.961 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=1af72618
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:53.961 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=6281ced2
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:54.948 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:56.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=7674c850
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:56.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=7674c850
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:28:56.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=fa4a9ebb
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:56.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=fa4a9ebb
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:28:56.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=1af72618
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:56.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=1af72618
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:28:56.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=6281ced2
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:56.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=6281ced2
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:28:56.959 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0100
+final_penalty=0,0100
+raw_edge=0.0476
+final_edge=0.0471
+cooldown_state=ACTIVE
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0471
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:56.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0209
+final_penalty=0,0209
+raw_edge=0.0909
+final_edge=0.0890
+cooldown_state=ACTIVE
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0890
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3463
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:56.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6537
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:56.963 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0471
+2026-03-27 17:28:56.963 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=96b144d9
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:56.963 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=75e3c1e2
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:56.963 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0890
+2026-03-27 17:28:56.964 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=2da46fd0
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:56.964 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=ba553eea
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:58.972 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:59.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=96b144d9
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:59.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=96b144d9
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:28:59.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=75e3c1e2
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:59.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=75e3c1e2
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:28:59.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=2da46fd0
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:28:59.959 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=2da46fd0
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:28:59.959 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=ba553eea
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:28:59.960 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=ba553eea
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0126
+final_penalty=0,0126
+raw_edge=0.0476
+final_edge=0.0470
+cooldown_state=ACTIVE
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0470
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:28:59.960 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0218
+final_penalty=0,0218
+raw_edge=0.0909
+final_edge=0.0889
+cooldown_state=ACTIVE
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0889
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:59.961 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3459
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6541
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0470
+2026-03-27 17:28:59.964 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=f77a3bbb
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:59.964 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=baa35c07
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:28:59.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0889
+2026-03-27 17:28:59.965 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=73cd7a2b
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:28:59.965 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=8877428e
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:00.008 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 303577679474: bid=0.993 ask=0.994
+2026-03-27 17:29:00.052 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 585276110734: bid=0.89 ask=0.9
+2026-03-27 17:29:00.098 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 100681609576: bid=0.993 ask=0.995
+2026-03-27 17:29:00.143 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 691731683185: bid=0.94 ask=0.95
+2026-03-27 17:29:00.196 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 454710415690: bid=0.1 ask=0.11
+2026-03-27 17:29:00.244 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 754118738832: bid=0.62 ask=0.64
+2026-03-27 17:29:00.290 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 253643157741: bid=0.005 ask=0.007
+2026-03-27 17:29:00.336 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 840694739351: bid=0.003 ask=0.005
+2026-03-27 17:29:00.395 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 985605659351: bid=0.995 ask=0.997
+2026-03-27 17:29:00.444 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 735334341092: bid=0.002 ask=0.004
+2026-03-27 17:29:00.493 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 112794903050: bid=0.001 ask=0.002
+2026-03-27 17:29:00.540 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 167339636917: bid=0.998 ask=0.999
+2026-03-27 17:29:00.585 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 640139224668: bid=0.36 ask=0.38
+2026-03-27 17:29:00.633 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 230713655300: bid=0.45 ask=0.46
+2026-03-27 17:29:00.682 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 290614988104: bid=0.998 ask=0.999
+2026-03-27 17:29:00.729 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 323907736017: bid=0.998 ask=0.999
+2026-03-27 17:29:00.781 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 959061334717: bid=0.001 ask=0.002
+2026-03-27 17:29:00.831 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 257042768466: bid=0.996 ask=0.997
+2026-03-27 17:29:00.883 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 226739898186: bid=0.003 ask=0.004
+2026-03-27 17:29:00.928 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 494900290224: bid=0.052 ask=0.054
+2026-03-27 17:29:00.974 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 908726398549: bid=0.54 ask=0.55
+2026-03-27 17:29:00.981 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.8061
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:01.022 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 795281923665: bid=0.05 ask=0.06
+2026-03-27 17:29:01.068 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 111039354521: bid=0.006 ask=0.007
+2026-03-27 17:29:01.120 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 268321237417: bid=0 ask=0.001
+2026-03-27 17:29:01.170 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 245975233986: bid=0.996 ask=0.998
+2026-03-27 17:29:01.217 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 136729095247: bid=0.001 ask=0.002
+2026-03-27 17:29:01.263 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 747479161822: bid=0.993 ask=0.994
+2026-03-27 17:29:01.309 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 551394862283: bid=0.999 ask=1
+2026-03-27 17:29:01.354 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 442835777550: bid=0.946 ask=0.948
+2026-03-27 17:29:01.400 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 184249280873: bid=0.006 ask=0.007
+2026-03-27 17:29:01.400 [pool-1-thread-1] INFO  c.a.p.PolymarketMarketDiscoveryService - Fetched order books for 30/30 tokens
+2026-03-27 17:29:02.963 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=f77a3bbb
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:02.963 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=f77a3bbb
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:29:02.963 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=baa35c07
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:02.963 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=baa35c07
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:29:02.963 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=73cd7a2b
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:02.963 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=73cd7a2b
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:29:02.963 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=8877428e
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:02.963 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=8877428e
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:29:02.963 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0144
+final_penalty=0,0144
+raw_edge=0.0476
+final_edge=0.0469
+cooldown_state=ACTIVE
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0469
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:29:02.964 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0224
+final_penalty=0,0224
+raw_edge=0.0909
+final_edge=0.0889
+cooldown_state=ACTIVE
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0889
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:29:02.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:29:02.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:02.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3456
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:02.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6544
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:02.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0469
+2026-03-27 17:29:02.966 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=85ebe2bf
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:02.967 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=dd3a5a63
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:02.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0889
+2026-03-27 17:29:02.967 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=d87a9b30
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:02.967 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=a869a971
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:02.995 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[] active=4
+2026-03-27 17:29:02.995 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:02.995 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.008 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.008 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.010 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: fda1f2c1 SELL Trump wins 2028 election? @ 0.50 x35 (slip: -0.02, fee: 0.0350)
+2026-03-27 17:29:05.965 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=85ebe2bf
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:05.965 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=85ebe2bf
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:29:05.965 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=dd3a5a63
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:05.965 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=dd3a5a63
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:29:05.965 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=d87a9b30
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:05.965 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=d87a9b30
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:29:05.965 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=a869a971
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:05.965 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=a869a971
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:29:05.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:05.965 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0158
+final_penalty=0,0158
+raw_edge=0.0476
+final_edge=0.0469
+cooldown_state=ACTIVE
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0469
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:29:05.966 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0229
+final_penalty=0,0229
+raw_edge=0.0909
+final_edge=0.0888
+cooldown_state=ACTIVE
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0888
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:05.967 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3454
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.968 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6546
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:05.968 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0469
+2026-03-27 17:29:05.968 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=0dea1f62
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:05.968 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=df980bdc
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:05.968 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0888
+2026-03-27 17:29:05.968 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=ead7fa3c
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:05.969 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=79ad7006
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:07.018 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:07.019 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:08.953 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=0dea1f62
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:08.953 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=0dea1f62
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:29:08.953 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=df980bdc
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:08.953 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=df980bdc
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:29:08.953 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=ead7fa3c
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:08.953 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=ead7fa3c
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:29:08.953 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=79ad7006
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:08.953 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=79ad7006
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:29:08.953 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:08.953 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:29:08.953 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0169
+final_penalty=0,0169
+raw_edge=0.0476
+final_edge=0.0468
+cooldown_state=ACTIVE
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0468
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0232
+final_penalty=0,0232
+raw_edge=0.0909
+final_edge=0.0888
+cooldown_state=ACTIVE
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0888
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:29:08.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3452
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:08.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6548
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:08.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0468
+2026-03-27 17:29:08.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=b0332777
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:08.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=ac38e292
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:08.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0888
+2026-03-27 17:29:08.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=6bfc2422
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:08.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=c3dc4112
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:09.032 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:09.032 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:10.007 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 303577679474: bid=0.993 ask=0.994
+2026-03-27 17:29:10.051 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 585276110734: bid=0.89 ask=0.9
+2026-03-27 17:29:10.094 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 100681609576: bid=0.993 ask=0.995
+2026-03-27 17:29:10.143 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 691731683185: bid=0.94 ask=0.95
+2026-03-27 17:29:10.190 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 454710415690: bid=0.1 ask=0.11
+2026-03-27 17:29:10.242 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 754118738832: bid=0.62 ask=0.64
+2026-03-27 17:29:10.289 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 253643157741: bid=0.005 ask=0.007
+2026-03-27 17:29:10.332 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 840694739351: bid=0.003 ask=0.005
+2026-03-27 17:29:10.379 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 985605659351: bid=0.995 ask=0.997
+2026-03-27 17:29:10.424 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 735334341092: bid=0.002 ask=0.004
+2026-03-27 17:29:10.474 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 112794903050: bid=0.001 ask=0.002
+2026-03-27 17:29:10.518 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 167339636917: bid=0.998 ask=0.999
+2026-03-27 17:29:10.564 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 640139224668: bid=0.36 ask=0.38
+2026-03-27 17:29:10.609 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 230713655300: bid=0.45 ask=0.46
+2026-03-27 17:29:10.656 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 290614988104: bid=0.998 ask=0.999
+2026-03-27 17:29:10.699 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 323907736017: bid=0.998 ask=0.999
+2026-03-27 17:29:10.747 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 959061334717: bid=0.001 ask=0.002
+2026-03-27 17:29:10.795 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 257042768466: bid=0.996 ask=0.997
+2026-03-27 17:29:10.840 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 226739898186: bid=0.003 ask=0.004
+2026-03-27 17:29:10.890 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 494900290224: bid=0.052 ask=0.054
+2026-03-27 17:29:10.936 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 908726398549: bid=0.54 ask=0.55
+2026-03-27 17:29:10.980 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 795281923665: bid=0.05 ask=0.06
+2026-03-27 17:29:11.024 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 111039354521: bid=0.006 ask=0.007
+2026-03-27 17:29:11.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:11.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=15
+active_markets=4
+orders_active=4
+fills_total=1
+fills_toxic=0
+pnl_trading=17.4650
+pnl_reward=0.4496
+pnl_total=17.9146
+fees=0.035000
+yes_exposure=0.00
+no_exposure=35.00
+net_exposure=35.00
+volatile_active_count=0
+crisis_active_count=0
+cooled_down=0
+cap_violation_count=0
+max_cap_seen=0.2500
+markets_over_cap=[]
+blocked_by_regime=[]
+blocked_by_cooldown=[]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=4.5864 cap=25.0% regime=NORMAL fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=4.4073 cap=25.0% regime=NORMAL fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=3.6746 cap=0.0% regime=CALM fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=2.9583 cap=0.0% regime=VOLATILE fills=0 ppf=0.00 [AGI achieved before 2030?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.4979 cap=5.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=0.4298 cap=4.3% regime=CALM fills=1 ppf=0.66 [Trump wins 2028 election?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.2113 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.1564 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=-0.4476 cap=0.0% regime=CRISIS fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 17:29:11.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=-1.7361 cap=0.0% regime=CRISIS fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 17:29:11.067 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 268321237417: bid=0 ask=0.001
+2026-03-27 17:29:11.114 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 245975233986: bid=0.996 ask=0.998
+2026-03-27 17:29:11.160 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 136729095247: bid=0.001 ask=0.002
+2026-03-27 17:29:11.207 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 747479161822: bid=0.993 ask=0.994
+2026-03-27 17:29:11.253 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 551394862283: bid=0.999 ask=1
+2026-03-27 17:29:11.301 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 442835777550: bid=0.946 ask=0.948
+2026-03-27 17:29:11.345 [pool-1-thread-1] DEBUG c.a.p.PolymarketMarketDiscoveryService - Book for 184249280873: bid=0.006 ask=0.007
+2026-03-27 17:29:11.345 [pool-1-thread-1] INFO  c.a.p.PolymarketMarketDiscoveryService - Fetched order books for 30/30 tokens
+2026-03-27 17:29:11.953 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=b0332777
+market=4547104156900142
+side=BUY
+order_price=0.1000
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:11.953 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=b0332777
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+fee=0.001000
+slippage=-0.005000
+pnl=0.024000
+toxic=false
+2026-03-27 17:29:11.953 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=ac38e292
+market=4547104156900142
+side=SELL
+order_price=0.1100
+best_bid=0.1
+best_ask=0.11
+mid=0.1050
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:11.953 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=ac38e292
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+fee=0.001100
+slippage=-0.005000
+pnl=0.023900
+toxic=false
+2026-03-27 17:29:11.953 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=6bfc2422
+market=7952819236650734
+side=BUY
+order_price=0.0500
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_reached_quote
+2026-03-27 17:29:11.953 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=6bfc2422
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+fee=0.000500
+slippage=-0.005000
+pnl=0.024500
+toxic=false
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL_CHECK]
+order_id=c3dc4112
+market=7952819236650734
+side=SELL
+order_price=0.0600
+best_bid=0.05
+best_ask=0.06
+mid=0.0550
+spread=0.01
+crossed=false
+would_fill=true
+reason=bid_touched_within_tick
+2026-03-27 17:29:11.954 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_FILL]
+order_id=c3dc4112
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+fee=0.000600
+slippage=-0.005000
+pnl=0.024400
+toxic=false
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3035776794748028
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5852761107342028
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0056
+penalized_edge=0.0056
+final_edge=0.0056
+regime=CALM
+spread=0.0100
+mid=0.8950
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1006816095762589
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9940
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6917316831855586
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0053
+penalized_edge=0.0053
+final_edge=0.0053
+regime=CALM
+spread=0.0100
+mid=0.9450
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=4547104156900142
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0178
+final_penalty=0,0178
+raw_edge=0.0476
+final_edge=0.0468
+cooldown_state=ACTIVE
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4547104156900142
+status=ACTIVE
+reason=ok
+raw_edge=0.0476
+penalized_edge=0.0476
+final_edge=0.0468
+regime=CALM
+spread=0.0100
+mid=0.1050
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7541187388329066
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0159
+penalized_edge=0.0159
+final_edge=0.0159
+regime=CALM
+spread=0.0200
+mid=0.6300
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2536431577416104
+status=SKIP
+reason=extreme_price
+raw_edge=0.1667
+penalized_edge=0.1667
+final_edge=0.1667
+regime=CALM
+spread=0.0020
+mid=0.0060
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=8406947393516535
+status=SKIP
+reason=extreme_price
+raw_edge=0.2500
+penalized_edge=0.2500
+final_edge=0.2500
+regime=CALM
+spread=0.0020
+mid=0.0040
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9856056593517274
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9960
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7353343410922814
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0020
+mid=0.0030
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1127949030502987
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1673396369176958
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=6401392246688485
+status=BLOCKED
+reason=market_guard_HARD_COOLDOWN
+raw_edge=0.0270
+penalized_edge=0.0270
+final_edge=0.0270
+regime=CALM
+spread=0.0200
+mid=0.3700
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2307136553000784
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0110
+penalized_edge=0.0110
+final_edge=0.0110
+regime=CALM
+spread=0.0100
+mid=0.4550
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2906149881043172
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:11.954 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=3239077360171980
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9985
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9590613347179419
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2570427684668312
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9965
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2267398981867305
+status=SKIP
+reason=extreme_price
+raw_edge=0.1429
+penalized_edge=0.1429
+final_edge=0.1429
+regime=CALM
+spread=0.0010
+mid=0.0035
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4949002902242971
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0189
+penalized_edge=0.0189
+final_edge=0.0189
+regime=CALM
+spread=0.0020
+mid=0.0530
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=9087263985491499
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0092
+penalized_edge=0.0092
+final_edge=0.0092
+regime=CALM
+spread=0.0100
+mid=0.5450
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowMarketGuardService - [MARKET_GUARD_PENALTY]
+market=7952819236650734
+classification=WINNER
+base_penalty=0,0000
+loss_penalty=0,0000
+toxicity_penalty=0,0000
+churn_penalty=0,0000
+concentration_penalty=0,0235
+final_penalty=0,0235
+raw_edge=0.0909
+final_edge=0.0888
+cooldown_state=ACTIVE
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7952819236650734
+status=ACTIVE
+reason=ok
+raw_edge=0.0909
+penalized_edge=0.0909
+final_edge=0.0888
+regime=CALM
+spread=0.0100
+mid=0.0550
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1110393545217508
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2683212374172664
+status=SKIP
+reason=invalid_bbo
+raw_edge=0.0000
+penalized_edge=0.0000
+final_edge=0.0000
+regime=CALM
+spread=0.0010
+mid=0.0000
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=2459752339868188
+status=SKIP
+reason=extreme_price
+raw_edge=0.0010
+penalized_edge=0.0010
+final_edge=0.0010
+regime=CALM
+spread=0.0020
+mid=0.9970
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1367290952473846
+status=SKIP
+reason=extreme_price
+raw_edge=0.3333
+penalized_edge=0.3333
+final_edge=0.3333
+regime=CALM
+spread=0.0010
+mid=0.0015
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=7474791618225180
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9935
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=5513948622838982
+status=SKIP
+reason=extreme_price
+raw_edge=0.0005
+penalized_edge=0.0005
+final_edge=0.0005
+regime=CALM
+spread=0.0010
+mid=0.9995
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=4428357775501875
+status=SKIP
+reason=edge_below_min
+raw_edge=0.0011
+penalized_edge=0.0011
+final_edge=0.0011
+regime=CALM
+spread=0.0020
+mid=0.9470
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [MARKET_DECISION]
+market=1842492808731868
+status=SKIP
+reason=extreme_price
+raw_edge=0.0769
+penalized_edge=0.0769
+final_edge=0.0769
+regime=CALM
+spread=0.0010
+mid=0.0065
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=4547104156900142
+requested_cap=0.3451
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:11.955 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [CAP_CLAMP]
+market=7952819236650734
+requested_cap=0.6549
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:11.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=4547104156900142
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0468
+2026-03-27 17:29:11.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=43afec3e
+market=4547104156900142
+side=BUY
+price=0.1000
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:11.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=c4a0e244
+market=4547104156900142
+side=SELL
+price=0.1100
+size=5
+bid=0.1
+ask=0.11
+mid=0.1050
+regime=CALM
+2026-03-27 17:29:11.957 [pool-1-thread-2] DEBUG c.a.shadow.ShadowTradingEngine - [SIZE_DECISION]
+market=7952819236650734
+raw_size=46
+final_size=5
+cap_remaining=94
+regime_scale=1.0
+inventory_scale=1,0000
+confidence_scale=0,0888
+2026-03-27 17:29:11.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=42a0c0b5
+market=7952819236650734
+side=BUY
+price=0.0500
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:11.957 [pool-1-thread-2] INFO  com.agentbot.shadow.ShadowFillModel - [SHADOW_ORDER]
+order_id=92ccaa68
+market=7952819236650734
+side=SELL
+price=0.0600
+size=5
+bid=0.05
+ask=0.06
+mid=0.0550
+regime=CALM
+2026-03-27 17:29:13.052 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-gdp-q2
+requested_cap=0.4811
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 17:29:13.053 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-sp500
+requested_cap=0.4153
 applied_cap=0.2500
 max_cap=0.2500
 reason=hard_limit
