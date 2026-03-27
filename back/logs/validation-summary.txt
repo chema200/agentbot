@@ -1,0 +1,65 @@
+=== AGENTBOT VALIDATION SUMMARY ===
+Generated: 2026-03-27
+Run duration: ~4 minutes (both engines)
+
+--- REAL ENGINE ---
+max_cap_observed=0.2500
+cap_violations=0
+crisis_active=0
+volatile_active=0
+cooldowns_triggered=0
+fills_total=3
+fills_toxic=0
+pnl_trading=31.3925
+pnl_reward=5.4783
+pnl_total=36.8708
+fees=0.157500
+yes_exposure=59.00
+no_exposure=75.00
+net_exposure=16.00
+cycles=119
+
+--- SHADOW ENGINE ---
+max_cap_observed=0.2500
+cap_violations=0
+crisis_active=0
+volatile_active=0
+cooldowns_triggered=0
+fills_total=21
+fills_toxic=0
+pnl_trading=-0.2275
+pnl_reward=0.0000
+pnl_total=-0.2275
+fees=0.000000
+max_yes_exposure=0.00
+max_no_exposure=105.00
+max_net_exposure=105.00
+fill_rate=0.9545
+toxic_rate=0.0000
+cycles=78
+
+--- RULES APPLIED ---
+1. Hard cap 25% enforced in BOTH engines
+2. CRISIS regime NEVER active in either engine
+3. VOLATILE blocked when penalized edge < 0.3 (real) or < 0.02 (shadow)
+4. Cooldown on toxic fills: 15 cycles (both engines)
+5. CAP_CLAMP logs generated when requested_cap > 25%
+6. REGIME_BLOCK logs generated for CRISIS and VOLATILE
+7. All logs to file (trading-engine.log, shadow-engine.log, app.log)
+
+--- CONFIRMATIONS ---
+* max cap observed in real: 0.2500 (25%) - NEVER exceeded
+* max cap observed in shadow: 0.2500 (25%) - NEVER exceeded
+* cap violations: 0 (both engines)
+* CRISIS active: 0 (both engines)
+* VOLATILE active: 0 (correctly blocked in both)
+* cooldowns: 0 (no toxic fills occurred during validation)
+* Both engines share same risk rules via TradingConfig/ShadowConfig
+
+--- LOG FILES ---
+* logs/trading-engine.log - real engine logs with [REAL_SNAPSHOT], [CAP_CLAMP_REAL], [REGIME_BLOCK_REAL]
+* logs/shadow-engine.log - shadow engine logs with [CYCLE_SUMMARY], [CAP_CLAMP], [SHADOW_FILL]
+* logs/app.log - all application logs consolidated
+* logs/agentbot-review.log - shadow review log
+
+--- END ---
