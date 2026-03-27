@@ -47,7 +47,9 @@ public class ShadowTradingEngine {
     @Getter private final List<ShadowFill> fills = new CopyOnWriteArrayList<>();
 
     private final Map<String, Long> cooldownUntilCycle = new ConcurrentHashMap<>();
-    private final AtomicInteger capViolationCount = new AtomicInteger(0);
+    @Getter private final AtomicInteger capViolationCount = new AtomicInteger(0);
+    @Getter private final AtomicInteger cooldownsTriggered = new AtomicInteger(0);
+    @Getter private final AtomicInteger orderRejectCount = new AtomicInteger(0);
 
     private PolymarketMarketDataClient wsClient;
     private ScheduledExecutorService scheduler;
@@ -55,6 +57,10 @@ public class ShadowTradingEngine {
     private ScheduledFuture<?> refreshFuture;
 
     private static final BigDecimal BD2 = BigDecimal.valueOf(2);
+    private static final BigDecimal MIN_PRICE = new BigDecimal("0.03");
+    private static final BigDecimal MAX_PRICE = new BigDecimal("0.97");
+    private static final BigDecimal MIN_QUOTABLE_MID = new BigDecimal("0.04");
+    private static final BigDecimal MAX_QUOTABLE_MID = new BigDecimal("0.96");
     private static final DateTimeFormatter TS_FMT = DateTimeFormatter
             .ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
 
@@ -66,6 +72,8 @@ public class ShadowTradingEngine {
         startedAt = Instant.now();
         cycleCount = 0;
         capViolationCount.set(0);
+        cooldownsTriggered.set(0);
+        orderRejectCount.set(0);
         metrics.reset();
         activeOrders.clear();
         orderHistory.clear();
@@ -80,9 +88,9 @@ public class ShadowTradingEngine {
         cycleFuture = scheduler.scheduleAtFixedRate(this::runShadowCycle,
                 2000, cfg.getCycleIntervalMs(), TimeUnit.MILLISECONDS);
         status = "RUNNING";
-        log.info("Shadow engine STARTED budget={} max_cap={} edge_clamp=[{},{}]",
+        log.info("Shadow engine STARTED budget={} max_cap={} edge_clamp=[{},{}] min_price={} max_price={}",
                 getTotalBudget(), cfg.getMaxCapitalSharePerMarket(),
-                cfg.getEdgeClampMin(), cfg.getEdgeClampMax());
+                cfg.getEdgeClampMin(), cfg.getEdgeClampMax(), MIN_PRICE, MAX_PRICE);
     }
 
     public void stop() {
@@ -176,32 +184,25 @@ public class ShadowTradingEngine {
     }
 
     private void evaluateFills() {
-        int evaluated = 0, crossable = 0, filled = 0;
         List<ShadowOrder> toRemove = new ArrayList<>();
         for (ShadowOrder order : activeOrders) {
             LiveMarketState s = liveMarkets.get(order.getTokenId());
             if (s == null) continue;
-            evaluated++;
             Optional<ShadowFill> fill = fillModel.evaluateFill(order, s);
             if (fill.isPresent()) {
                 ShadowFill f = fill.get();
-                fills.add(f); metrics.recordFill(f);
+                fills.add(f);
+                metrics.recordFill(f);
                 order.setStatus("FILLED"); orderHistory.add(order); toRemove.add(order);
-                filled++;
-                if (f.isWouldHaveBeenToxic()) applyCooldown(f.getTokenId(), "toxic_fill");
+                if (f.isWouldHaveBeenToxic()) {
+                    applyCooldown(f.getTokenId(), "toxic_fill");
+                }
             }
         }
         activeOrders.removeAll(toRemove);
-        log.debug("[SHADOW_DIAG]\nopen_orders={}\nevaluated_orders={}\nfilled_orders={}\nreason_no_fills={}",
-                activeOrders.size() + filled, evaluated, filled,
-                filled == 0 ? "no_bbo_cross" : "ok");
     }
 
     // ── Edge Calculation ─────────────────────────────────────────────────
-    // Edge = half-spread as fraction of mid price, clamped to [edgeClampMin, edgeClampMax].
-    // rawEdge = spread / (2 * mid)  — the half-spread yield a market maker captures per fill.
-    // penalizedEdge = rawEdge * regimePenalty
-    // finalEdge = clamp(penalizedEdge, min, max)
 
     private BigDecimal computeRawEdge(LiveMarketState s) {
         BigDecimal spread = s.getSpread();
@@ -217,8 +218,7 @@ public class ShadowTradingEngine {
         if (edge.compareTo(min) < 0 || edge.compareTo(max) > 0) {
             BigDecimal clamped = edge.max(min).min(max);
             log.info("[EDGE_CLAMP]\nmarket={}\nraw_edge={}\nclamped_edge={}\nreason=out_of_range",
-                    shortId(tokenId), rawEdge.setScale(6, RoundingMode.HALF_UP),
-                    clamped.setScale(6, RoundingMode.HALF_UP));
+                    shortId(tokenId), fmt(rawEdge), fmt(clamped));
             return clamped;
         }
         return edge;
@@ -252,8 +252,7 @@ public class ShadowTradingEngine {
         double net = getNetExposure().abs().doubleValue();
         double maxNet = cfg.getMaxNetExposure();
         if (maxNet <= 0) return 1.0;
-        double ratio = net / maxNet;
-        return Math.max(0.0, 1.0 - cfg.getInventoryPenaltyK() * ratio);
+        return Math.max(0.0, 1.0 - cfg.getInventoryPenaltyK() * (net / maxNet));
     }
 
     private boolean isInventoryBlocked(String side) {
@@ -266,19 +265,12 @@ public class ShadowTradingEngine {
         }
     }
 
-    private String getRebalanceBias() {
-        if (!cfg.isRebalanceBiasEnabled()) return "NONE";
-        double net = getNetExposure().doubleValue();
-        if (net > cfg.getMaxNetExposure() * 0.5) return "SELL";
-        if (net < -cfg.getMaxNetExposure() * 0.5) return "BUY";
-        return "NONE";
-    }
-
     // ── Cooldown ─────────────────────────────────────────────────────────
 
     private void applyCooldown(String tokenId, String reason) {
         long until = cycleCount + cfg.getCooldownCycles();
         cooldownUntilCycle.put(tokenId, until);
+        cooldownsTriggered.incrementAndGet();
         log.info("[COOLDOWN_START]\nmarket={}\ncycles={}\nreason={}",
                 shortId(tokenId), cfg.getCooldownCycles(), reason);
     }
@@ -306,7 +298,6 @@ public class ShadowTradingEngine {
         BigDecimal totalBudget = getTotalBudget();
         BigDecimal maxSizePerMarket = totalBudget.multiply(maxCapShare);
         double invPenalty = computeInventoryPenalty();
-        String rebalBias = getRebalanceBias();
 
         Map<String, BigDecimal[]> edgeMap = new LinkedHashMap<>();
         BigDecimal totalEdge = BigDecimal.ZERO;
@@ -327,28 +318,18 @@ public class ShadowTradingEngine {
 
             if (mid.compareTo(BigDecimal.ZERO) <= 0 || spread.compareTo(BigDecimal.ZERO) <= 0) {
                 decisionStatus = "SKIP"; decisionReason = "invalid_bbo";
+            } else if (mid.compareTo(MIN_QUOTABLE_MID) < 0 || mid.compareTo(MAX_QUOTABLE_MID) > 0) {
+                decisionStatus = "SKIP"; decisionReason = "extreme_price";
             } else if (isOnCooldown(tokenId)) {
                 decisionStatus = "BLOCKED"; decisionReason = "cooldown";
-                log.debug("[BLOCKED]\nmarket={}\nreason=cooldown\nremaining_cycles={}",
-                        shortId(tokenId), cooldownRemaining(tokenId));
             } else if (regime == Regime.CRISIS) {
                 decisionStatus = "BLOCKED"; decisionReason = "crisis_regime";
-                log.info("[REGIME_BLOCK]\nmarket={}\nregime=CRISIS\nraw_edge={}\npenalized_edge={}\nthreshold={}\nblocked=true",
-                        shortId(tokenId), fmt(rawEdge), fmt(penalizedEdge), cfg.getMinEdgeAfterPenalty());
+                log.info("[REGIME_BLOCK]\nmarket={}\nregime=CRISIS\nraw_edge={}\npenalized_edge={}\nblocked=true",
+                        shortId(tokenId), fmt(rawEdge), fmt(penalizedEdge));
             } else if (regime == Regime.VOLATILE && cfg.isBlockVolatileMarkets()) {
                 decisionStatus = "BLOCKED"; decisionReason = "volatile_blocked";
-                log.info("[REGIME_BLOCK]\nmarket={}\nregime=VOLATILE\nraw_edge={}\npenalized_edge={}\nthreshold={}\nblocked=true",
-                        shortId(tokenId), fmt(rawEdge), fmt(penalizedEdge), cfg.getMinEdgeAfterPenalty());
-            } else if (regime == Regime.VOLATILE) {
-                if (finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
-                    decisionStatus = "BLOCKED"; decisionReason = "volatile_low_edge";
-                    log.info("[REGIME_BLOCK]\nmarket={}\nregime=VOLATILE\nraw_edge={}\npenalized_edge={}\nthreshold={}\nblocked=true",
-                            shortId(tokenId), fmt(rawEdge), fmt(finalEdge), cfg.getMinEdgeAfterPenalty());
-                } else {
-                    decisionStatus = "ACTIVE"; decisionReason = "volatile_edge_ok";
-                    edgeMap.put(tokenId, new BigDecimal[]{rawEdge, penalizedEdge, finalEdge});
-                    totalEdge = totalEdge.add(finalEdge);
-                }
+            } else if (regime == Regime.VOLATILE && finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
+                decisionStatus = "BLOCKED"; decisionReason = "volatile_low_edge";
             } else if (finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
                 decisionStatus = "SKIP"; decisionReason = "edge_below_min";
             } else {
@@ -357,10 +338,9 @@ public class ShadowTradingEngine {
                 totalEdge = totalEdge.add(finalEdge);
             }
 
-            log.debug("[MARKET_DECISION]\nmarket={}\nstatus={}\nreason={}\nraw_edge={}\npenalized_edge={}\nfinal_edge={}\nregime={}\nspread={}\nmid={}\ncooldown_remaining={}",
+            log.debug("[MARKET_DECISION]\nmarket={}\nstatus={}\nreason={}\nraw_edge={}\npenalized_edge={}\nfinal_edge={}\nregime={}\nspread={}\nmid={}",
                     shortId(tokenId), decisionStatus, decisionReason,
-                    fmt(rawEdge), fmt(penalizedEdge), fmt(finalEdge),
-                    regime, fmt(spread), fmt(mid), cooldownRemaining(tokenId));
+                    fmt(rawEdge), fmt(penalizedEdge), fmt(finalEdge), regime, fmt(spread), fmt(mid));
         }
 
         if (edgeMap.isEmpty()) return;
@@ -414,13 +394,12 @@ public class ShadowTradingEngine {
             BigDecimal quoteOffset = halfSpread.multiply(BigDecimal.ONE.subtract(aggr));
             BigDecimal bidPrice = mid.subtract(quoteOffset).setScale(2, RoundingMode.HALF_UP);
             BigDecimal askPrice = mid.add(quoteOffset).setScale(2, RoundingMode.HALF_UP);
-            BigDecimal minP = new BigDecimal("0.05");
-            BigDecimal maxP = new BigDecimal("0.95");
 
-            if (!hasBuy && bidPrice.compareTo(minP) > 0) {
-                if (isInventoryBlocked("BUY")) {
-                    log.info("[BLOCKED]\nmarket={}\nside=BUY\nreason=inventory_limit\nyes_exposure={}\nno_exposure={}\nnet_exposure={}",
-                            shortId(tokenId), fmt(getYesExposure()), fmt(getNoExposure()), fmt(getNetExposure()));
+            if (!hasBuy) {
+                if (bidPrice.compareTo(MIN_PRICE) <= 0 || bidPrice.compareTo(MAX_PRICE) >= 0) {
+                    logOrderReject(tokenId, "BUY", bidPrice, "price_out_of_range");
+                } else if (isInventoryBlocked("BUY")) {
+                    log.debug("[BLOCKED]\nmarket={}\nside=BUY\nreason=inventory_limit", shortId(tokenId));
                 } else {
                     ShadowOrder buy = fillModel.createHypotheticalOrder(
                             tokenId, s.getQuestion(), s.getOutcome(),
@@ -430,10 +409,11 @@ public class ShadowTradingEngine {
                 }
             }
 
-            if (!hasSell && askPrice.compareTo(maxP) < 0) {
-                if (isInventoryBlocked("SELL")) {
-                    log.info("[BLOCKED]\nmarket={}\nside=SELL\nreason=inventory_limit\nyes_exposure={}\nno_exposure={}\nnet_exposure={}",
-                            shortId(tokenId), fmt(getYesExposure()), fmt(getNoExposure()), fmt(getNetExposure()));
+            if (!hasSell) {
+                if (askPrice.compareTo(MIN_PRICE) <= 0 || askPrice.compareTo(MAX_PRICE) >= 0) {
+                    logOrderReject(tokenId, "SELL", askPrice, "price_out_of_range");
+                } else if (isInventoryBlocked("SELL")) {
+                    log.debug("[BLOCKED]\nmarket={}\nside=SELL\nreason=inventory_limit", shortId(tokenId));
                 } else {
                     ShadowOrder sell = fillModel.createHypotheticalOrder(
                             tokenId, s.getQuestion(), s.getOutcome(),
@@ -443,6 +423,12 @@ public class ShadowTradingEngine {
                 }
             }
         }
+    }
+
+    private void logOrderReject(String tokenId, String side, BigDecimal proposedPrice, String reason) {
+        orderRejectCount.incrementAndGet();
+        log.info("[ORDER_REJECT]\nmarket={}\nside={}\nproposed_price={}\nreason={}",
+                shortId(tokenId), side, proposedPrice.setScale(4, RoundingMode.HALF_UP), reason);
     }
 
     private Map<String, BigDecimal> computeCapitalAllocations(
@@ -473,8 +459,7 @@ public class ShadowTradingEngine {
                 for (var e : allocs.entrySet()) {
                     if (capped.contains(e.getKey())) continue;
                     BigDecimal bonus = excess.multiply(e.getValue().divide(uncSum, 6, RoundingMode.HALF_UP));
-                    BigDecimal newA = e.getValue().add(bonus).min(maxCapShare);
-                    allocs.put(e.getKey(), newA);
+                    allocs.put(e.getKey(), e.getValue().add(bonus).min(maxCapShare));
                 }
             }
         }
@@ -494,25 +479,23 @@ public class ShadowTradingEngine {
         for (var e : sizePerToken.entrySet()) {
             if (e.getValue().compareTo(maxSize) > 0) {
                 capViolationCount.incrementAndGet();
-                log.warn("[CAP_VIOLATION]\nmarket={}\nmarket_size={}\nmax_size={}\nbudget_share={}",
+                log.warn("[CAP_VIOLATION]\nmarket={}\nmarket_size={}\nmax_size={}",
                         shortId(e.getKey()), e.getValue().setScale(0, RoundingMode.HALF_UP),
-                        maxSize.setScale(0, RoundingMode.HALF_UP),
-                        e.getValue().divide(totalBudget, 4, RoundingMode.HALF_UP));
+                        maxSize.setScale(0, RoundingMode.HALF_UP));
             }
         }
     }
 
-    // ── Regime Counters ──────────────────────────────────────────────────
+    // ── Counters ─────────────────────────────────────────────────────────
 
     private int countByRegime(Regime target) {
         return (int) liveMarkets.values().stream().filter(s -> s.getRegime() == target).count();
     }
 
-    private int countActiveByRegime(Regime target) {
-        Set<String> active = new HashSet<>();
-        for (ShadowOrder o : activeOrders) active.add(o.getTokenId());
-        return (int) active.stream().map(liveMarkets::get).filter(Objects::nonNull)
-                .filter(s -> s.getRegime() == target).count();
+    private int countActiveTokens() {
+        Set<String> tokens = new HashSet<>();
+        for (ShadowOrder o : activeOrders) tokens.add(o.getTokenId());
+        return tokens.size();
     }
 
     // ── Structured Logging ───────────────────────────────────────────────
@@ -520,23 +503,45 @@ public class ShadowTradingEngine {
     private void logCycleSummary() {
         long cooled = cooldownUntilCycle.values().stream().filter(v -> v > cycleCount).count();
 
-        log.info("[CYCLE_SUMMARY]\ncycle={}\norders_active={}\nfills_total={}\nfills_toxic={}" +
+        int fillsNow = metrics.getTotalFills();
+        BigDecimal pnlNow = metrics.getTotalPnl();
+        BigDecimal feesNow = metrics.getTotalFees();
+
+        String topMkt = metrics.getTopMarketId();
+        BigDecimal topPnl = metrics.getTopMarketPnl();
+
+        var worstList = metrics.getTopPnlMarkets(100);
+        String worstMkt = "none";
+        BigDecimal worstPnl = BigDecimal.ZERO;
+        if (!worstList.isEmpty()) {
+            var last = worstList.get(worstList.size() - 1);
+            worstMkt = shortId(last.getKey());
+            worstPnl = last.getValue().getPnl();
+        }
+
+        log.info("[CYCLE_SUMMARY]\ncycle={}\nopen_orders={}\nfills_total={}\ntoxic_fills={}" +
                 "\npnl_trading={}\npnl_reward=0.0000\npnl_total={}\nfees={}" +
                 "\nyes_exposure={}\nno_exposure={}\nnet_exposure={}" +
                 "\nmax_yes_exposure={}\nmax_no_exposure={}\nmax_net_exposure={}" +
                 "\nactive_markets={}\ncooldown_markets={}\nvolatile_markets={}\ncrisis_markets={}" +
                 "\ncap_violation_count={}" +
-                "\ninventory_penalty={}\nrebalance_bias={}",
+                "\ntop_market={}\ntop_market_pnl={}" +
+                "\nworst_market={}\nworst_market_pnl={}",
                 cycleCount, activeOrders.size(),
-                metrics.getTotalFills(), metrics.getToxicFills(),
-                fmt(metrics.getTotalPnl()), fmt(metrics.getTotalPnl()),
-                metrics.getTotalFees().setScale(6, RoundingMode.HALF_UP),
+                fillsNow, metrics.getToxicFills(),
+                fmt(pnlNow), fmt(pnlNow),
+                feesNow.setScale(6, RoundingMode.HALF_UP),
                 fmt(getYesExposure()), fmt(getNoExposure()), fmt(getNetExposure()),
                 fmt(metrics.getMaxYes()), fmt(metrics.getMaxNo()), fmt(metrics.getMaxNet()),
-                liveMarkets.size(), cooled,
+                countActiveTokens(), cooled,
                 countByRegime(Regime.VOLATILE), countByRegime(Regime.CRISIS),
                 capViolationCount.get(),
-                String.format("%.4f", computeInventoryPenalty()), getRebalanceBias());
+                shortId(topMkt), fmt(topPnl),
+                worstMkt, fmt(worstPnl));
+
+        if (fillsNow == 0 && fills.size() > 0) {
+            log.warn("[METRICS_INCONSISTENCY] metrics.fills={} but fills.size={}", fillsNow, fills.size());
+        }
     }
 
     private void logRunSummary() {
@@ -565,11 +570,11 @@ public class ShadowTradingEngine {
         sb.append("max_net=").append(fmt(metrics.getMaxNet())).append('\n');
         sb.append("max_drawdown=").append(fmt(metrics.getMaxDrawdown())).append('\n');
         sb.append("cap_violations=").append(capViolationCount.get()).append('\n');
+        sb.append("cooldowns_triggered=").append(cooldownsTriggered.get()).append('\n');
+        sb.append("order_rejects=").append(orderRejectCount.get()).append('\n');
         sb.append("cycles=").append(cycleCount).append('\n');
         sb.append("live_markets=").append(liveMarkets.size()).append('\n');
-        sb.append("ws_connected=").append(wsConnected).append('\n');
-        sb.append("max_cap_share=").append(cfg.getMaxCapitalSharePerMarket()).append('\n');
-        sb.append("total_budget=").append(getTotalBudget()).append('\n');
+        sb.append("active_orders=").append(activeOrders.size()).append('\n');
 
         sb.append('\n');
         sb.append("TOP_PNL_MARKETS:\n");

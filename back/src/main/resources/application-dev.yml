@@ -25,7 +25,7 @@ polymarket:
 
 shadow:
   enabled: true
-  max-markets: 5
+  max-markets: 15
   refresh-interval-ms: 10000
   cycle-interval-ms: 3000
   max-capital-share-per-market: 0.25
@@ -35,7 +35,7 @@ shadow:
   regime-penalty-crisis: 0.0
   block-volatile-markets: false
   cooldown-cycles: 15
-  min-edge-after-penalty: 0.02
+  min-edge-after-penalty: 0.005
   edge-clamp-min: 0.0
   edge-clamp-max: 1.0
   max-yes-exposure: 200.0
