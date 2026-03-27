@@ -39,4 +39,14 @@ public class ShadowConfig {
     private double quoteAggressiveness = 0.5; // 0=wide, 1=tight quotes relative to spread
     private int cycleSummaryInterval = 15;
     private int staleOrderTimeoutSec = 30;
+
+    // Market Guard
+    private double guardPnl5mThreshold = -0.05;
+    private double guardFillsShareThreshold = 0.35;
+    private int guardMaxConsecutiveNegative = 6;
+    private double guardStaleCancelRateThreshold = 0.80;
+    private double guardAvgSlippageThreshold = 0.002;
+    private int guardSoftCooldownCycles = 100;    // ~5min at 3s/cycle
+    private int guardHardCooldownCycles = 200;    // ~10min at 3s/cycle
+    private int guardQualitySnapshotInterval = 15;
 }

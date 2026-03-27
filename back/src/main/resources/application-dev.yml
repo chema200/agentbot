@@ -53,6 +53,15 @@ shadow:
   quote-aggressiveness: 0.5
   cycle-summary-interval: 15
   stale-order-timeout-sec: 30
+  # Market Guard
+  guard-pnl5m-threshold: -0.05
+  guard-fills-share-threshold: 0.35
+  guard-max-consecutive-negative: 6
+  guard-stale-cancel-rate-threshold: 0.80
+  guard-avg-slippage-threshold: 0.002
+  guard-soft-cooldown-cycles: 100
+  guard-hard-cooldown-cycles: 200
+  guard-quality-snapshot-interval: 15
 
 
 trading:

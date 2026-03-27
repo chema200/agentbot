@@ -250,9 +250,11 @@ public class DashboardController {
         sb.append("=== AGENTBOT STRUCTURED LOG EXPORT ===\n");
         sb.append("generated=").append(TS_FMT.format(Instant.now())).append("\n\n");
 
-        String[] tags = {"CYCLE_SUMMARY", "SHADOW_FILL", "CANCEL", "ORDER_REJECT",
-                "CAP_CLAMP", "CAP_VIOLATION", "REGIME_BLOCK", "COOLDOWN_START",
-                "COOLDOWN_END", "EDGE_CLAMP", "REAL_SNAPSHOT", "METRICS_INCONSISTENCY"};
+        String[] tags = {"SHADOW_CYCLE_SUMMARY", "CYCLE_SUMMARY", "SHADOW_FILL", "CANCEL",
+                "ORDER_REJECT", "CAP_CLAMP", "CAP_VIOLATION", "REGIME_BLOCK",
+                "COOLDOWN_START", "COOLDOWN_END", "EDGE_CLAMP", "REAL_SNAPSHOT",
+                "METRICS_INCONSISTENCY", "SIM_CYCLE_SUMMARY",
+                "MARKET_GUARD_STATE", "MARKET_GUARD_PENALTY", "MARKET_QUALITY_SNAPSHOT", "MARKET_DISABLED"};
 
         for (Path logFile : List.of(
                 Path.of("logs/shadow-engine.log"),

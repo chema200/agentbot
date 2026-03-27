@@ -34,6 +34,7 @@ public class ShadowTradingEngine {
     private final ShadowConfig cfg;
     private final ShadowFillModel fillModel;
     private final ShadowComparisonMetrics metrics;
+    private final ShadowMarketGuardService guardService;
     private final ObjectMapper objectMapper;
 
     @Getter private volatile String status = "STOPPED";
@@ -75,6 +76,7 @@ public class ShadowTradingEngine {
         cooldownsTriggered.set(0);
         orderRejectCount.set(0);
         metrics.reset();
+        guardService.reset();
         activeOrders.clear();
         orderHistory.clear();
         fills.clear();
@@ -158,12 +160,15 @@ public class ShadowTradingEngine {
     private void runShadowCycle() {
         if (!"RUNNING".equals(status)) return;
         try {
+            guardService.setCycleCount(cycleCount);
+            guardService.tick(cycleCount);
             cancelStaleOrders();
             evaluateFills();
             placeHypotheticalQuotes();
             auditCapConcentration();
             cycleCount++;
             if (cycleCount % cfg.getCycleSummaryInterval() == 0) logCycleSummary();
+            if (cycleCount % cfg.getGuardQualitySnapshotInterval() == 0) guardService.logQualitySnapshots();
         } catch (Exception e) { log.error("Shadow cycle error: {}", e.getMessage(), e); }
     }
 
@@ -176,6 +181,7 @@ public class ShadowTradingEngine {
             long ageSec = Duration.between(o.getCreatedAt(), Instant.now()).getSeconds();
             o.setStatus("CANCELLED"); o.setCancelledAt(Instant.now());
             orderHistory.add(o); activeOrders.remove(o);
+            guardService.recordCancel(o.getTokenId(), "stale_timeout");
             log.info("[CANCEL]\norder_id={}\nmarket={}\nside={}\nprice={}\nsize={}\nage_sec={}\nreason=stale_timeout",
                     o.getOrderId(), shortId(o.getTokenId()), o.getSide(),
                     o.getPrice().setScale(4, RoundingMode.HALF_UP),
@@ -193,6 +199,7 @@ public class ShadowTradingEngine {
                 ShadowFill f = fill.get();
                 fills.add(f);
                 metrics.recordFill(f);
+                guardService.recordFill(f);
                 order.setStatus("FILLED"); orderHistory.add(order); toRemove.add(order);
                 if (f.isWouldHaveBeenToxic()) {
                     applyCooldown(f.getTokenId(), "toxic_fill");
@@ -313,8 +320,8 @@ public class ShadowTradingEngine {
             BigDecimal penalizedEdge = rawEdge.multiply(BigDecimal.valueOf(getRegimePenalty(regime)));
             BigDecimal finalEdge = clampEdge(penalizedEdge, tokenId, rawEdge);
 
-            String decisionStatus;
-            String decisionReason;
+            String decisionStatus = "ACTIVE";
+            String decisionReason = "ok";
 
             if (mid.compareTo(BigDecimal.ZERO) <= 0 || spread.compareTo(BigDecimal.ZERO) <= 0) {
                 decisionStatus = "SKIP"; decisionReason = "invalid_bbo";
@@ -322,6 +329,8 @@ public class ShadowTradingEngine {
                 decisionStatus = "SKIP"; decisionReason = "extreme_price";
             } else if (isOnCooldown(tokenId)) {
                 decisionStatus = "BLOCKED"; decisionReason = "cooldown";
+            } else if (!guardService.shouldQuote(tokenId)) {
+                decisionStatus = "BLOCKED"; decisionReason = "market_guard_" + guardService.getStatus(tokenId);
             } else if (regime == Regime.CRISIS) {
                 decisionStatus = "BLOCKED"; decisionReason = "crisis_regime";
                 log.info("[REGIME_BLOCK]\nmarket={}\nregime=CRISIS\nraw_edge={}\npenalized_edge={}\nblocked=true",
@@ -333,9 +342,22 @@ public class ShadowTradingEngine {
             } else if (finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
                 decisionStatus = "SKIP"; decisionReason = "edge_below_min";
             } else {
-                decisionStatus = "ACTIVE"; decisionReason = "ok";
-                edgeMap.put(tokenId, new BigDecimal[]{rawEdge, penalizedEdge, finalEdge});
-                totalEdge = totalEdge.add(finalEdge);
+                double gp = guardService.getGuardPenalty(tokenId);
+                if (gp > 0.0) {
+                    BigDecimal guardedEdge = finalEdge.multiply(BigDecimal.valueOf(1.0 - gp));
+                    log.debug("[MARKET_GUARD_PENALTY]\nmarket={}\nraw_edge={}\nguard_penalty={}\nfinal_edge={}\nreason=guard_applied",
+                            shortId(tokenId), fmt(finalEdge), String.format("%.4f", gp), fmt(guardedEdge));
+                    finalEdge = guardedEdge;
+                    if (finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
+                        decisionStatus = "SKIP"; decisionReason = "edge_below_min_after_guard";
+                    }
+                }
+                if (!"SKIP".equals(decisionStatus)) {
+                    decisionStatus = "ACTIVE"; decisionReason = "ok";
+                    guardService.recordQuoteAttempt(tokenId);
+                    edgeMap.put(tokenId, new BigDecimal[]{rawEdge, penalizedEdge, finalEdge});
+                    totalEdge = totalEdge.add(finalEdge);
+                }
             }
 
             log.debug("[MARKET_DECISION]\nmarket={}\nstatus={}\nreason={}\nraw_edge={}\npenalized_edge={}\nfinal_edge={}\nregime={}\nspread={}\nmid={}",
@@ -519,12 +541,20 @@ public class ShadowTradingEngine {
             worstPnl = last.getValue().getPnl();
         }
 
-        log.info("[CYCLE_SUMMARY]\ncycle={}\nopen_orders={}\nfills_total={}\ntoxic_fills={}" +
+        long guardSoft = guardService.getGuardStates().values().stream()
+                .filter(g -> g.getStatus() == ShadowMarketGuardService.GuardStatus.SOFT_COOLDOWN).count();
+        long guardHard = guardService.getGuardStates().values().stream()
+                .filter(g -> g.getStatus() == ShadowMarketGuardService.GuardStatus.HARD_COOLDOWN).count();
+        long guardDisabled = guardService.getGuardStates().values().stream()
+                .filter(g -> g.getStatus() == ShadowMarketGuardService.GuardStatus.DISABLED_SESSION).count();
+
+        log.info("[SHADOW_CYCLE_SUMMARY]\ncycle={}\nopen_orders={}\nfills_total={}\ntoxic_fills={}" +
                 "\npnl_trading={}\npnl_reward=0.0000\npnl_total={}\nfees={}" +
                 "\nyes_exposure={}\nno_exposure={}\nnet_exposure={}" +
                 "\nmax_yes_exposure={}\nmax_no_exposure={}\nmax_net_exposure={}" +
                 "\nactive_markets={}\ncooldown_markets={}\nvolatile_markets={}\ncrisis_markets={}" +
                 "\ncap_violation_count={}" +
+                "\nguard_soft_cooldown={}\nguard_hard_cooldown={}\nguard_disabled={}" +
                 "\ntop_market={}\ntop_market_pnl={}" +
                 "\nworst_market={}\nworst_market_pnl={}",
                 cycleCount, activeOrders.size(),
@@ -536,6 +566,7 @@ public class ShadowTradingEngine {
                 countActiveTokens(), cooled,
                 countByRegime(Regime.VOLATILE), countByRegime(Regime.CRISIS),
                 capViolationCount.get(),
+                guardSoft, guardHard, guardDisabled,
                 shortId(topMkt), fmt(topPnl),
                 worstMkt, fmt(worstPnl));
 
@@ -575,6 +606,20 @@ public class ShadowTradingEngine {
         sb.append("cycles=").append(cycleCount).append('\n');
         sb.append("live_markets=").append(liveMarkets.size()).append('\n');
         sb.append("active_orders=").append(activeOrders.size()).append('\n');
+
+        // Guard summary
+        Map<String, Object> guardSummary = guardService.getGuardSummary();
+        sb.append('\n');
+        sb.append("GUARD:\n");
+        sb.append("markets_tracked=").append(guardSummary.getOrDefault("marketsTracked", 0)).append('\n');
+        sb.append("soft_cooldowns=").append(guardSummary.getOrDefault("softCooldownCount", 0)).append('\n');
+        sb.append("hard_cooldowns=").append(guardSummary.getOrDefault("hardCooldownCount", 0)).append('\n');
+        sb.append("disabled_session=").append(guardSummary.getOrDefault("disabledSessionCount", 0)).append('\n');
+        sb.append("total_transitions=").append(guardSummary.getOrDefault("totalTransitions", 0)).append('\n');
+        sb.append("hhi=").append(guardSummary.getOrDefault("hhi", "N/A")).append('\n');
+        sb.append("top_fills_market=").append(guardSummary.getOrDefault("topFillsMarket", "none")).append('\n');
+        sb.append("top_fills_share=").append(guardSummary.getOrDefault("topFillsShare", "0.0000")).append('\n');
+        sb.append("estimated_pnl_saved=").append(guardSummary.getOrDefault("estimatedPnlSaved", "0.0000")).append('\n');
 
         sb.append('\n');
         sb.append("TOP_PNL_MARKETS:\n");

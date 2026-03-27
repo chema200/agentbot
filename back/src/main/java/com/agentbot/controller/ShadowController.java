@@ -22,6 +22,7 @@ public class ShadowController {
 
     private final ShadowTradingEngine shadowEngine;
     private final ShadowComparisonMetrics metrics;
+    private final ShadowMarketGuardService guardService;
 
     @PostMapping("/start")
     public ResponseEntity<Map<String, String>> start() {
@@ -86,6 +87,16 @@ public class ShadowController {
     @GetMapping("/pnl")
     public Map<String, Object> getPnl() {
         return metrics.getSummary();
+    }
+
+    @GetMapping("/guard/summary")
+    public Map<String, Object> getGuardSummary() {
+        return guardService.getGuardSummary();
+    }
+
+    @GetMapping("/guard/markets")
+    public List<Map<String, Object>> getGuardMarkets() {
+        return guardService.getPerMarketGuardData();
     }
 
     @GetMapping(value = "/debug/export-logs", produces = MediaType.TEXT_PLAIN_VALUE)
