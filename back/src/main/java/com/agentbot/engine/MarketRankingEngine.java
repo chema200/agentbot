@@ -345,4 +345,12 @@ public class MarketRankingEngine {
             if (recentDensity.size() > 10) recentDensity.removeLast();
         }
     }
+
+    public void reset() {
+        edgeHistory.clear();
+        activeMarketIds = ConcurrentHashMap.newKeySet();
+        evalCycle.set(0);
+        lastSelectedResult = List.of();
+        latestFullRanking = List.of();
+    }
 }

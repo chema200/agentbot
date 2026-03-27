@@ -54,4 +54,8 @@ public class InventoryManager {
     public BigDecimal getGlobalNetExposure() {
         return getTotalYesExposure().subtract(getTotalNoExposure()).abs();
     }
+
+    public void reset() {
+        positions.clear();
+    }
 }

@@ -127,4 +127,8 @@ public class PerformanceTracker {
         public BigDecimal totalFees = BigDecimal.ZERO;
         public BigDecimal totalAdverseMove = BigDecimal.ZERO;
     }
+
+    public void reset() {
+        marketPerf.clear();
+    }
 }

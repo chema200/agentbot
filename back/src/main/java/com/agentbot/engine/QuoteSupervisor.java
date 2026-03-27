@@ -234,4 +234,8 @@ public class QuoteSupervisor {
             return order.getPrice().compareTo(market.getCompetitorBestAsk().add(OUTBID_THRESHOLD)) > 0;
         }
     }
+
+    public void reset() {
+        fills.clear();
+    }
 }

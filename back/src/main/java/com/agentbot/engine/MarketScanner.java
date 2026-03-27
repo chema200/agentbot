@@ -56,4 +56,9 @@ public class MarketScanner {
     public SimulatedMarket getMarket(String marketId) {
         return markets.get(marketId);
     }
+
+    public void resetMarkets() {
+        markets.clear();
+        seedMarkets();
+    }
 }

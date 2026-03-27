@@ -5,6 +5,7 @@ import PnlPanel from "@/components/PnlPanel";
 import MarketTable from "@/components/MarketTable";
 import ControlsPanel from "@/components/ControlsPanel";
 import QuickStats from "@/components/QuickStats";
+import BacktestPanel from "@/components/BacktestPanel";
 
 export default function DashboardPage() {
   return (
@@ -37,8 +38,12 @@ export default function DashboardPage() {
           <OrdersTable />
         </div>
 
-        <div className="grid grid-cols-1 gap-5">
+        <div className="grid grid-cols-1 gap-5 mb-5">
           <MarketTable />
+        </div>
+
+        <div className="grid grid-cols-1 gap-5">
+          <BacktestPanel />
         </div>
       </main>
     </div>

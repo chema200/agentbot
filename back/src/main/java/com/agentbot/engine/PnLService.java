@@ -114,4 +114,14 @@ public class PnLService {
     public Map<String, BigDecimal> getAllMarketRewards() {
         return Map.copyOf(rewardByMarket);
     }
+
+    public void reset() {
+        totalRealizedPnl = BigDecimal.ZERO;
+        totalFees = BigDecimal.ZERO;
+        totalRewardPnl = BigDecimal.ZERO;
+        realizedByMarket.clear();
+        rewardByMarket.clear();
+        yesCostBasis.clear();
+        yesQtyBasis.clear();
+    }
 }

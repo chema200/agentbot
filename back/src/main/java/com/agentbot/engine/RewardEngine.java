@@ -278,4 +278,13 @@ public class RewardEngine {
             return (double) eligibleOrders / total;
         }
     }
+
+    public void reset() {
+        totalRewardsPaid = BigDecimal.ZERO;
+        rewardsByMarket.clear();
+        capitalUsedByMarket.clear();
+        metricsByMarket.clear();
+        totalEligibleOrders = 0;
+        totalIneligibleOrders = 0;
+    }
 }

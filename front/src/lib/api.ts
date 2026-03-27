@@ -75,6 +75,50 @@ async function postApi<T>(endpoint: string): Promise<T> {
   return res.json();
 }
 
+export interface BacktestResult {
+  runId: string;
+  seed: number;
+  stressProfile: string;
+  cycles: number;
+  simulatedDurationSec: number;
+  totalPnl: number;
+  tradingPnl: number;
+  rewardPnl: number;
+  totalFills: number;
+  toxicFills: number;
+  totalFees: number;
+  maxExposure: number;
+  maxDrawdown: number;
+  finalInventoryNet: number;
+  avgProfitPerFill: number;
+  adverseSelectionRate: number;
+  winRate: number;
+  activeMarkets: number;
+  elapsedMs: number;
+  createdAt: string;
+}
+
+export interface MonteCarloResult {
+  mcRunId: string;
+  numSeeds: number;
+  stressProfile: string;
+  cyclesPerRun: number;
+  avgPnl: number;
+  medianPnl: number;
+  stdPnl: number;
+  minPnl: number;
+  maxPnl: number;
+  winRate: number;
+  avgDrawdown: number;
+  maxDrawdown: number;
+  avgFills: number;
+  avgToxicFills: number;
+  sharpeRatio: number;
+  elapsedMs: number;
+  createdAt: string;
+  individualRuns?: BacktestResult[];
+}
+
 export const api = {
   getStatus: () => fetchApi<BotStatus>("/api/status"),
   getOrders: () => fetchApi<Order[]>("/api/orders"),
@@ -85,4 +129,12 @@ export const api = {
   startEngine: () => postApi<{ status: string }>("/api/engine/start"),
   pauseEngine: () => postApi<{ status: string }>("/api/engine/pause"),
   stopEngine: () => postApi<{ status: string }>("/api/engine/stop"),
+  runBacktest: (cycles: number, seed: number, profile: string) =>
+    postApi<BacktestResult>(`/api/backtest/run?cycles=${cycles}&seed=${seed}&profile=${profile}`),
+  runMonteCarlo: (cycles: number, seeds: number, profile: string) =>
+    postApi<MonteCarloResult>(`/api/backtest/monte-carlo?cycles=${cycles}&seeds=${seeds}&profile=${profile}`),
+  getBacktestRuns: () => fetchApi<BacktestResult[]>("/api/backtest/runs"),
+  getMcRuns: () => fetchApi<MonteCarloResult[]>("/api/backtest/monte-carlo/runs"),
+  getProfiles: () => fetchApi<string[]>("/api/backtest/profiles"),
+  getComparison: () => fetchApi<Record<string, any>>("/api/backtest/comparison"),
 };

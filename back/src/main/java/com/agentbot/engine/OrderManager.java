@@ -22,20 +22,23 @@ public class OrderManager {
 
     private static final long MIN_LATENCY_MS = 50;
     private static final long MAX_LATENCY_MS = 300;
-    private static final long CANCEL_LATENCY_MS = 80;
 
     private final Map<String, EngineOrder> orders = new ConcurrentHashMap<>();
 
     @Getter
     private final List<EngineOrder> orderHistory = new ArrayList<>();
 
+    @Getter
+    @lombok.Setter
+    private boolean backtestMode = false;
+
     public EngineOrder createOrder(String marketId, String marketName,
                                     EngineOrder.Side side, BigDecimal price, BigDecimal size) {
         ThreadLocalRandom rng = ThreadLocalRandom.current();
-        long latency = rng.nextLong(MIN_LATENCY_MS, MAX_LATENCY_MS);
-
-        BigDecimal queueAhead = size.multiply(BigDecimal.valueOf(rng.nextDouble(0.5, 3.0)))
-                .setScale(0, RoundingMode.HALF_UP);
+        long latency = backtestMode ? 0L : rng.nextLong(MIN_LATENCY_MS, MAX_LATENCY_MS);
+        BigDecimal queueAhead = backtestMode ? BigDecimal.ZERO
+                : size.multiply(BigDecimal.valueOf(rng.nextDouble(0.5, 3.0)))
+                    .setScale(0, RoundingMode.HALF_UP);
 
         EngineOrder order = EngineOrder.builder()
                 .orderId(UUID.randomUUID().toString().substring(0, 8))
@@ -49,8 +52,8 @@ public class OrderManager {
                 .status(EngineOrder.Status.OPEN)
                 .createdAt(Instant.now())
                 .updatedAt(Instant.now())
-                .visibleAfter(Instant.now().plusMillis(latency))
-                .queuePosition(rng.nextInt(3, 12))
+                .visibleAfter(backtestMode ? Instant.EPOCH : Instant.now().plusMillis(latency))
+                .queuePosition(backtestMode ? 0 : rng.nextInt(3, 12))
                 .queueAhead(queueAhead)
                 .build();
 
@@ -119,5 +122,11 @@ public class OrderManager {
         return (int) orders.values().stream()
                 .filter(o -> o.isActive() && o.getMarketId().equals(marketId))
                 .count();
+    }
+
+    public void reset() {
+        orders.clear();
+        orderHistory.clear();
+        backtestMode = false;
     }
 }
