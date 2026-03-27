@@ -91,7 +91,7 @@ public class ShadowMarketGuardService {
             RollingSnapshot snap = buildRollingSnapshot(g);
             MarketGuardClassification cls = classifyMarket(g, snap);
             PenaltyBreakdown pb = computePenaltyBreakdown(g, snap, cls);
-            applyWinnerProtection(pb, snap, cls);
+            applyWinnerProtection(pb, snap, cls, g.tokenId);
 
             g.cachedClassification = cls;
             g.cachedFinalPenalty = pb.finalPenalty;
@@ -344,20 +344,30 @@ public class ShadowMarketGuardService {
         return pb;
     }
 
-    /** Cap penalty for clear winners unless toxicity/churn is extreme. */
-    private void applyWinnerProtection(PenaltyBreakdown pb, RollingSnapshot s, MarketGuardClassification cls) {
-        if (cls != MarketGuardClassification.WINNER) {
+    /**
+     * Cap penalty for clear winners and positive-PnL neutrals, unless toxicity/churn is extreme.
+     * Also logs [MARKET_GUARD_OVERRIDE] when protection activates.
+     */
+    private void applyWinnerProtection(PenaltyBreakdown pb, RollingSnapshot s, MarketGuardClassification cls,
+                                       String tokenId) {
+        boolean eligible = false;
+        double cap;
+        if (cls == MarketGuardClassification.WINNER) {
+            eligible = s.toxicRate5m < 0.001 && s.staleCancelRate5m < cfg.getGuardWinnerChurnOverrideStale();
+            cap = cfg.getGuardMaxPenaltyWinner();
+        } else if (cls == MarketGuardClassification.NEUTRAL && s.pnl5m.doubleValue() > 0 && s.toxicRate5m == 0) {
+            eligible = true;
+            cap = cfg.getGuardMaxPenaltyWinner() * 2.5;
+        } else {
             return;
         }
-        if (s.toxicRate5m > 0.001) {
-            return;
-        }
-        if (s.staleCancelRate5m >= cfg.getGuardWinnerChurnOverrideStale()) {
-            return;
-        }
-        double cap = cfg.getGuardMaxPenaltyWinner();
+        if (!eligible) return;
         if (pb.finalPenalty > cap) {
+            double original = pb.finalPenalty;
             pb.finalPenalty = cap;
+            log.info("[MARKET_GUARD_OVERRIDE]\nmarket={}\nreason=winner_protection\nclassification={}" +
+                            "\noriginal_penalty={}\nfinal_penalty={}",
+                    shortId(tokenId), cls, String.format("%.4f", original), String.format("%.4f", cap));
         }
     }
 

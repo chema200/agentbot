@@ -89,6 +89,27 @@ public class ShadowController {
         return metrics.getSummary();
     }
 
+    @GetMapping("/diagnostics")
+    public Map<String, Object> getDiagnostics() {
+        return Map.ofEntries(
+                Map.entry("cycle", shadowEngine.getCycleCount()),
+                Map.entry("eligible_markets", shadowEngine.getDiagEligible()),
+                Map.entry("quoted_markets", shadowEngine.getDiagQuoted()),
+                Map.entry("blocked_by_edge", shadowEngine.getDiagBlockedEdge()),
+                Map.entry("blocked_by_guard", shadowEngine.getDiagBlockedGuard()),
+                Map.entry("blocked_by_invalid_bbo", shadowEngine.getDiagBlockedInvalidBbo()),
+                Map.entry("blocked_by_extreme_price", shadowEngine.getDiagBlockedExtremePrice()),
+                Map.entry("blocked_by_inventory", shadowEngine.getDiagBlockedInventory()),
+                Map.entry("blocked_by_cooldown", shadowEngine.getDiagBlockedCooldown()),
+                Map.entry("blocked_by_regime", shadowEngine.getDiagBlockedRegime()),
+                Map.entry("time_since_last_fill_sec", shadowEngine.getTimeSinceLastFillSec()),
+                Map.entry("recovery_mode", shadowEngine.isRecoveryMode()),
+                Map.entry("active_orders", shadowEngine.getActiveOrders().size()),
+                Map.entry("total_fills", shadowEngine.getFills().size()),
+                Map.entry("live_markets", shadowEngine.getLiveMarkets().size())
+        );
+    }
+
     @GetMapping("/guard/summary")
     public Map<String, Object> getGuardSummary() {
         return guardService.getGuardSummary();

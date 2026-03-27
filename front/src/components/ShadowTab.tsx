@@ -6,7 +6,7 @@ import DataTable from "./DataTable";
 import InfoTooltip from "./InfoTooltip";
 import HelpSection from "./HelpSection";
 
-type SubTab = "overview" | "markets" | "orders" | "fills" | "guard" | "logs";
+type SubTab = "overview" | "markets" | "orders" | "fills" | "guard" | "diagnostics" | "logs";
 
 interface GuardMarketData {
   tokenId: string;
@@ -44,6 +44,24 @@ interface GuardSummary {
   estimatedPnlSaved: number;
 }
 
+interface DiagnosticsData {
+  cycle: number;
+  eligible_markets: number;
+  quoted_markets: number;
+  blocked_by_edge: number;
+  blocked_by_guard: number;
+  blocked_by_invalid_bbo: number;
+  blocked_by_extreme_price: number;
+  blocked_by_inventory: number;
+  blocked_by_cooldown: number;
+  blocked_by_regime: number;
+  time_since_last_fill_sec: number;
+  recovery_mode: boolean;
+  active_orders: number;
+  total_fills: number;
+  live_markets: number;
+}
+
 export default function ShadowTab() {
   const [status, setStatus] = useState<ShadowStatus | null>(null);
   const [markets, setMarkets] = useState<ShadowMarket[]>([]);
@@ -51,6 +69,7 @@ export default function ShadowTab() {
   const [fills, setFills] = useState<ShadowFillItem[]>([]);
   const [guardMarkets, setGuardMarkets] = useState<GuardMarketData[]>([]);
   const [guardSummary, setGuardSummary] = useState<GuardSummary | null>(null);
+  const [diagnostics, setDiagnostics] = useState<DiagnosticsData | null>(null);
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState<SubTab>("overview");
   const [logText, setLogText] = useState("");
@@ -70,13 +89,15 @@ export default function ShadowTab() {
         setFills(f);
         try {
           const base = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-          const [gm, gs] = await Promise.all([
+          const [gm, gs, diag] = await Promise.all([
             fetch(`${base}/api/shadow/guard/markets`).then(r => r.json()),
             fetch(`${base}/api/shadow/guard/summary`).then(r => r.json()),
+            fetch(`${base}/api/shadow/diagnostics`).then(r => r.json()),
           ]);
           setGuardMarkets(gm);
           setGuardSummary(gs);
-        } catch { /* guard not available */ }
+          setDiagnostics(diag);
+        } catch { /* guard/diag not available */ }
       }
     } catch { /* shadow not available */ }
   }, []);
@@ -176,6 +197,7 @@ export default function ShadowTab() {
           ["orders", "Hyp. Orders"],
           ["fills", "Hyp. Fills"],
           ["guard", "Guard"],
+          ["diagnostics", "Why not trading?"],
           ["logs", "Logs"],
         ] as [SubTab, string][]).map(([id, label]) => (
           <button
@@ -199,10 +221,11 @@ export default function ShadowTab() {
 
       {/* Tab content */}
       {tab === "overview" && <OverviewContent status={status} />}
-      {tab === "markets" && <MarketsContent markets={markets} />}
+      {tab === "markets" && <MarketsContent markets={markets} guardMarkets={guardMarkets} />}
       {tab === "orders" && <OrdersContent orders={orders} />}
       {tab === "fills" && <FillsContent fills={fills} />}
       {tab === "guard" && <GuardContent markets={guardMarkets} summary={guardSummary} />}
+      {tab === "diagnostics" && <DiagnosticsContent data={diagnostics} />}
       {tab === "logs" && <LogsContent text={logText} />}
     </div>
   );
@@ -237,20 +260,29 @@ function OverviewContent({ status }: { status: ShadowStatus | null }) {
   );
 }
 
-function MarketsContent({ markets }: { markets: ShadowMarket[] }) {
+function MarketsContent({ markets, guardMarkets }: { markets: ShadowMarket[]; guardMarkets: GuardMarketData[] }) {
+  const guardMap = new Map(guardMarkets.map(g => [g.tokenId, g]));
+  type MktRow = ShadowMarket & { guardClass?: string; guardStatus?: string; rollingPnl5m?: number; guardPenalty?: number; fillShare?: number };
+  const enriched: MktRow[] = markets.map(m => {
+    const g = guardMap.get(m.tokenId);
+    return { ...m, guardClass: g?.classification, guardStatus: g?.status, rollingPnl5m: g?.rollingPnl5m, guardPenalty: g?.guardPenalty, fillShare: g?.fillsShare };
+  });
   return (
     <DataTable
       columns={[
-        { key: "question", label: "Market", render: (m: ShadowMarket) => <span className="max-w-[260px] truncate block">{m.question}</span>, sortable: true, sortValue: (m) => m.question },
-        { key: "outcome", label: "Out", render: (m: ShadowMarket) => <span className="text-dark-400">{m.outcome}</span> },
-        { key: "bid", label: "Bid", align: "right", render: (m: ShadowMarket) => <span className="font-mono text-accent-green">{m.liveBestBid.toFixed(3)}</span>, sortable: true, sortValue: (m) => m.liveBestBid },
-        { key: "ask", label: "Ask", align: "right", render: (m: ShadowMarket) => <span className="font-mono text-accent-red">{m.liveBestAsk.toFixed(3)}</span>, sortable: true, sortValue: (m) => m.liveBestAsk },
-        { key: "mid", label: "Mid", align: "right", render: (m: ShadowMarket) => <span className="font-mono">{m.liveMid.toFixed(4)}</span>, sortable: true, sortValue: (m) => m.liveMid },
-        { key: "spread", label: "Spread", align: "right", render: (m: ShadowMarket) => <span className="font-mono">{m.liveSpread.toFixed(4)}</span>, sortable: true, sortValue: (m) => m.liveSpread },
-        { key: "trades", label: "Trades", align: "right", render: (m: ShadowMarket) => <span className="font-mono text-dark-400">{m.tradeCount}</span>, sortable: true, sortValue: (m) => m.tradeCount },
-        { key: "regime", label: "Regime", render: (m: ShadowMarket) => <RegimeBadge regime={m.regime} /> },
+        { key: "question", label: "Market", render: (m: MktRow) => <span className="max-w-[220px] truncate block">{m.question}</span>, sortable: true, sortValue: (m) => m.question },
+        { key: "outcome", label: "Out", render: (m: MktRow) => <span className="text-dark-400">{m.outcome}</span> },
+        { key: "bid", label: "Bid", align: "right", render: (m: MktRow) => <span className="font-mono text-accent-green">{m.liveBestBid.toFixed(3)}</span>, sortable: true, sortValue: (m) => m.liveBestBid },
+        { key: "ask", label: "Ask", align: "right", render: (m: MktRow) => <span className="font-mono text-accent-red">{m.liveBestAsk.toFixed(3)}</span>, sortable: true, sortValue: (m) => m.liveBestAsk },
+        { key: "mid", label: "Mid", align: "right", render: (m: MktRow) => <span className="font-mono">{m.liveMid.toFixed(4)}</span>, sortable: true, sortValue: (m) => m.liveMid },
+        { key: "spread", label: "Spread", align: "right", render: (m: MktRow) => <span className="font-mono">{m.liveSpread.toFixed(4)}</span>, sortable: true, sortValue: (m) => m.liveSpread },
+        { key: "regime", label: "Regime", render: (m: MktRow) => <RegimeBadge regime={m.regime} /> },
+        { key: "class", label: "Guard", render: (m: MktRow) => m.guardClass ? <ClassBadge c={m.guardClass} /> : <span className="text-dark-600">-</span> },
+        { key: "gstatus", label: "G.Status", render: (m: MktRow) => m.guardStatus ? <GuardStatusBadge status={m.guardStatus} /> : <span className="text-dark-600">-</span> },
+        { key: "pnl5m", label: "PnL 5m", align: "right", render: (m: MktRow) => m.rollingPnl5m != null ? <span className={`font-mono ${m.rollingPnl5m >= 0 ? "text-accent-green" : "text-accent-red"}`}>{m.rollingPnl5m.toFixed(4)}</span> : <span className="text-dark-600">-</span>, sortable: true, sortValue: (m) => m.rollingPnl5m ?? 0 },
+        { key: "penalty", label: "Penalty", align: "right", render: (m: MktRow) => m.guardPenalty != null ? <span className={`font-mono ${m.guardPenalty > 0 ? "text-accent-red" : "text-dark-500"}`}>{m.guardPenalty.toFixed(2)}</span> : <span className="text-dark-600">-</span>, sortable: true, sortValue: (m) => m.guardPenalty ?? 0 },
       ]}
-      data={markets}
+      data={enriched}
       rowKey={(m) => m.tokenId}
       emptyMessage="No hay mercados descubiertos"
       searchPlaceholder="Buscar mercado..."
@@ -385,6 +417,91 @@ function GuardStatusBadge({ status }: { status: string }) {
     DISABLED_SESSION: "bg-red-900/40 text-red-400",
   };
   return <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${cls[status] ?? "bg-dark-700 text-dark-400"}`}>{status}</span>;
+}
+
+function DiagnosticsContent({ data }: { data: DiagnosticsData | null }) {
+  if (!data) {
+    return (
+      <div className="text-dark-500 text-sm text-center py-10 bg-dark-800/30 rounded-lg border border-dark-800">
+        Esperando datos de diagnostico...
+      </div>
+    );
+  }
+
+  const totalBlocked = data.blocked_by_edge + data.blocked_by_guard + data.blocked_by_invalid_bbo
+    + data.blocked_by_extreme_price + data.blocked_by_inventory + data.blocked_by_cooldown + data.blocked_by_regime;
+
+  const barData = [
+    { label: "Edge insuficiente", value: data.blocked_by_edge, color: "bg-yellow-500" },
+    { label: "Guard (penalizacion)", value: data.blocked_by_guard, color: "bg-orange-500" },
+    { label: "BBO invalido", value: data.blocked_by_invalid_bbo, color: "bg-gray-500" },
+    { label: "Precio extremo", value: data.blocked_by_extreme_price, color: "bg-purple-500" },
+    { label: "Inventario lleno", value: data.blocked_by_inventory, color: "bg-blue-500" },
+    { label: "Cooldown", value: data.blocked_by_cooldown, color: "bg-red-500" },
+    { label: "Regime (volatile/crisis)", value: data.blocked_by_regime, color: "bg-pink-500" },
+  ].filter(b => b.value > 0);
+
+  const idleWarning = data.time_since_last_fill_sec > 60;
+
+  return (
+    <div className="space-y-4">
+      {/* Recovery mode alert */}
+      {data.recovery_mode && (
+        <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-3 text-xs text-yellow-300 flex items-center gap-2">
+          <span className="text-lg">&#9888;</span>
+          <span>Recovery mode activo: el bot esta relajando filtros porque lleva {data.time_since_last_fill_sec}s sin fills.</span>
+        </div>
+      )}
+
+      {/* Top metrics */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+        <MetricCard label="Live Markets" value={String(data.live_markets)} />
+        <MetricCard label="Eligible" value={String(data.eligible_markets)} color={data.eligible_markets === 0 ? "red" : "green"} />
+        <MetricCard label="Quoted" value={String(data.quoted_markets)} color={data.quoted_markets === 0 ? "red" : "green"} />
+        <MetricCard label="Active Orders" value={String(data.active_orders)} color={data.active_orders === 0 ? "red" : undefined} />
+        <MetricCard label="Total Fills" value={String(data.total_fills)} />
+        <MetricCard label="Time Since Fill" value={`${data.time_since_last_fill_sec}s`} color={idleWarning ? "red" : undefined} />
+      </div>
+
+      {/* Blocking breakdown */}
+      <div className="card">
+        <h3 className="text-xs font-medium text-dark-400 uppercase tracking-wider mb-3">
+          Desglose de bloqueos (ultimo ciclo #{data.cycle})
+        </h3>
+        {barData.length === 0 ? (
+          <div className="text-dark-500 text-xs py-3">No hay bloqueos activos: todos los mercados elegibles estan siendo cotizados.</div>
+        ) : (
+          <div className="space-y-2">
+            {barData.map(b => {
+              const pct = totalBlocked > 0 ? (b.value / totalBlocked) * 100 : 0;
+              return (
+                <div key={b.label} className="flex items-center gap-3 text-xs">
+                  <span className="text-dark-400 w-[160px] shrink-0">{b.label}</span>
+                  <div className="flex-1 bg-dark-800 rounded-full h-4 overflow-hidden">
+                    <div className={`${b.color} h-full rounded-full transition-all`} style={{ width: `${Math.max(pct, 2)}%` }} />
+                  </div>
+                  <span className="font-mono text-dark-200 w-8 text-right">{b.value}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Diagnosis */}
+      {data.quoted_markets === 0 && data.live_markets > 0 && (
+        <div className="bg-red-900/20 border border-red-800/50 rounded-lg p-3 text-xs text-red-300 space-y-1">
+          <div className="font-medium">El bot no esta cotizando en ningun mercado:</div>
+          {data.blocked_by_edge > 0 && <div>- {data.blocked_by_edge} mercados bloqueados por edge insuficiente. Considera bajar min-edge-after-penalty.</div>}
+          {data.blocked_by_guard > 0 && <div>- {data.blocked_by_guard} mercados bloqueados por el guard. Revisa penalizaciones en la tab Guard.</div>}
+          {data.blocked_by_extreme_price > 0 && <div>- {data.blocked_by_extreme_price} mercados con precios extremos (fuera de rango quotable).</div>}
+          {data.blocked_by_cooldown > 0 && <div>- {data.blocked_by_cooldown} mercados en cooldown.</div>}
+          {data.blocked_by_regime > 0 && <div>- {data.blocked_by_regime} mercados bloqueados por regime (volatile/crisis).</div>}
+          {data.blocked_by_invalid_bbo > 0 && <div>- {data.blocked_by_invalid_bbo} mercados con BBO invalido (datos faltantes).</div>}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function LogsContent({ text }: { text: string }) {

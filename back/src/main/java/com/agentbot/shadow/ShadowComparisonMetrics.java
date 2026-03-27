@@ -28,8 +28,8 @@ public class ShadowComparisonMetrics {
     private final AtomicReference<BigDecimal> maxNoExposure = new AtomicReference<>(BigDecimal.ZERO);
     private final AtomicReference<BigDecimal> maxNetExposure = new AtomicReference<>(BigDecimal.ZERO);
 
-    @Getter private BigDecimal yesExposureCurrent = BigDecimal.ZERO;
-    @Getter private BigDecimal noExposureCurrent = BigDecimal.ZERO;
+    // Per-token net position: positive = long (bought), negative = short (sold)
+    private final Map<String, BigDecimal> positionByToken = new ConcurrentHashMap<>();
 
     private final Map<String, TokenMetrics> perTokenMetrics = new ConcurrentHashMap<>();
 
@@ -37,6 +37,11 @@ public class ShadowComparisonMetrics {
         totalQuotesCounted.incrementAndGet();
     }
 
+    /**
+     * Track exposure as net position per token. BUY adds to position, SELL subtracts.
+     * YES exposure = sum of all positive positions. NO exposure = sum of abs(negative positions).
+     * This correctly models position netting: a BUY followed by a SELL reduces exposure.
+     */
     public synchronized void recordFill(ShadowFill fill) {
         totalHypotheticalFills.incrementAndGet();
         if (fill.isWouldHaveBeenToxic()) toxicFills.incrementAndGet();
@@ -50,18 +55,44 @@ public class ShadowComparisonMetrics {
         maxDrawdown.updateAndGet(v -> v.max(dd));
 
         BigDecimal qty = fill.getFillSize();
-        if ("BUY".equals(fill.getSide())) {
-            yesExposureCurrent = yesExposureCurrent.add(qty);
-        } else {
-            noExposureCurrent = noExposureCurrent.add(qty);
-        }
-        maxYesExposure.updateAndGet(v -> v.max(yesExposureCurrent));
-        maxNoExposure.updateAndGet(v -> v.max(noExposureCurrent));
-        BigDecimal net = yesExposureCurrent.subtract(noExposureCurrent).abs();
-        maxNetExposure.updateAndGet(v -> v.max(net));
+        BigDecimal delta = "BUY".equals(fill.getSide()) ? qty : qty.negate();
+        positionByToken.merge(fill.getTokenId(), delta, BigDecimal::add);
+
+        recalcExposure();
 
         perTokenMetrics.computeIfAbsent(fill.getTokenId(), k -> new TokenMetrics())
                 .recordFill(fill);
+    }
+
+    private void recalcExposure() {
+        BigDecimal yesSum = BigDecimal.ZERO;
+        BigDecimal noSum = BigDecimal.ZERO;
+        for (BigDecimal pos : positionByToken.values()) {
+            if (pos.signum() > 0) yesSum = yesSum.add(pos);
+            else if (pos.signum() < 0) noSum = noSum.add(pos.abs());
+        }
+        final BigDecimal yf = yesSum;
+        final BigDecimal nf = noSum;
+        maxYesExposure.updateAndGet(v -> v.max(yf));
+        maxNoExposure.updateAndGet(v -> v.max(nf));
+        BigDecimal net = yesSum.subtract(noSum).abs();
+        maxNetExposure.updateAndGet(v -> v.max(net));
+    }
+
+    public BigDecimal getYesExposureCurrent() {
+        BigDecimal yes = BigDecimal.ZERO;
+        for (BigDecimal pos : positionByToken.values()) {
+            if (pos.signum() > 0) yes = yes.add(pos);
+        }
+        return yes;
+    }
+
+    public BigDecimal getNoExposureCurrent() {
+        BigDecimal no = BigDecimal.ZERO;
+        for (BigDecimal pos : positionByToken.values()) {
+            if (pos.signum() < 0) no = no.add(pos.abs());
+        }
+        return no;
     }
 
     public int getTotalFills() { return totalHypotheticalFills.get(); }
@@ -151,8 +182,7 @@ public class ShadowComparisonMetrics {
         maxYesExposure.set(BigDecimal.ZERO);
         maxNoExposure.set(BigDecimal.ZERO);
         maxNetExposure.set(BigDecimal.ZERO);
-        yesExposureCurrent = BigDecimal.ZERO;
-        noExposureCurrent = BigDecimal.ZERO;
+        positionByToken.clear();
         perTokenMetrics.clear();
     }
 

@@ -85,4 +85,10 @@ public class ShadowConfig {
 
     private double guardDisabledSessionPnlThreshold = -0.50;
     private int guardDisabledMinSessionFills = 15;
+
+    // Recovery mode
+    private long recoveryIdleThresholdSec = 120;
+    private double recoveryMinEdge = 0.015;
+    private double recoveryGuardRelaxation = 0.80;
+    private double recoveryAggrBoost = 0.05;
 }

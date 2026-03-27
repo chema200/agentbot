@@ -52,6 +52,20 @@ public class ShadowTradingEngine {
     @Getter private final AtomicInteger cooldownsTriggered = new AtomicInteger(0);
     @Getter private final AtomicInteger orderRejectCount = new AtomicInteger(0);
 
+    // Diagnostic counters (per cycle, exposed via API)
+    @Getter private volatile int diagEligible;
+    @Getter private volatile int diagQuoted;
+    @Getter private volatile int diagBlockedEdge;
+    @Getter private volatile int diagBlockedGuard;
+    @Getter private volatile int diagBlockedInvalidBbo;
+    @Getter private volatile int diagBlockedExtremePrice;
+    @Getter private volatile int diagBlockedInventory;
+    @Getter private volatile int diagBlockedCooldown;
+    @Getter private volatile int diagBlockedRegime;
+    @Getter private volatile long timeSinceLastFillSec;
+    @Getter private volatile boolean recoveryMode;
+    private volatile Instant lastFillInstant;
+
     private PolymarketMarketDataClient wsClient;
     private ScheduledExecutorService scheduler;
     private ScheduledFuture<?> cycleFuture;
@@ -60,8 +74,8 @@ public class ShadowTradingEngine {
     private static final BigDecimal BD2 = BigDecimal.valueOf(2);
     private static final BigDecimal MIN_PRICE = new BigDecimal("0.03");
     private static final BigDecimal MAX_PRICE = new BigDecimal("0.97");
-    private static final BigDecimal MIN_QUOTABLE_MID = new BigDecimal("0.04");
-    private static final BigDecimal MAX_QUOTABLE_MID = new BigDecimal("0.96");
+    private static final BigDecimal MIN_QUOTABLE_MID = new BigDecimal("0.035");
+    private static final BigDecimal MAX_QUOTABLE_MID = new BigDecimal("0.965");
     private static final DateTimeFormatter TS_FMT = DateTimeFormatter
             .ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
 
@@ -77,6 +91,8 @@ public class ShadowTradingEngine {
         orderRejectCount.set(0);
         metrics.reset();
         guardService.reset();
+        lastFillInstant = Instant.now();
+        recoveryMode = false;
         activeOrders.clear();
         orderHistory.clear();
         fills.clear();
@@ -198,6 +214,7 @@ public class ShadowTradingEngine {
                 fills.add(f);
                 metrics.recordFill(f);
                 guardService.recordFill(f);
+                lastFillInstant = Instant.now();
                 order.setStatus("FILLED"); orderHistory.add(order); toRemove.add(order);
                 if (f.isWouldHaveBeenToxic()) {
                     applyCooldown(f.getTokenId(), "toxic_fill");
@@ -262,30 +279,30 @@ public class ShadowTradingEngine {
     }
 
     /**
-     * Instead of hard blocking, returns a scaling factor [inventoryMinScale..1.0].
-     * At the hard limit (100%), returns inventoryMinScale (e.g. 0.15).
-     * Beyond 120% of limit, returns 0 (true hard block).
-     * This prevents the "everything blocked" pattern while still limiting exposure.
+     * Returns a scaling factor [inventoryMinScale..1.0].
+     * Soft scaling starts at 70% of limit. Hard block at 150%.
+     * Recovery mode raises the hard block threshold to give more room.
      */
     private double computeInventorySideScale(String side) {
         double maxYes = cfg.getMaxYesExposure();
         double maxNo = cfg.getMaxNoExposure();
         double maxNet = cfg.getMaxNetExposure();
         double minScale = cfg.getInventoryMinScale();
+        double hardBlockThreshold = recoveryMode ? 2.0 : 1.5;
 
         if ("BUY".equals(side)) {
             double yesRatio = maxYes > 0 ? getYesExposure().doubleValue() / maxYes : 0;
             double netRatio = maxNet > 0 ? Math.max(0, getNetExposure().doubleValue()) / maxNet : 0;
             double worstRatio = Math.max(yesRatio, netRatio);
-            if (worstRatio >= 1.2) return 0.0;
-            if (worstRatio >= 0.5) return Math.max(minScale, 1.0 - (worstRatio - 0.5) / 0.5 * (1.0 - minScale));
+            if (worstRatio >= hardBlockThreshold) return 0.0;
+            if (worstRatio >= 0.7) return Math.max(minScale, 1.0 - (worstRatio - 0.7) / 0.3 * (1.0 - minScale));
             return 1.0;
         } else {
             double noRatio = maxNo > 0 ? getNoExposure().doubleValue() / maxNo : 0;
             double netRatio = maxNet > 0 ? Math.max(0, getNetExposure().negate().doubleValue()) / maxNet : 0;
             double worstRatio = Math.max(noRatio, netRatio);
-            if (worstRatio >= 1.2) return 0.0;
-            if (worstRatio >= 0.5) return Math.max(minScale, 1.0 - (worstRatio - 0.5) / 0.5 * (1.0 - minScale));
+            if (worstRatio >= hardBlockThreshold) return 0.0;
+            if (worstRatio >= 0.7) return Math.max(minScale, 1.0 - (worstRatio - 0.7) / 0.3 * (1.0 - minScale));
             return 1.0;
         }
     }
@@ -324,6 +341,26 @@ public class ShadowTradingEngine {
     private void placeHypotheticalQuotes() {
         guardService.beforeQuoteCycle(liveMarkets.keySet(), cycleCount);
 
+        // Recovery mode: relax constraints when idle too long
+        long idleSec = lastFillInstant != null ? Duration.between(lastFillInstant, Instant.now()).getSeconds() : 0;
+        timeSinceLastFillSec = idleSec;
+        boolean wasRecovery = recoveryMode;
+        recoveryMode = idleSec >= cfg.getRecoveryIdleThresholdSec() && fills.size() > 0;
+        double effectiveMinEdge = cfg.getMinEdgeAfterPenalty();
+        double guardRelaxation = 1.0;
+        double aggrBoost = 0.0;
+        if (recoveryMode) {
+            effectiveMinEdge = cfg.getRecoveryMinEdge();
+            guardRelaxation = cfg.getRecoveryGuardRelaxation();
+            aggrBoost = cfg.getRecoveryAggrBoost();
+            if (!wasRecovery) {
+                log.info("[RECOVERY_MODE]\nactive=true\ntime_since_last_fill={}\nadjusted_min_edge={}\nguard_relaxation={}\naggr_boost={}",
+                        idleSec, String.format("%.4f", effectiveMinEdge), String.format("%.2f", guardRelaxation), String.format("%.2f", aggrBoost));
+            }
+        } else if (wasRecovery) {
+            log.info("[RECOVERY_MODE]\nactive=false\ntime_since_last_fill={}\nreason=fill_received", idleSec);
+        }
+
         BigDecimal maxCapShare = BigDecimal.valueOf(cfg.getMaxCapitalSharePerMarket());
         BigDecimal totalBudget = getTotalBudget();
         BigDecimal maxSizePerMarket = totalBudget.multiply(maxCapShare);
@@ -331,6 +368,10 @@ public class ShadowTradingEngine {
 
         Map<String, BigDecimal[]> edgeMap = new LinkedHashMap<>();
         BigDecimal totalEdge = BigDecimal.ZERO;
+
+        int cntEligible = 0, cntQuoted = 0;
+        int cntBlockEdge = 0, cntBlockGuard = 0, cntBlockBbo = 0, cntBlockExtreme = 0;
+        int cntBlockCooldown = 0, cntBlockRegime = 0;
 
         for (var entry : liveMarkets.entrySet()) {
             String tokenId = entry.getKey();
@@ -347,33 +388,37 @@ public class ShadowTradingEngine {
             String decisionReason = "ok";
 
             if (mid.compareTo(BigDecimal.ZERO) <= 0 || spread.compareTo(BigDecimal.ZERO) <= 0) {
-                decisionStatus = "SKIP"; decisionReason = "invalid_bbo";
+                decisionStatus = "SKIP"; decisionReason = "invalid_bbo"; cntBlockBbo++;
             } else if (mid.compareTo(MIN_QUOTABLE_MID) < 0 || mid.compareTo(MAX_QUOTABLE_MID) > 0) {
-                decisionStatus = "SKIP"; decisionReason = "extreme_price";
+                decisionStatus = "SKIP"; decisionReason = "extreme_price"; cntBlockExtreme++;
             } else if (isOnCooldown(tokenId)) {
-                decisionStatus = "BLOCKED"; decisionReason = "cooldown";
+                decisionStatus = "BLOCKED"; decisionReason = "cooldown"; cntBlockCooldown++;
             } else if (!guardService.shouldQuote(tokenId)) {
-                decisionStatus = "BLOCKED"; decisionReason = "market_guard_" + guardService.getStatus(tokenId);
+                decisionStatus = "BLOCKED"; decisionReason = "market_guard_" + guardService.getStatus(tokenId); cntBlockGuard++;
             } else if (regime == Regime.CRISIS) {
-                decisionStatus = "BLOCKED"; decisionReason = "crisis_regime";
+                decisionStatus = "BLOCKED"; decisionReason = "crisis_regime"; cntBlockRegime++;
                 log.info("[REGIME_BLOCK]\nmarket={}\nregime=CRISIS\nraw_edge={}\npenalized_edge={}\nblocked=true",
                         shortId(tokenId), fmt(rawEdge), fmt(penalizedEdge));
             } else if (regime == Regime.VOLATILE && cfg.isBlockVolatileMarkets()) {
-                decisionStatus = "BLOCKED"; decisionReason = "volatile_blocked";
-            } else if (regime == Regime.VOLATILE && finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
-                decisionStatus = "BLOCKED"; decisionReason = "volatile_low_edge";
-            } else if (finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
-                decisionStatus = "SKIP"; decisionReason = "edge_below_min";
+                decisionStatus = "BLOCKED"; decisionReason = "volatile_blocked"; cntBlockRegime++;
+            } else if (regime == Regime.VOLATILE && finalEdge.doubleValue() < effectiveMinEdge) {
+                decisionStatus = "BLOCKED"; decisionReason = "volatile_low_edge"; cntBlockEdge++;
+            } else if (finalEdge.doubleValue() < effectiveMinEdge) {
+                decisionStatus = "SKIP"; decisionReason = "edge_below_min"; cntBlockEdge++;
             } else {
+                cntEligible++;
                 double gp = guardService.getGuardPenalty(tokenId);
+                if (recoveryMode && gp > 0.0) {
+                    gp = gp * guardRelaxation;
+                }
                 if (gp > 0.0) {
                     BigDecimal edgeBeforeGuard = finalEdge;
                     BigDecimal guardedEdge = finalEdge.multiply(BigDecimal.valueOf(1.0 - gp));
                     finalEdge = guardedEdge;
-                    boolean belowMin = finalEdge.doubleValue() < cfg.getMinEdgeAfterPenalty();
+                    boolean belowMin = finalEdge.doubleValue() < effectiveMinEdge;
                     guardService.logMarketGuardPenaltyWithEdges(tokenId, edgeBeforeGuard, finalEdge, belowMin);
                     if (belowMin) {
-                        decisionStatus = "SKIP"; decisionReason = "edge_below_min_after_guard";
+                        decisionStatus = "SKIP"; decisionReason = "edge_below_min_after_guard"; cntBlockGuard++;
                     }
                 }
                 if (!"SKIP".equals(decisionStatus)) {
@@ -381,6 +426,7 @@ public class ShadowTradingEngine {
                     guardService.recordQuoteAttempt(tokenId);
                     edgeMap.put(tokenId, new BigDecimal[]{rawEdge, penalizedEdge, finalEdge});
                     totalEdge = totalEdge.add(finalEdge);
+                    cntQuoted++;
                 }
             }
 
@@ -389,7 +435,24 @@ public class ShadowTradingEngine {
                     fmt(rawEdge), fmt(penalizedEdge), fmt(finalEdge), regime, fmt(spread), fmt(mid));
         }
 
+        diagEligible = cntEligible; diagQuoted = cntQuoted;
+        diagBlockedEdge = cntBlockEdge; diagBlockedGuard = cntBlockGuard;
+        diagBlockedInvalidBbo = cntBlockBbo; diagBlockedExtremePrice = cntBlockExtreme;
+        diagBlockedCooldown = cntBlockCooldown; diagBlockedRegime = cntBlockRegime;
+        diagBlockedInventory = 0;
+
         lastCycleMarketsPassedEdgeFilter = edgeMap.size();
+
+        if (cycleCount % cfg.getCycleSummaryInterval() == 0 || (cntQuoted == 0 && liveMarkets.size() > 0)) {
+            log.info("[NO_TRADE_REASON_SUMMARY]\ncycle={}\nlive_markets={}\neligible_markets={}\nquoted_markets={}" +
+                            "\nblocked_by_edge={}\nblocked_by_guard={}\nblocked_by_invalid_bbo={}" +
+                            "\nblocked_by_extreme_price={}\nblocked_by_cooldown={}\nblocked_by_regime={}" +
+                            "\ntime_since_last_fill_sec={}\nrecovery_mode={}",
+                    cycleCount, liveMarkets.size(), cntEligible, cntQuoted,
+                    cntBlockEdge, cntBlockGuard, cntBlockBbo,
+                    cntBlockExtreme, cntBlockCooldown, cntBlockRegime,
+                    idleSec, recoveryMode);
+        }
 
         if (edgeMap.isEmpty()) return;
 
@@ -437,7 +500,9 @@ public class ShadowTradingEngine {
                     finalSize, remainingSize.setScale(0, RoundingMode.HALF_UP),
                     regimeScale, String.format("%.4f", invPenalty), String.format("%.4f", confidenceScale));
 
-            BigDecimal aggr = BigDecimal.valueOf(cfg.getQuoteAggressiveness());
+            double aggrVal = cfg.getQuoteAggressiveness() + aggrBoost;
+            if (aggrVal > 0.95) aggrVal = 0.95;
+            BigDecimal aggr = BigDecimal.valueOf(aggrVal);
             BigDecimal halfSpread = spread.divide(BD2, 4, RoundingMode.HALF_UP);
             BigDecimal quoteOffset = halfSpread.multiply(BigDecimal.ONE.subtract(aggr));
             BigDecimal bidPrice = mid.subtract(quoteOffset).setScale(2, RoundingMode.HALF_UP);
@@ -449,6 +514,7 @@ public class ShadowTradingEngine {
                 } else {
                     double buyInvScale = computeInventorySideScale("BUY");
                     if (buyInvScale <= 0.0) {
+                        diagBlockedInventory++;
                         log.debug("[BLOCKED]\nmarket={}\nside=BUY\nreason=inventory_hard_limit", shortId(tokenId));
                     } else {
                         BigDecimal buySize = finalSize.multiply(BigDecimal.valueOf(buyInvScale))
@@ -469,6 +535,7 @@ public class ShadowTradingEngine {
                 } else {
                     double sellInvScale = computeInventorySideScale("SELL");
                     if (sellInvScale <= 0.0) {
+                        diagBlockedInventory++;
                         log.debug("[BLOCKED]\nmarket={}\nside=SELL\nreason=inventory_hard_limit", shortId(tokenId));
                     } else {
                         BigDecimal sellSize = finalSize.multiply(BigDecimal.valueOf(sellInvScale))
@@ -594,7 +661,9 @@ public class ShadowTradingEngine {
                 "\ncap_violation_count={}" +
                 "\nguard_soft_cooldown={}\nguard_hard_cooldown={}\nguard_disabled={}" +
                 "\ntop_market={}\ntop_market_pnl={}" +
-                "\nworst_market={}\nworst_market_pnl={}",
+                "\nworst_market={}\nworst_market_pnl={}" +
+                "\ntime_since_last_fill_sec={}\nrecovery_mode={}" +
+                "\nblocked_edge={}\nblocked_guard={}\nblocked_bbo={}\nblocked_extreme={}\nblocked_cooldown={}\nblocked_regime={}\nblocked_inventory={}",
                 cycleCount, activeOrders.size(),
                 fillsNow, metrics.getToxicFills(),
                 fmt(pnlNow), fmt(pnlNow),
@@ -606,7 +675,10 @@ public class ShadowTradingEngine {
                 capViolationCount.get(),
                 guardSoft, guardHard, guardDisabled,
                 shortId(topMkt), fmt(topPnl),
-                worstMkt, fmt(worstPnl));
+                worstMkt, fmt(worstPnl),
+                timeSinceLastFillSec, recoveryMode,
+                diagBlockedEdge, diagBlockedGuard, diagBlockedInvalidBbo,
+                diagBlockedExtremePrice, diagBlockedCooldown, diagBlockedRegime, diagBlockedInventory);
 
         if (fillsNow == 0 && fills.size() > 0) {
             log.warn("[METRICS_INCONSISTENCY] metrics.fills={} but fills.size={}", fillsNow, fills.size());
