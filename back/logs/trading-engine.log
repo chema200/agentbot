@@ -1,529 +1,477 @@
-2026-03-27 12:38:26.634 [main] INFO  com.agentbot.engine.MarketScanner - MarketScanner initialized with 10 markets
-2026-03-27 12:44:05.127 [http-nio-8080-exec-5] INFO  com.agentbot.engine.TradingEngine - Trading engine STARTED
-2026-03-27 12:44:07.092 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-starship, mkt-usd-eur, mkt-fed-cut, mkt-gdp-q2] exited=[] active=5
-2026-03-27 12:44:07.097 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #0 ===
-2026-03-27 12:44:07.098 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 10 active | Fills: 0 total (0 toxic)
-2026-03-27 12:44:07.100 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=0 NO=0 Net=0
-2026-03-27 12:44:07.101 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=0.00 rewards=0.00 total=0.00 fees=0.0000 | Risk: OK
-2026-03-27 12:44:07.101 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=0 ineligible=0 total_paid=0.0000
-2026-03-27 12:44:07.101 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:44:07.102 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.5476 rwdEff=0.000952 volPen=0.1630 regime=CALM [US GDP growth > 3% in Q2?] cap=21% fills=0 ppf=0,00
-2026-03-27 12:44:07.102 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5106 rwdEff=0.000952 volPen=0.2000 regime=CALM [Ethereum above $5k by EOY?] cap=20% fills=0 ppf=0,00
-2026-03-27 12:44:07.102 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.5106 rwdEff=0.000952 volPen=0.2000 regime=CALM [SpaceX Starship orbital success?] cap=20% fills=0 ppf=0,00
-2026-03-27 12:44:07.103 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.5106 rwdEff=0.000952 volPen=0.2000 regime=CALM [EUR/USD above 1.15 by Q4?] cap=20% fills=0 ppf=0,00
-2026-03-27 12:44:07.103 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.5106 rwdEff=0.000952 volPen=0.2000 regime=CALM [Fed rate cut before July 2026?] cap=20% fills=0 ppf=0,00
-2026-03-27 12:44:07.103 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:max_slots_full mkt-ai-agi edge=0.5106 rwdEff=0.000952 volPen=0.2000 regime=CALM [AGI achieved before 2030?]
-2026-03-27 12:44:07.103 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:max_slots_full mkt-btc100k edge=0.5106 rwdEff=0.000952 volPen=0.2000 regime=CALM [Will Bitcoin hit $100k by Dec 2026?]
-2026-03-27 12:44:07.103 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:max_slots_full mkt-trump28 edge=0.4966 rwdEff=0.000952 volPen=0.2140 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:44:07.103 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:max_slots_full mkt-sp500 edge=0.1901 rwdEff=0.000762 volPen=0.3000 regime=NORMAL [S&P 500 above 6000 by EOY?]
-2026-03-27 12:44:07.104 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:max_slots_full mkt-inflation edge=0.1901 rwdEff=0.000762 volPen=0.3000 regime=NORMAL [US inflation below 2% in 2026?]
-2026-03-27 12:44:11.127 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 1386fd75 BUY Fed rate cut before July 2026? @ 0.69 x83 (slip: -0.02, fee: 0.1145)
-2026-03-27 12:44:17.180 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-ai-agi, mkt-btc100k] exited=[mkt-starship, mkt-gdp-q2] active=5
-2026-03-27 12:44:29.247 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-gdp-q2] exited=[mkt-btc100k] active=5
-2026-03-27 12:44:31.254 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 9c469002 BUY Ethereum above $5k by EOY? @ 0.34 x43 (slip: -0.02, fee: 0.0292)
-2026-03-27 12:44:37.295 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #15 ===
-2026-03-27 12:44:37.295 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 8 active | Fills: 2 total (0 toxic)
-2026-03-27 12:44:37.296 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=126 NO=0 Net=126
-2026-03-27 12:44:37.296 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=-0.14 rewards=1.24 total=1.10 fees=0.1437 | Risk: OK
-2026-03-27 12:44:37.298 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=118 ineligible=0 total_paid=1.2409
-2026-03-27 12:44:37.298 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:44:37.298 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.5476 rwdEff=0.000952 volPen=0.1630 regime=CALM [US GDP growth > 3% in Q2?] cap=24% fills=0 ppf=0,00 rwd=0,1294
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.5150 rwdEff=0.000956 volPen=0.2000 regime=CALM [AGI achieved before 2030?] cap=22% fills=0 ppf=0,00 rwd=0,1880
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.5106 rwdEff=0.000952 volPen=0.2000 regime=CALM [EUR/USD above 1.15 by Q4?] cap=22% fills=0 ppf=0,00 rwd=0,2110
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.5038 rwdEff=0.000934 volPen=0.1830 regime=CALM [Fed rate cut before July 2026?] cap=22% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=0.4706 rwdEff=0.000952 volPen=0.2400 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] rwd=0,0891
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.4339 rwdEff=0.000899 volPen=0.2150 regime=CALM [US inflation below 2% in 2026?]
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.2675 rwdEff=0.000805 volPen=0.2720 regime=NORMAL [S&P 500 above 6000 by EOY?]
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.2151 rwdEff=0.000762 volPen=0.2750 regime=NORMAL [Ethereum above $5k by EOY?] cap=9% fills=1 ppf=0,83 rwd=0,2321
-2026-03-27 12:44:37.299 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=0.1123 rwdEff=0.000727 volPen=0.3340 regime=NORMAL [Trump wins 2028 election?]
-2026-03-27 12:44:37.300 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=0.0764 rwdEff=0.000728 volPen=0.3690 regime=NORMAL [SpaceX Starship orbital success?] rwd=0,0522
-2026-03-27 12:44:41.323 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-inflation] exited=[mkt-eth-merge] active=5
-2026-03-27 12:44:59.408 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: c3f10838 BUY US GDP growth > 3% in Q2? @ 0.43 x103 (slip: -0.02, fee: 0.0886)
-2026-03-27 12:45:05.437 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge] exited=[mkt-gdp-q2] active=5
-2026-03-27 12:45:07.447 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #30 ===
-2026-03-27 12:45:07.448 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 6 active | Fills: 3 total (0 toxic)
-2026-03-27 12:45:07.448 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=0 Net=229
-2026-03-27 12:45:07.448 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=-0.23 rewards=2.10 total=1.86 fees=0.2323 | Risk: OK
-2026-03-27 12:45:07.448 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=219 ineligible=0 total_paid=2.0955
-2026-03-27 12:45:07.448 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:45:07.449 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.6756 rwdEff=0.001103 volPen=0.2000 regime=CALM [EUR/USD above 1.15 by Q4?] cap=27% fills=0 ppf=0,00 rwd=0,4673
-2026-03-27 12:45:07.449 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.6535 rwdEff=0.001067 volPen=0.1830 regime=CALM [Fed rate cut before July 2026?] cap=26% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:45:07.449 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.4996 rwdEff=0.000952 volPen=0.2110 regime=CALM [Ethereum above $5k by EOY?] cap=20% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:45:07.449 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.3898 rwdEff=0.000861 volPen=0.2150 regime=CALM [US inflation below 2% in 2026?] cap=16% fills=0 ppf=0,00 rwd=0,1303
-2026-03-27 12:45:07.449 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.3860 rwdEff=0.000840 volPen=0.1880 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:45:07.449 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.2939 rwdEff=0.000754 volPen=0.2000 regime=CALM [AGI achieved before 2030?] cap=12% fills=0 ppf=0,00 rwd=0,3834
-2026-03-27 12:45:07.450 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.2725 rwdEff=0.000805 volPen=0.2670 regime=NORMAL [S&P 500 above 6000 by EOY?]
-2026-03-27 12:45:07.450 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=0.0768 rwdEff=0.000692 volPen=0.3280 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] rwd=0,0891
-2026-03-27 12:45:07.450 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.0987 rwdEff=0.000544 volPen=0.3440 regime=NORMAL [Trump wins 2028 election?]
-2026-03-27 12:45:07.450 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=-0.3881 rwdEff=0.000280 volPen=0.7190 regime=VOLATILE [SpaceX Starship orbital success?] rwd=0,0522
-2026-03-27 12:45:17.495 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-gdp-q2] exited=[mkt-ai-agi] active=5
-2026-03-27 12:45:29.545 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship] exited=[mkt-eth-merge, mkt-inflation] active=4
-2026-03-27 12:45:37.585 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #45 ===
-2026-03-27 12:45:37.585 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 3 total (0 toxic)
-2026-03-27 12:45:37.585 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=0 Net=229
-2026-03-27 12:45:37.585 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=-0.23 rewards=2.53 total=2.30 fees=0.2323 | Risk: OK
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=267 ineligible=0 total_paid=2.5279
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=4/10 markets
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=4.3820 rwdEff=0.000516 volPen=0.3290 regime=NORMAL [Trump wins 2028 election?]
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=2.8322 rwdEff=0.000796 volPen=0.2970 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] rwd=0,0891
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=1.5637 rwdEff=0.000746 volPen=0.4050 regime=NORMAL [SpaceX Starship orbital success?] cap=48% fills=0 ppf=0,00 rwd=0,0522
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.7390 rwdEff=0.000243 volPen=0.7510 regime=VOLATILE [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.6823 rwdEff=0.001050 volPen=0.1330 regime=CALM [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:45:37.586 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.6148 rwdEff=0.000988 volPen=0.1360 regime=CALM [EUR/USD above 1.15 by Q4?] cap=19% fills=0 ppf=0,00 rwd=0,7909
-2026-03-27 12:45:37.587 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.5813 rwdEff=0.000996 volPen=0.1880 regime=NORMAL [US GDP growth > 3% in Q2?] cap=18% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:45:37.587 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.4902 rwdEff=0.000923 volPen=0.1830 regime=CALM [Fed rate cut before July 2026?] cap=15% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:45:37.587 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.2354 rwdEff=0.000766 volPen=0.2600 regime=NORMAL [S&P 500 above 6000 by EOY?]
-2026-03-27 12:45:37.587 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1867 rwdEff=0.000656 volPen=0.1870 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:45:39.591 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 589d54c2 SELL EUR/USD above 1.15 by Q4? @ 0.32 x97 (slip: -0.02, fee: 0.0621)
-2026-03-27 12:45:41.604 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-trump28, mkt-inflation, mkt-btc100k] exited=[mkt-fed-cut, mkt-gdp-q2] active=5
-2026-03-27 12:46:05.734 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-fed-cut] exited=[mkt-trump28, mkt-inflation] active=5
-2026-03-27 12:46:07.745 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #60 ===
-2026-03-27 12:46:07.745 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 4 total (0 toxic)
-2026-03-27 12:46:07.745 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=97 Net=132
-2026-03-27 12:46:07.746 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=30.75 rewards=2.86 total=33.61 fees=0.2944 | Risk: OK
-2026-03-27 12:46:07.746 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=292 ineligible=0 total_paid=2.8600
-2026-03-27 12:46:07.746 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:46:07.746 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=3.9976 rwdEff=0.000365 volPen=0.7340 regime=VOLATILE [Will Bitcoin hit $100k by Dec 2026?] cap=61% fills=0 ppf=0,00 rwd=0,0891
-2026-03-27 12:46:07.746 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=3.7989 rwdEff=0.000252 volPen=0.8010 regime=VOLATILE [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:46:07.746 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=2.2202 rwdEff=0.000061 volPen=2.1600 regime=CRISIS [S&P 500 above 6000 by EOY?]
-2026-03-27 12:46:07.747 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.8043 rwdEff=0.001135 volPen=0.3160 regime=CALM [SpaceX Starship orbital success?] cap=12% fills=0 ppf=0,00 rwd=0,0522
-2026-03-27 12:46:07.747 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.6918 rwdEff=0.001089 volPen=0.1670 regime=CALM [EUR/USD above 1.15 by Q4?] cap=11% fills=1 ppf=1,88 rwd=1,1230
-2026-03-27 12:46:07.747 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5996 rwdEff=0.000952 volPen=0.1110 regime=CALM [Ethereum above $5k by EOY?] cap=9% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:46:07.747 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.4976 rwdEff=0.000914 volPen=0.1650 regime=CALM [Fed rate cut before July 2026?] cap=8% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:46:07.747 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.4969 rwdEff=0.000931 volPen=0.1880 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:46:07.748 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=0.1826 rwdEff=0.000614 volPen=0.2420 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:46:07.748 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=-0.0847 rwdEff=0.000492 volPen=0.2670 regime=NORMAL [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:46:17.795 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500, mkt-inflation] exited=[mkt-eth-merge, mkt-fed-cut] active=5
-2026-03-27 12:46:27.845 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 0656f6d9 SELL EUR/USD above 1.15 by Q4? @ 0.31 x14 (slip: -0.02, fee: 0.0087)
-2026-03-27 12:46:29.860 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-trump28] exited=[mkt-usd-eur, mkt-sp500] active=5
-2026-03-27 12:46:37.890 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #75 ===
-2026-03-27 12:46:37.890 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 5 total (0 toxic)
-2026-03-27 12:46:37.890 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=111 Net=118
-2026-03-27 12:46:37.890 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=35.08 rewards=2.96 total=38.03 fees=0.3031 | Risk: OK
-2026-03-27 12:46:37.891 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=322 ineligible=0 total_paid=2.9560
-2026-03-27 12:46:37.891 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:46:37.891 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=4.3192 rwdEff=0.000465 volPen=0.3820 regime=NORMAL [Trump wins 2028 election?] cap=41% fills=0 ppf=0,00
-2026-03-27 12:46:37.891 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=3.8388 rwdEff=0.000923 volPen=0.3340 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=36% fills=0 ppf=0,00 rwd=0,0891
-2026-03-27 12:46:37.891 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=2.1685 rwdEff=0.001222 volPen=0.1660 regime=CALM [S&P 500 above 6000 by EOY?]
-2026-03-27 12:46:37.892 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.9479 rwdEff=0.000830 volPen=0.2200 regime=CALM [US inflation below 2% in 2026?] cap=9% fills=0 ppf=0,00 rwd=0,2064
-2026-03-27 12:46:37.892 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.8198 rwdEff=0.001104 volPen=0.0640 regime=CALM [Ethereum above $5k by EOY?] cap=8% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:46:37.892 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.6083 rwdEff=0.001135 volPen=0.3120 regime=CALM [SpaceX Starship orbital success?] cap=6% fills=0 ppf=0,00 rwd=0,0865
-2026-03-27 12:46:37.892 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.4353 rwdEff=0.000863 volPen=0.1640 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:46:37.892 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.4154 rwdEff=0.000895 volPen=0.2260 regime=CALM [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:46:37.892 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.3418 rwdEff=0.000871 volPen=0.2670 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,1846
-2026-03-27 12:46:37.892 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=-0.0847 rwdEff=0.000492 volPen=0.2670 regime=NORMAL [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:46:41.906 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500, mkt-gdp-q2] exited=[mkt-inflation, mkt-btc100k] active=5
-2026-03-27 12:46:53.959 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur, mkt-btc100k] exited=[mkt-trump28, mkt-gdp-q2] active=5
-2026-03-27 12:47:07.990 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #90 ===
-2026-03-27 12:47:07.991 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 6 active | Fills: 5 total (0 toxic)
-2026-03-27 12:47:07.992 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=111 Net=118
-2026-03-27 12:47:07.992 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=35.08 rewards=3.19 total=38.26 fees=0.3031 | Risk: OK
-2026-03-27 12:47:07.992 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=363 ineligible=0 total_paid=3.1854
-2026-03-27 12:47:07.992 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:47:07.992 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=4.4205 rwdEff=0.000490 volPen=0.2600 regime=NORMAL [Trump wins 2028 election?]
-2026-03-27 12:47:07.992 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=1.3661 rwdEff=0.001592 volPen=0.1580 regime=CALM [S&P 500 above 6000 by EOY?] cap=34% fills=0 ppf=0,00
-2026-03-27 12:47:07.993 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.7905 rwdEff=0.001280 volPen=0.3120 regime=CALM [SpaceX Starship orbital success?] cap=20% fills=0 ppf=0,00 rwd=0,2212
-2026-03-27 12:47:07.993 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.6498 rwdEff=0.001089 volPen=0.2090 regime=CALM [EUR/USD above 1.15 by Q4?] cap=16% fills=2 ppf=1,07 rwd=1,2759
-2026-03-27 12:47:07.993 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=0.6378 rwdEff=0.001154 volPen=0.3010 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=16% fills=0 ppf=0,00 rwd=0,0927
-2026-03-27 12:47:07.993 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5410 rwdEff=0.000898 volPen=0.1020 regime=CALM [Ethereum above $5k by EOY?] cap=14% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:47:07.993 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.4503 rwdEff=0.000881 volPen=0.1700 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:47:07.993 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.3539 rwdEff=0.000842 volPen=0.2260 regime=CALM [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:47:07.994 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.2190 rwdEff=0.000745 volPen=0.2510 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:47:07.994 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=-0.3474 rwdEff=0.000185 volPen=0.7720 regime=VOLATILE [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:47:18.052 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-trump28, mkt-ai-agi] exited=[mkt-starship, mkt-eth-merge] active=5
-2026-03-27 12:47:30.098 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-starship, mkt-gdp-q2] exited=[mkt-usd-eur, mkt-ai-agi, mkt-btc100k] active=5
-2026-03-27 12:47:38.136 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #105 ===
-2026-03-27 12:47:38.136 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 4 active | Fills: 5 total (0 toxic)
-2026-03-27 12:47:38.137 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=111 Net=118
-2026-03-27 12:47:38.137 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=35.08 rewards=4.10 total=39.18 fees=0.3031 | Risk: OK
-2026-03-27 12:47:38.137 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=438 ineligible=0 total_paid=4.1006
-2026-03-27 12:47:38.137 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:47:38.137 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=3.8567 rwdEff=0.000180 volPen=0.6630 regime=VOLATILE [Trump wins 2028 election?] cap=59% fills=0 ppf=0,00
-2026-03-27 12:47:38.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=1.2729 rwdEff=0.001633 volPen=0.1980 regime=CALM [S&P 500 above 6000 by EOY?] cap=19% fills=0 ppf=0,00 rwd=0,5060
-2026-03-27 12:47:38.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=0.6028 rwdEff=0.001154 volPen=0.2860 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] rwd=0,2645
-2026-03-27 12:47:38.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5860 rwdEff=0.000898 volPen=0.0570 regime=CALM [Ethereum above $5k by EOY?] cap=9% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:47:38.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.4371 rwdEff=0.001063 volPen=0.4120 regime=NORMAL [SpaceX Starship orbital success?] cap=7% fills=0 ppf=0,00 rwd=0,3331
-2026-03-27 12:47:38.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.3889 rwdEff=0.000870 volPen=0.2180 regime=NORMAL [US GDP growth > 3% in Q2?] cap=6% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:47:38.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.3309 rwdEff=0.000842 volPen=0.2490 regime=CALM [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:47:38.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.1700 rwdEff=0.000746 volPen=0.2970 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,4013
-2026-03-27 12:47:38.139 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1342 rwdEff=0.000576 volPen=0.2450 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:47:38.139 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.0502 rwdEff=0.000588 volPen=0.2490 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:47:42.157 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-fed-cut] exited=[mkt-trump28] active=5
-2026-03-27 12:47:54.216 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-trump28, mkt-btc100k] exited=[mkt-fed-cut, mkt-gdp-q2] active=5
-2026-03-27 12:48:06.256 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-fed-cut] exited=[mkt-sp500] active=5
-2026-03-27 12:48:08.263 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #120 ===
-2026-03-27 12:48:08.263 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 4 active | Fills: 5 total (0 toxic)
-2026-03-27 12:48:08.264 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=111 Net=118
-2026-03-27 12:48:08.264 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=35.08 rewards=4.92 total=40.00 fees=0.3031 | Risk: OK
-2026-03-27 12:48:08.264 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=504 ineligible=0 total_paid=4.9232
-2026-03-27 12:48:08.264 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:48:08.264 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=4.0591 rwdEff=0.000320 volPen=0.6180 regime=VOLATILE [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:48:08.264 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=2.3977 rwdEff=0.000562 volPen=0.1660 regime=CALM [Trump wins 2028 election?] cap=54% fills=0 ppf=0,00
-2026-03-27 12:48:08.264 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=1.2729 rwdEff=0.001633 volPen=0.1980 regime=CALM [S&P 500 above 6000 by EOY?] rwd=1,0376
-2026-03-27 12:48:08.265 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=0.7113 rwdEff=0.001200 volPen=0.2860 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=16% fills=0 ppf=0,00 rwd=0,4083
-2026-03-27 12:48:08.265 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5560 rwdEff=0.000898 volPen=0.0870 regime=CALM [Ethereum above $5k by EOY?] cap=13% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:48:08.265 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.4051 rwdEff=0.000860 volPen=0.1960 regime=CALM [Fed rate cut before July 2026?] cap=9% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:48:08.265 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.3506 rwdEff=0.001006 volPen=0.4240 regime=NORMAL [SpaceX Starship orbital success?] cap=8% fills=0 ppf=0,00 rwd=0,4803
-2026-03-27 12:48:08.265 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.2253 rwdEff=0.000754 volPen=0.2560 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:48:08.265 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.0778 rwdEff=0.000563 volPen=0.1860 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:48:08.265 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.0571 rwdEff=0.000601 volPen=0.2550 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,4013
-2026-03-27 12:48:18.314 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500, mkt-gdp-q2] exited=[mkt-starship, mkt-btc100k] active=5
-2026-03-27 12:48:30.383 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship] exited=[mkt-trump28] active=5
-2026-03-27 12:48:38.431 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #135 ===
-2026-03-27 12:48:38.431 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 4 active | Fills: 5 total (0 toxic)
-2026-03-27 12:48:38.431 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=111 Net=118
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=35.08 rewards=5.69 total=40.76 fees=0.3031 | Risk: OK
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=540 ineligible=0 total_paid=5.6858
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=1.5917 rwdEff=0.001890 volPen=0.1950 regime=CALM [S&P 500 above 6000 by EOY?] cap=34% fills=0 ppf=0,00 rwd=1,6296
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=1.2728 rwdEff=0.001784 volPen=0.3780 regime=CALM [SpaceX Starship orbital success?] cap=27% fills=0 ppf=0,00 rwd=0,6145
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=1.2551 rwdEff=0.001699 volPen=0.2950 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] rwd=0,4446
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.9076 rwdEff=0.001014 volPen=0.0690 regime=CALM [US GDP growth > 3% in Q2?] cap=19% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:48:38.432 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.4873 rwdEff=0.000880 volPen=0.1350 regime=CALM [Ethereum above $5k by EOY?] cap=10% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:48:38.433 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.4445 rwdEff=0.000751 volPen=0.1430 regime=CALM [EUR/USD above 1.15 by Q4?] rwd=1,4013
-2026-03-27 12:48:38.433 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.4111 rwdEff=0.000860 volPen=0.1900 regime=CALM [Fed rate cut before July 2026?] cap=9% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:48:38.433 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.2330 rwdEff=0.000720 volPen=0.2050 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:48:38.433 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1588 rwdEff=0.000650 volPen=0.2090 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:48:38.433 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.0392 rwdEff=0.000429 volPen=0.1570 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:48:42.456 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur, mkt-btc100k] exited=[mkt-eth-merge, mkt-sp500] active=5
-2026-03-27 12:48:46.468 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 8d0a2e79 SELL EUR/USD above 1.15 by Q4? @ 0.31 x16 (slip: -0.02, fee: 0.0099)
-2026-03-27 12:48:54.494 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[mkt-fed-cut] active=5
-2026-03-27 12:48:56.498 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: e8c5a7b2 SELL EUR/USD above 1.15 by Q4? @ 0.31 x16 (slip: -0.02, fee: 0.0099)
-2026-03-27 12:49:06.549 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-fed-cut] exited=[mkt-starship] active=5
-2026-03-27 12:49:08.563 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #150 ===
-2026-03-27 12:49:08.564 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 5 active | Fills: 7 total (0 toxic)
-2026-03-27 12:49:08.565 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=229 NO=143 Net=86
-2026-03-27 12:49:08.565 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=44.98 rewards=7.02 total=52.00 fees=0.3229 | Risk: OK
-2026-03-27 12:49:08.565 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=622 ineligible=0 total_paid=7.0190
-2026-03-27 12:49:08.566 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:49:08.566 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=2.0630 rwdEff=0.002298 volPen=0.2640 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=46% fills=0 ppf=0,00 rwd=1,0810
-2026-03-27 12:49:08.566 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=1.3153 rwdEff=0.001750 volPen=0.2390 regime=CALM [S&P 500 above 6000 by EOY?] cap=29% fills=0 ppf=0,00 rwd=1,9074
-2026-03-27 12:49:08.566 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.4111 rwdEff=0.000860 volPen=0.1900 regime=CALM [Fed rate cut before July 2026?] cap=9% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:49:08.567 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.3970 rwdEff=0.000815 volPen=0.1500 regime=NORMAL [US GDP growth > 3% in Q2?] cap=9% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:49:08.567 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.3105 rwdEff=0.000751 volPen=0.1770 regime=CALM [EUR/USD above 1.15 by Q4?] cap=7% fills=4 ppf=0,69 rwd=1,4693
-2026-03-27 12:49:08.567 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=0.1478 rwdEff=0.000930 volPen=0.5340 regime=NORMAL [SpaceX Starship orbital success?] rwd=0,9656
-2026-03-27 12:49:08.567 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.1249 rwdEff=0.000663 volPen=0.2470 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:49:08.567 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=0.0925 rwdEff=0.000515 volPen=0.1150 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:49:08.567 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=-0.0144 rwdEff=0.000520 volPen=0.2290 regime=NORMAL [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:49:08.568 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=-0.0447 rwdEff=0.000520 volPen=0.2610 regime=NORMAL [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:49:16.621 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: db5a5743 BUY EUR/USD above 1.15 by Q4? @ 0.27 x31 (slip: -0.02, fee: 0.0167)
-2026-03-27 12:49:18.632 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[] exited=[mkt-btc100k] active=4
-2026-03-27 12:49:30.674 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-btc100k] exited=[] active=5
-2026-03-27 12:49:38.723 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #165 ===
-2026-03-27 12:49:38.723 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 4 active | Fills: 8 total (0 toxic)
-2026-03-27 12:49:38.723 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=260 NO=143 Net=117
-2026-03-27 12:49:38.723 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=44.96 rewards=8.13 total=53.09 fees=0.3396 | Risk: OK
-2026-03-27 12:49:38.723 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=676 ineligible=0 total_paid=8.1313
-2026-03-27 12:49:38.723 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:49:38.724 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=2.1482 rwdEff=0.000131 volPen=2.3280 regime=CRISIS [Will Bitcoin hit $100k by Dec 2026?] cap=51% fills=0 ppf=0,00 rwd=1,4570
-2026-03-27 12:49:38.724 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=1.2248 rwdEff=0.001658 volPen=0.2750 regime=CALM [S&P 500 above 6000 by EOY?] cap=29% fills=0 ppf=0,00 rwd=2,5975
-2026-03-27 12:49:38.724 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.4521 rwdEff=0.000858 volPen=0.1500 regime=NORMAL [US GDP growth > 3% in Q2?] cap=11% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:49:38.724 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.3951 rwdEff=0.000860 volPen=0.2060 regime=CALM [Fed rate cut before July 2026?] cap=9% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:49:38.724 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.2510 rwdEff=0.000817 volPen=0.2470 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:49:38.724 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.2476 rwdEff=0.000650 volPen=0.1180 regime=CALM [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:49:38.724 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.2168 rwdEff=0.000650 volPen=0.1510 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:49:38.725 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=0.2120 rwdEff=0.000935 volPen=0.4760 regime=NORMAL [SpaceX Starship orbital success?] rwd=0,9656
-2026-03-27 12:49:38.725 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=0.1165 rwdEff=0.000515 volPen=0.0910 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:49:38.725 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=-0.0398 rwdEff=0.000528 volPen=0.2630 regime=NORMAL [EUR/USD above 1.15 by Q4?] cap=0% fills=5 ppf=0,67 rwd=1,5155
-2026-03-27 12:49:42.735 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[] exited=[mkt-usd-eur, mkt-btc100k] active=3
-2026-03-27 12:49:54.798 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-btc100k] exited=[] active=4
-2026-03-27 12:50:06.848 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[] exited=[mkt-gdp-q2] active=3
-2026-03-27 12:50:08.897 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #180 ===
-2026-03-27 12:50:08.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 8 total (0 toxic)
-2026-03-27 12:50:08.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=260 NO=143 Net=117
-2026-03-27 12:50:08.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=44.96 rewards=8.56 total=53.52 fees=0.3396 | Risk: OK
-2026-03-27 12:50:08.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=704 ineligible=0 total_paid=8.5595
-2026-03-27 12:50:08.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=3/10 markets
-2026-03-27 12:50:08.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=5.1826 rwdEff=0.002039 volPen=0.4920 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=84% fills=0 ppf=0,00 rwd=1,4570
-2026-03-27 12:50:08.898 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=0.7955 rwdEff=0.001255 volPen=0.2750 regime=CALM [S&P 500 above 6000 by EOY?] cap=13% fills=0 ppf=0,00 rwd=3,0234
-2026-03-27 12:50:08.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.5055 rwdEff=0.000825 volPen=0.1500 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:50:08.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.2926 rwdEff=0.000831 volPen=0.2750 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:50:08.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.2422 rwdEff=0.000620 volPen=0.0900 regime=CALM [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:50:08.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.2358 rwdEff=0.000673 volPen=0.1560 regime=CALM [EUR/USD above 1.15 by Q4?] rwd=1,5178
-2026-03-27 12:50:08.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.1920 rwdEff=0.000675 volPen=0.2060 regime=CALM [Fed rate cut before July 2026?] cap=3% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:50:08.899 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1811 rwdEff=0.000624 volPen=0.1550 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:50:08.900 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=0.0785 rwdEff=0.000871 volPen=0.5360 regime=NORMAL [SpaceX Starship orbital success?] rwd=0,9656
-2026-03-27 12:50:08.900 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=0.0736 rwdEff=0.000479 volPen=0.0940 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:50:31.007 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-gdp-q2] exited=[] active=4
-2026-03-27 12:50:39.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #195 ===
-2026-03-27 12:50:39.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 8 total (0 toxic)
-2026-03-27 12:50:39.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=260 NO=143 Net=117
-2026-03-27 12:50:39.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=44.96 rewards=8.82 total=53.78 fees=0.3396 | Risk: OK
-2026-03-27 12:50:39.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=732 ineligible=0 total_paid=8.8163
-2026-03-27 12:50:39.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=4/10 markets
-2026-03-27 12:50:39.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=5.2290 rwdEff=0.002095 volPen=0.5150 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=76% fills=0 ppf=0,00 rwd=1,4570
-2026-03-27 12:50:39.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=0.7148 rwdEff=0.001190 volPen=0.2760 regime=CALM [S&P 500 above 6000 by EOY?] cap=10% fills=0 ppf=0,00 rwd=3,2803
-2026-03-27 12:50:39.043 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.5224 rwdEff=0.000883 volPen=0.1020 regime=CALM [US GDP growth > 3% in Q2?] cap=8% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:50:39.044 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.3838 rwdEff=0.000858 volPen=0.2120 regime=CALM [Fed rate cut before July 2026?] cap=6% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:50:39.044 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.3377 rwdEff=0.000876 volPen=0.2880 regime=CALM [US inflation below 2% in 2026?] rwd=0,2064
-2026-03-27 12:50:39.044 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.3179 rwdEff=0.000699 volPen=0.1060 regime=CALM [EUR/USD above 1.15 by Q4?] rwd=1,5178
-2026-03-27 12:50:39.044 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=0.0837 rwdEff=0.000488 volPen=0.0940 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:50:39.044 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=0.0785 rwdEff=0.000871 volPen=0.5360 regime=NORMAL [SpaceX Starship orbital success?] rwd=0,9656
-2026-03-27 12:50:39.044 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.0353 rwdEff=0.000447 volPen=0.1020 regime=CALM [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:50:39.044 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.0178 rwdEff=0.000429 volPen=0.1000 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:50:43.056 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur, mkt-inflation] exited=[mkt-btc100k] active=5
-2026-03-27 12:50:45.069 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: d1c37fb7 BUY S&P 500 above 6000 by EOY? @ 0.53 x22 (slip: -0.02, fee: 0.0233)
-2026-03-27 12:50:49.078 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 4ef70cd0 SELL US inflation below 2% in 2026? @ 0.42 x56 (slip: -0.02, fee: 0.0470)
-2026-03-27 12:50:51.087 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 97d0b047 SELL S&P 500 above 6000 by EOY? @ 0.57 x50 (slip: -0.01, fee: 0.0570)
-2026-03-27 12:50:55.110 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-btc100k] exited=[mkt-sp500] active=5
-2026-03-27 12:50:55.110 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 2cc37193 SELL EUR/USD above 1.15 by Q4? @ 0.31 x68 (slip: -0.02, fee: 0.0422)
-2026-03-27 12:50:57.127 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: ab5e60fd BUY EUR/USD above 1.15 by Q4? @ 0.27 x68 (slip: -0.01, fee: 0.0367)
-2026-03-27 12:50:59.139 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: b26e0125 SELL US inflation below 2% in 2026? @ 0.42 x31 (slip: -0.02, fee: 0.0260)
-2026-03-27 12:51:07.176 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[mkt-inflation] active=5
-2026-03-27 12:51:09.182 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #210 ===
-2026-03-27 12:51:09.182 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 14 total (0 toxic)
-2026-03-27 12:51:09.183 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=350 NO=348 Net=2
-2026-03-27 12:51:09.183 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=85.99 rewards=9.12 total=95.10 fees=0.5718 | Risk: OK
-2026-03-27 12:51:09.183 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=771 ineligible=0 total_paid=9.1155
-2026-03-27 12:51:09.183 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:51:09.183 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=2.7116 rwdEff=0.002708 volPen=0.4040 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=68% fills=0 ppf=0,00 rwd=1,4570
-2026-03-27 12:51:09.183 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=1.6576 rwdEff=0.001006 volPen=0.4070 regime=CALM [SpaceX Starship orbital success?] rwd=0,9656
-2026-03-27 12:51:09.183 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.3528 rwdEff=0.000858 volPen=0.2430 regime=CALM [Fed rate cut before July 2026?] cap=9% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:51:09.184 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=0.3371 rwdEff=0.000971 volPen=0.3990 regime=NORMAL [S&P 500 above 6000 by EOY?] cap=8% fills=2 ppf=0,43 rwd=3,3781
-2026-03-27 12:51:09.184 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.3099 rwdEff=0.000650 volPen=0.0580 regime=CALM [US GDP growth > 3% in Q2?] cap=8% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:51:09.184 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.3020 rwdEff=0.000719 volPen=0.1460 regime=CALM [EUR/USD above 1.15 by Q4?] cap=8% fills=7 ppf=0,76 rwd=1,5977
-2026-03-27 12:51:09.184 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.1895 rwdEff=0.000826 volPen=0.3730 regime=CALM [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:51:09.184 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1033 rwdEff=0.000551 volPen=0.1470 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:51:09.184 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.0483 rwdEff=0.000447 volPen=0.0890 regime=CALM [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:51:09.184 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.1052 rwdEff=0.000350 volPen=0.1280 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:51:19.229 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship] exited=[mkt-usd-eur] active=5
-2026-03-27 12:51:31.273 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-usd-eur] exited=[mkt-fed-cut, mkt-sp500] active=5
-2026-03-27 12:51:39.315 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #225 ===
-2026-03-27 12:51:39.315 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 4 active | Fills: 14 total (0 toxic)
-2026-03-27 12:51:39.315 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=350 NO=348 Net=2
-2026-03-27 12:51:39.315 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=85.99 rewards=10.50 total=96.49 fees=0.5718 | Risk: OK
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=812 ineligible=0 total_paid=10.4973
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=3.2109 rwdEff=0.000354 volPen=0.1670 regime=NORMAL [Ethereum above $5k by EOY?] cap=46% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=2.6526 rwdEff=0.002708 volPen=0.3630 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=38% fills=0 ppf=0,00 rwd=2,7524
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.6714 rwdEff=0.001164 volPen=0.2800 regime=CALM [S&P 500 above 6000 by EOY?] rwd=3,4341
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.5954 rwdEff=0.001163 volPen=0.3710 regime=CALM [SpaceX Starship orbital success?] cap=9% fills=0 ppf=0,00 rwd=0,9960
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.3094 rwdEff=0.000782 volPen=0.2180 regime=CALM [EUR/USD above 1.15 by Q4?] cap=4% fills=7 ppf=0,76 rwd=1,5977
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1523 rwdEff=0.000618 volPen=0.1770 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.1474 rwdEff=0.000553 volPen=0.1060 regime=CALM [US GDP growth > 3% in Q2?] cap=2% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.1900 rwdEff=0.000319 volPen=0.1770 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:51:39.316 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=-0.1911 rwdEff=0.000544 volPen=0.4290 regime=NORMAL [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:51:39.317 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=-0.8321 rwdEff=0.000264 volPen=0.7440 regime=VOLATILE [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:51:41.326 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 5aed24b9 BUY SpaceX Starship orbital success? @ 0.79 x30 (slip: -0.02, fee: 0.0474)
-2026-03-27 12:51:43.338 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[mkt-usd-eur] active=5
-2026-03-27 12:51:55.393 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur] exited=[mkt-gdp-q2] active=5
-2026-03-27 12:52:01.421 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 5d2bcea7 BUY Will Bitcoin hit $100k by Dec 2026? @ 0.60 x161 (slip: -0.02, fee: 0.1932) [TOXIC]
-2026-03-27 12:52:05.434 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: a3ef2acb BUY S&P 500 above 6000 by EOY? @ 0.53 x41 (slip: -0.02, fee: 0.0435)
-2026-03-27 12:52:07.440 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-fed-cut] exited=[mkt-sp500] active=5
-2026-03-27 12:52:09.452 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #240 ===
-2026-03-27 12:52:09.452 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 17 total (1 toxic)
-2026-03-27 12:52:09.453 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=348 Net=234
-2026-03-27 12:52:09.453 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=85.70 rewards=12.84 total=98.54 fees=0.8559 | Risk: OK
-2026-03-27 12:52:09.453 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=870 ineligible=0 total_paid=12.8403
-2026-03-27 12:52:09.453 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:52:09.453 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=8.1476 rwdEff=0.003421 volPen=0.4490 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=64% fills=1 ppf=3,03 rwd=4,9024
-2026-03-27 12:52:09.453 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=3.1275 rwdEff=0.000328 volPen=0.1670 regime=NORMAL [Ethereum above $5k by EOY?] cap=25% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:52:09.454 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.5931 rwdEff=0.001154 volPen=0.3620 regime=CALM [SpaceX Starship orbital success?] cap=5% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:52:09.454 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.4834 rwdEff=0.000880 volPen=0.1370 regime=CALM [Fed rate cut before July 2026?] cap=4% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:52:09.454 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.3498 rwdEff=0.000779 volPen=0.1740 regime=CALM [EUR/USD above 1.15 by Q4?] cap=3% fills=7 ppf=0,76 rwd=1,5977
-2026-03-27 12:52:09.454 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.2987 rwdEff=0.000912 volPen=0.3620 regime=NORMAL [S&P 500 above 6000 by EOY?] rwd=3,5459
-2026-03-27 12:52:09.454 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.2653 rwdEff=0.000606 volPen=0.1490 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:52:09.454 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.1459 rwdEff=0.000584 volPen=0.1440 regime=CALM [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:52:09.455 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=-0.2338 rwdEff=0.000517 volPen=0.4400 regime=NORMAL [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:52:09.455 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.7945 rwdEff=0.000117 volPen=0.6410 regime=VOLATILE [Trump wins 2028 election?]
-2026-03-27 12:52:11.482 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 0a96ef6e SELL Will Bitcoin hit $100k by Dec 2026? @ 0.64 x46 (slip: -0.01, fee: 0.0589)
-2026-03-27 12:52:19.569 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[mkt-fed-cut] active=5
-2026-03-27 12:52:31.616 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-fed-cut] exited=[mkt-sp500] active=5
-2026-03-27 12:52:39.672 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #255 ===
-2026-03-27 12:52:39.672 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 1 active | Fills: 18 total (1 toxic)
-2026-03-27 12:52:39.672 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:52:39.673 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.16 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:52:39.673 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=872 ineligible=0 total_paid=13.1621
-2026-03-27 12:52:39.673 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:52:39.674 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=8.1476 rwdEff=0.003421 volPen=0.4490 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=84% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:52:39.674 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=1.3204 rwdEff=0.000116 volPen=0.6240 regime=VOLATILE [Trump wins 2028 election?]
-2026-03-27 12:52:39.674 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.6846 rwdEff=0.001186 volPen=0.2470 regime=CALM [S&P 500 above 6000 by EOY?] rwd=3,5459
-2026-03-27 12:52:39.674 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.6051 rwdEff=0.001154 volPen=0.3500 regime=CALM [SpaceX Starship orbital success?] cap=6% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:52:39.674 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.3965 rwdEff=0.000763 volPen=0.1080 regime=CALM [EUR/USD above 1.15 by Q4?] cap=4% fills=7 ppf=0,76 rwd=1,5977
-2026-03-27 12:52:39.675 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.3192 rwdEff=0.000723 volPen=0.1370 regime=CALM [Fed rate cut before July 2026?] cap=3% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:52:39.675 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.2241 rwdEff=0.000410 volPen=0.0670 regime=CALM [Ethereum above $5k by EOY?] cap=2% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:52:39.675 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.1888 rwdEff=0.000573 volPen=0.0880 regime=CALM [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:52:39.675 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1809 rwdEff=0.000619 volPen=0.1490 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:52:39.675 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.0640 rwdEff=0.000705 volPen=0.3600 regime=CALM [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:52:55.731 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[mkt-starship] active=5
-2026-03-27 12:53:07.772 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-trump28, mkt-gdp-q2] exited=[mkt-eth-merge, mkt-usd-eur] active=5
-2026-03-27 12:53:09.786 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #270 ===
-2026-03-27 12:53:09.787 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 18 total (1 toxic)
-2026-03-27 12:53:09.787 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:53:09.788 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.16 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:53:09.788 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=872 ineligible=0 total_paid=13.1621
-2026-03-27 12:53:09.788 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:53:09.788 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=8.1126 rwdEff=0.003421 volPen=0.4840 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=78% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:53:09.788 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=0.9762 rwdEff=0.000264 volPen=0.1450 regime=CALM [Trump wins 2028 election?] cap=9% fills=0 ppf=0,00
-2026-03-27 12:53:09.788 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=0.7008 rwdEff=0.001149 volPen=0.2400 regime=CALM [S&P 500 above 6000 by EOY?] cap=7% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:53:09.789 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.3021 rwdEff=0.000671 volPen=0.0940 regime=CALM [US GDP growth > 3% in Q2?] cap=3% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:53:09.789 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.2992 rwdEff=0.000723 volPen=0.1570 regime=CALM [Fed rate cut before July 2026?] cap=3% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:53:09.789 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=0.2024 rwdEff=0.000897 volPen=0.4500 regime=NORMAL [SpaceX Starship orbital success?] rwd=1,0772
-2026-03-27 12:53:09.789 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.1991 rwdEff=0.000612 volPen=0.1230 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:53:09.789 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.1664 rwdEff=0.000800 volPen=0.3620 regime=CALM [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:53:09.789 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.0611 rwdEff=0.000591 volPen=0.2400 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:53:09.790 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=-0.0220 rwdEff=0.000407 volPen=0.1100 regime=CALM [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:53:31.897 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship] exited=[mkt-trump28, mkt-sp500] active=4
-2026-03-27 12:53:39.937 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #285 ===
-2026-03-27 12:53:39.937 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 1 active | Fills: 18 total (1 toxic)
-2026-03-27 12:53:39.937 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:53:39.938 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.16 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:53:39.938 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=872 ineligible=0 total_paid=13.1621
-2026-03-27 12:53:39.938 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=4/10 markets
-2026-03-27 12:53:39.938 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=3.9054 rwdEff=0.000306 volPen=0.7560 regime=VOLATILE [S&P 500 above 6000 by EOY?] rwd=3,5459
-2026-03-27 12:53:39.938 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=2.7724 rwdEff=0.002827 volPen=0.4580 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=60% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:53:39.938 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=1.0246 rwdEff=0.001579 volPen=0.3850 regime=CALM [SpaceX Starship orbital success?] cap=22% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:53:39.939 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.5279 rwdEff=0.000937 volPen=0.1650 regime=CALM [Fed rate cut before July 2026?] cap=11% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:53:39.939 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.3075 rwdEff=0.000864 volPen=0.3030 regime=CALM [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:53:39.939 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.2881 rwdEff=0.000671 volPen=0.1080 regime=CALM [US GDP growth > 3% in Q2?] cap=6% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:53:39.939 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.2114 rwdEff=0.000756 volPen=0.2700 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:53:39.939 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.0128 rwdEff=0.000420 volPen=0.0910 regime=CALM [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:53:39.939 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=-0.0772 rwdEff=0.000439 volPen=0.1980 regime=NORMAL [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:53:39.940 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2398 rwdEff=0.000264 volPen=0.1610 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:53:43.970 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[mkt-btc100k] active=4
-2026-03-27 12:53:56.019 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-btc100k] exited=[] active=5
-2026-03-27 12:54:08.077 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-inflation] exited=[mkt-starship] active=5
-2026-03-27 12:54:10.087 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #300 ===
-2026-03-27 12:54:10.087 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 0 active | Fills: 18 total (1 toxic)
-2026-03-27 12:54:10.088 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:54:10.088 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.16 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:54:10.088 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=872 ineligible=0 total_paid=13.1621
-2026-03-27 12:54:10.088 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:54:10.088 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=4.2529 rwdEff=0.000664 volPen=0.3230 regime=NORMAL [US inflation below 2% in 2026?] cap=41% fills=2 ppf=0,83 rwd=0,3278
-2026-03-27 12:54:10.088 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=3.9414 rwdEff=0.000306 volPen=0.7200 regime=VOLATILE [S&P 500 above 6000 by EOY?] cap=38% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:54:10.088 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=1.3380 rwdEff=0.001808 volPen=0.4530 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=13% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:54:10.089 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.5528 rwdEff=0.000860 volPen=0.0500 regime=CALM [US GDP growth > 3% in Q2?] cap=5% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:54:10.089 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.5297 rwdEff=0.000945 volPen=0.1700 regime=CALM [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:54:10.089 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=0.3205 rwdEff=0.000866 volPen=0.2860 regime=NORMAL [Fed rate cut before July 2026?] cap=3% fills=1 ppf=1,55 rwd=0,3391
-2026-03-27 12:54:10.089 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.2154 rwdEff=0.000604 volPen=0.0980 regime=CALM [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:54:10.089 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=-0.1583 rwdEff=0.000336 volPen=0.1630 regime=NORMAL [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:54:10.089 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=-0.2167 rwdEff=0.000474 volPen=0.8670 regime=VOLATILE [SpaceX Starship orbital success?] rwd=1,0772
-2026-03-27 12:54:10.089 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2927 rwdEff=0.000256 volPen=0.2040 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:54:20.141 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur] exited=[mkt-fed-cut, mkt-sp500] active=4
-2026-03-27 12:54:32.205 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[] active=5
-2026-03-27 12:54:40.236 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #315 ===
-2026-03-27 12:54:40.236 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 0 active | Fills: 18 total (1 toxic)
-2026-03-27 12:54:40.236 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:54:40.236 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.16 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:54:40.236 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=872 ineligible=0 total_paid=13.1621
-2026-03-27 12:54:40.237 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:54:40.237 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=4.6798 rwdEff=0.000796 volPen=0.2940 regime=NORMAL [S&P 500 above 6000 by EOY?] cap=41% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:54:40.237 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=3.8735 rwdEff=0.000249 volPen=0.7230 regime=VOLATILE [US inflation below 2% in 2026?] cap=34% fills=2 ppf=0,83 rwd=0,3278
-2026-03-27 12:54:40.237 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=2.2043 rwdEff=0.000127 volPen=0.5540 regime=VOLATILE [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:54:40.237 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=2.1903 rwdEff=0.002017 volPen=0.4950 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=19% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:54:40.237 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=2.1144 rwdEff=0.001228 volPen=0.4950 regime=NORMAL [SpaceX Starship orbital success?] rwd=1,0772
-2026-03-27 12:54:40.238 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.9693 rwdEff=0.000317 volPen=0.7040 regime=VOLATILE [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:54:40.238 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.3461 rwdEff=0.000671 volPen=0.0500 regime=CALM [US GDP growth > 3% in Q2?] cap=3% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:54:40.238 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.2474 rwdEff=0.000756 volPen=0.2340 regime=NORMAL [EUR/USD above 1.15 by Q4?] cap=2% fills=7 ppf=0,76 rwd=1,5977
-2026-03-27 12:54:40.238 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.0411 rwdEff=0.000500 volPen=0.1500 regime=NORMAL [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:54:40.238 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.4324 rwdEff=0.000198 volPen=0.2750 regime=NORMAL [Trump wins 2028 election?]
-2026-03-27 12:54:44.249 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-starship] exited=[mkt-usd-eur, mkt-gdp-q2] active=5
-2026-03-27 12:54:56.297 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-fed-cut] exited=[mkt-starship] active=5
-2026-03-27 12:55:08.392 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship, mkt-gdp-q2] exited=[mkt-fed-cut, mkt-inflation] active=5
-2026-03-27 12:55:10.402 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #330 ===
-2026-03-27 12:55:10.403 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 0 active | Fills: 18 total (1 toxic)
-2026-03-27 12:55:10.403 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:55:10.403 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.16 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:55:10.403 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=872 ineligible=0 total_paid=13.1621
-2026-03-27 12:55:10.403 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:55:10.404 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=4.3232 rwdEff=0.000719 volPen=0.3150 regime=NORMAL [S&P 500 above 6000 by EOY?] cap=34% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:55:10.404 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=3.8875 rwdEff=0.000270 volPen=0.7360 regime=VOLATILE [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:55:10.404 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=3.3323 rwdEff=0.000127 volPen=0.5760 regime=VOLATILE [Ethereum above $5k by EOY?] cap=26% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:55:10.404 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=2.5517 rwdEff=0.002521 volPen=0.3770 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=20% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:55:10.404 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=2.0315 rwdEff=0.000868 volPen=0.4810 regime=NORMAL [SpaceX Starship orbital success?] cap=16% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:55:10.404 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.4231 rwdEff=0.000850 volPen=0.1670 regime=CALM [US GDP growth > 3% in Q2?] cap=3% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:55:10.404 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.3948 rwdEff=0.000901 volPen=0.2530 regime=CALM [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:55:10.405 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.3194 rwdEff=0.000854 volPen=0.2700 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:55:10.405 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2254 rwdEff=0.000240 volPen=0.1180 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:55:10.405 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=-0.3478 rwdEff=0.000188 volPen=0.5760 regime=VOLATILE [AGI achieved before 2030?] rwd=0,4162
-2026-03-27 12:55:20.448 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur, mkt-inflation] exited=[mkt-eth-merge, mkt-gdp-q2] active=5
-2026-03-27 12:55:32.497 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-ai-agi] exited=[mkt-usd-eur] active=5
-2026-03-27 12:55:40.551 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #345 ===
-2026-03-27 12:55:40.551 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 0 active | Fills: 18 total (1 toxic)
-2026-03-27 12:55:40.551 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:55:40.551 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.16 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:55:40.551 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=872 ineligible=0 total_paid=13.1621
-2026-03-27 12:55:40.551 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:55:40.552 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=4.4792 rwdEff=0.000719 volPen=0.2590 regime=NORMAL [S&P 500 above 6000 by EOY?] cap=36% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:55:40.552 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=3.8227 rwdEff=0.000700 volPen=0.2940 regime=NORMAL [US inflation below 2% in 2026?] cap=31% fills=2 ppf=0,83 rwd=0,3278
-2026-03-27 12:55:40.552 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=3.1320 rwdEff=0.000338 volPen=0.1760 regime=NORMAL [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:55:40.552 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=1.8125 rwdEff=0.000868 volPen=0.5000 regime=NORMAL [SpaceX Starship orbital success?] cap=15% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:55:40.552 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=1.2968 rwdEff=0.000525 volPen=0.1760 regime=NORMAL [AGI achieved before 2030?] cap=11% fills=0 ppf=0,00 rwd=0,4162
-2026-03-27 12:55:40.553 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=0.9200 rwdEff=0.001565 volPen=0.5220 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=7% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:55:40.553 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.6301 rwdEff=0.001065 volPen=0.2020 regime=CALM [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:55:40.554 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.4100 rwdEff=0.000937 volPen=0.2750 regime=CALM [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:55:40.554 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.3413 rwdEff=0.000679 volPen=0.0640 regime=CALM [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:55:40.554 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2398 rwdEff=0.000239 volPen=0.0800 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:55:44.566 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge] exited=[mkt-btc100k] active=5
-2026-03-27 12:56:08.664 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-gdp-q2, mkt-btc100k] exited=[mkt-starship, mkt-inflation] active=5
-2026-03-27 12:56:10.675 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #360 ===
-2026-03-27 12:56:10.676 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 18 total (1 toxic)
-2026-03-27 12:56:10.677 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:56:10.677 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.17 total=100.65 fees=0.9148 | Risk: OK
-2026-03-27 12:56:10.677 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=874 ineligible=0 total_paid=13.1663
-2026-03-27 12:56:10.677 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:56:10.677 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=4.4165 rwdEff=0.000752 volPen=0.2590 regime=NORMAL [S&P 500 above 6000 by EOY?] cap=46% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:56:10.677 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=3.1001 rwdEff=0.000312 volPen=0.1760 regime=NORMAL [Ethereum above $5k by EOY?] cap=32% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:56:10.678 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=2.6342 rwdEff=0.000857 volPen=0.4640 regime=NORMAL [SpaceX Starship orbital success?] rwd=1,0772
-2026-03-27 12:56:10.678 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=1.0084 rwdEff=0.001603 volPen=0.4790 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=11% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:56:10.678 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-gdp-q2 edge=0.5599 rwdEff=0.000870 volPen=0.0500 regime=CALM [US GDP growth > 3% in Q2?] cap=6% fills=1 ppf=1,97 rwd=0,3874
-2026-03-27 12:56:10.678 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.5098 rwdEff=0.000828 volPen=0.0500 regime=CALM [AGI achieved before 2030?] cap=5% fills=0 ppf=0,00 rwd=0,4204
-2026-03-27 12:56:10.678 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.2535 rwdEff=0.000852 volPen=0.3340 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:56:10.678 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.2399 rwdEff=0.000724 volPen=0.2140 regime=CALM [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:56:10.678 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.0938 rwdEff=0.000570 volPen=0.2820 regime=CALM [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:56:10.679 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2265 rwdEff=0.000208 volPen=0.0810 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:56:20.712 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship] exited=[mkt-gdp-q2] active=5
-2026-03-27 12:56:40.808 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #375 ===
-2026-03-27 12:56:40.808 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 18 total (1 toxic)
-2026-03-27 12:56:40.808 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=582 NO=394 Net=188
-2026-03-27 12:56:40.808 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.49 rewards=13.24 total=100.73 fees=0.9148 | Risk: OK
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=902 ineligible=0 total_paid=13.2410
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=5/10 markets
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=3.0760 rwdEff=0.000309 volPen=0.1980 regime=NORMAL [Ethereum above $5k by EOY?] cap=45% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=1.9215 rwdEff=0.000942 volPen=0.4870 regime=NORMAL [SpaceX Starship orbital success?] cap=28% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=0.6877 rwdEff=0.001314 volPen=0.4400 regime=NORMAL [Will Bitcoin hit $100k by Dec 2026?] cap=10% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=0.5766 rwdEff=0.000898 volPen=0.1640 regime=CALM [S&P 500 above 6000 by EOY?] cap=9% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.5028 rwdEff=0.000828 volPen=0.0570 regime=CALM [AGI achieved before 2030?] cap=7% fills=0 ppf=0,00 rwd=0,4950
-2026-03-27 12:56:40.809 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.1762 rwdEff=0.000835 volPen=0.3920 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:56:40.810 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.1184 rwdEff=0.000563 volPen=0.1500 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:56:40.810 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=-0.0065 rwdEff=0.000580 volPen=0.2930 regime=NORMAL [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:56:40.810 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=-0.1860 rwdEff=0.000468 volPen=0.3430 regime=NORMAL [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:56:40.810 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2692 rwdEff=0.000195 volPen=0.1080 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:56:44.830 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: e68c2105 BUY AGI achieved before 2030? @ 0.13 x13 (slip: -0.02, fee: 0.0034)
-2026-03-27 12:57:08.954 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[] exited=[mkt-eth-merge] active=4
-2026-03-27 12:57:10.964 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #390 ===
-2026-03-27 12:57:10.965 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 19 total (1 toxic)
-2026-03-27 12:57:10.965 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=595 NO=394 Net=201
-2026-03-27 12:57:10.966 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.48 rewards=13.26 total=100.74 fees=0.9182 | Risk: OK
-2026-03-27 12:57:10.966 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=908 ineligible=0 total_paid=13.2601
-2026-03-27 12:57:10.966 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=4/10 markets
-2026-03-27 12:57:10.966 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=3.1080 rwdEff=0.000309 volPen=0.1660 regime=NORMAL [Ethereum above $5k by EOY?] rwd=0,2466
-2026-03-27 12:57:10.966 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=2.0768 rwdEff=0.000052 volPen=2.2920 regime=CRISIS [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:57:10.966 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=1.6503 rwdEff=0.002057 volPen=0.3680 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=56% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:57:10.966 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.6996 rwdEff=0.001006 volPen=0.0650 regime=CALM [AGI achieved before 2030?] cap=24% fills=1 ppf=0,26 rwd=0,5142
-2026-03-27 12:57:10.967 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.5964 rwdEff=0.001178 volPen=0.3870 regime=CALM [SpaceX Starship orbital success?] cap=20% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:57:10.967 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.0904 rwdEff=0.000563 volPen=0.1780 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:57:10.967 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.0195 rwdEff=0.000580 volPen=0.2670 regime=NORMAL [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:57:10.967 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=-0.2106 rwdEff=0.000459 volPen=0.3580 regime=NORMAL [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:57:10.967 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2567 rwdEff=0.000203 volPen=0.1050 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:57:10.967 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=-0.4629 rwdEff=0.000218 volPen=0.6280 regime=VOLATILE [S&P 500 above 6000 by EOY?] cap=0% fills=3 ppf=0,55 rwd=3,5459
-2026-03-27 12:57:21.015 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-usd-eur] exited=[mkt-ai-agi] active=5
-2026-03-27 12:57:33.065 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-ai-agi] exited=[mkt-usd-eur, mkt-sp500] active=4
-2026-03-27 12:57:41.105 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - === Cycle #405 ===
-2026-03-27 12:57:41.105 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Orders: 2 active | Fills: 19 total (1 toxic)
-2026-03-27 12:57:41.105 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Inventory: YES=595 NO=394 Net=201
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   PnL: trading=87.48 rewards=13.26 total=100.74 fees=0.9182 | Risk: OK
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Rewards: eligible=908 ineligible=0 total_paid=13.2601
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   Market Selection: active=4/10 markets
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=4.7113 rwdEff=0.000735 volPen=0.1930 regime=NORMAL [S&P 500 above 6000 by EOY?] rwd=3,5459
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=3.8588 rwdEff=0.000820 volPen=0.3920 regime=NORMAL [EUR/USD above 1.15 by Q4?] rwd=1,5977
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=3.1130 rwdEff=0.000309 volPen=0.1610 regime=NORMAL [Ethereum above $5k by EOY?] cap=50% fills=1 ppf=0,83 rwd=0,2466
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=2.4968 rwdEff=0.000581 volPen=0.2910 regime=NORMAL [Fed rate cut before July 2026?] rwd=0,3391
-2026-03-27 12:57:41.106 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=1.9525 rwdEff=0.002224 volPen=0.3200 regime=CALM [Will Bitcoin hit $100k by Dec 2026?] cap=31% fills=2 ppf=1,71 rwd=5,2242
-2026-03-27 12:57:41.107 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.7398 rwdEff=0.001048 volPen=0.0730 regime=CALM [AGI achieved before 2030?] cap=12% fills=1 ppf=0,26 rwd=0,5142
-2026-03-27 12:57:41.107 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.4661 rwdEff=0.001076 volPen=0.3870 regime=CALM [SpaceX Starship orbital success?] cap=7% fills=1 ppf=0,55 rwd=1,0772
-2026-03-27 12:57:41.107 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.1882 rwdEff=0.000726 volPen=0.2580 regime=CALM [US inflation below 2% in 2026?] rwd=0,3278
-2026-03-27 12:57:41.107 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.1184 rwdEff=0.000563 volPen=0.1500 regime=NORMAL [US GDP growth > 3% in Q2?] rwd=0,3874
-2026-03-27 12:57:41.107 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=-0.2727 rwdEff=0.000203 volPen=0.1210 regime=CALM [Trump wins 2028 election?]
-2026-03-27 12:57:45.129 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur, mkt-fed-cut, mkt-sp500] exited=[mkt-starship, mkt-ai-agi] active=5
-2026-03-27 12:57:57.181 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship, mkt-ai-agi] exited=[mkt-usd-eur, mkt-btc100k] active=5
+2026-03-27 13:15:45.623 [main] INFO  com.agentbot.engine.MarketScanner - MarketScanner initialized with 10 markets
+2026-03-27 13:16:06.946 [http-nio-8080-exec-1] INFO  com.agentbot.engine.TradingEngine - Trading engine STARTED max_cap=0.25 block_volatile=false cooldown_cycles=15
+2026-03-27 13:16:08.753 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-eth-merge, mkt-usd-eur, mkt-sp500, mkt-inflation] exited=[] active=4
+2026-03-27 13:16:08.901 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=0
+active_markets=4
+orders_active=8
+fills_total=0
+fills_toxic=0
+pnl_trading=0.0000
+pnl_reward=0.0000
+pnl_total=0.0000
+fees=0.000000
+yes_exposure=0.00
+no_exposure=0.00
+net_exposure=0.00
+volatile_active_count=0
+crisis_active_count=0
+cooled_down=0
+cap_violation_count=0
+max_cap_seen=0.2500
+markets_over_cap=[]
+blocked_by_regime=[]
+blocked_by_cooldown=[]
+2026-03-27 13:16:09.001 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 13:16:09.007 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 13:16:09.020 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 13:16:09.038 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.5106 cap=25.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 13:16:09.039 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:informed_flow mkt-starship edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 13:16:09.040 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:informed_flow mkt-trump28 edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Trump wins 2028 election?]
+2026-03-27 13:16:09.041 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-fed-cut edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 13:16:09.041 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-gdp-q2 edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 13:16:09.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.190 mkt-btc100k edge=0.1901 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 13:16:09.042 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:low_edge=0.158 mkt-ai-agi edge=0.1581 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [AGI achieved before 2030?]
+2026-03-27 13:16:19.120 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-ai-agi] exited=[mkt-sp500] active=4
+2026-03-27 13:16:19.121 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-usd-eur
+requested_cap=0.2848
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:19.121 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-eth-merge
+requested_cap=0.2616
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:21.129 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-usd-eur
+requested_cap=0.2848
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:21.130 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-eth-merge
+requested_cap=0.2616
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:23.137 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-usd-eur
+requested_cap=0.2848
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:23.138 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-eth-merge
+requested_cap=0.2616
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:25.150 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-usd-eur
+requested_cap=0.2848
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:25.151 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-eth-merge
+requested_cap=0.2616
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:27.166 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-usd-eur
+requested_cap=0.2848
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:27.166 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-eth-merge
+requested_cap=0.2616
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:29.168 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-usd-eur
+requested_cap=0.2848
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:29.169 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-eth-merge
+requested_cap=0.2616
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:31.180 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500] exited=[] active=5
+2026-03-27 13:16:39.223 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=15
+active_markets=5
+orders_active=10
+fills_total=0
+fills_toxic=0
+pnl_trading=0.0000
+pnl_reward=1.1438
+pnl_total=1.1438
+fees=0.000000
+yes_exposure=0.00
+no_exposure=0.00
+net_exposure=0.00
+volatile_active_count=0
+crisis_active_count=0
+cooled_down=0
+cap_violation_count=0
+max_cap_seen=0.2401
+markets_over_cap=[]
+blocked_by_regime=[]
+blocked_by_cooldown=[]
+2026-03-27 13:16:39.223 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-trump28 edge=3.0425 cap=0.0% regime=CALM fills=0 ppf=0.00 [Trump wins 2028 election?]
+2026-03-27 13:16:39.223 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-ai-agi edge=0.7010 cap=25.0% regime=CALM fills=0 ppf=0.00 [AGI achieved before 2030?]
+2026-03-27 13:16:39.223 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-usd-eur edge=0.5701 cap=24.1% regime=CALM fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 13:16:39.224 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5000 cap=21.1% regime=CALM fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 13:16:39.224 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=0.4184 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 13:16:39.225 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.3849 cap=16.3% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 13:16:39.225 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-starship edge=0.3795 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 13:16:39.225 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-fed-cut edge=0.2735 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 13:16:39.225 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=0.2112 cap=8.9% regime=NORMAL fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 13:16:39.225 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.1775 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 13:16:43.237 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-trump28, mkt-btc100k] exited=[mkt-sp500, mkt-inflation] active=5
+2026-03-27 13:16:43.237 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.4853
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:45.249 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.4853
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:45.251 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REGIME_BLOCK_REAL]
+market=mkt-btc100k
+regime=VOLATILE
+raw_edge=0.4184
+penalized_edge=0.1464
+threshold=0.3
+reason=volatile_low_penalized_edge
+2026-03-27 13:16:47.252 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.4853
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:47.254 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REGIME_BLOCK_REAL]
+market=mkt-btc100k
+regime=VOLATILE
+raw_edge=0.4184
+penalized_edge=0.1464
+threshold=0.3
+reason=volatile_low_penalized_edge
+2026-03-27 13:16:49.260 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.4853
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:49.261 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REGIME_BLOCK_REAL]
+market=mkt-btc100k
+regime=VOLATILE
+raw_edge=0.4184
+penalized_edge=0.1464
+threshold=0.3
+reason=volatile_low_penalized_edge
+2026-03-27 13:16:51.274 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.4853
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:51.275 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REGIME_BLOCK_REAL]
+market=mkt-btc100k
+regime=VOLATILE
+raw_edge=0.4184
+penalized_edge=0.1464
+threshold=0.3
+reason=volatile_low_penalized_edge
+2026-03-27 13:16:53.278 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.4853
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:53.280 [scheduling-1] INFO  com.agentbot.engine.QuoteSupervisor - Fill: 195ddc51 SELL AGI achieved before 2030? @ 0.17 x28 (slip: -0.02, fee: 0.0095)
+2026-03-27 13:16:53.280 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REGIME_BLOCK_REAL]
+market=mkt-btc100k
+regime=VOLATILE
+raw_edge=0.4184
+penalized_edge=0.1464
+threshold=0.3
+reason=volatile_low_penalized_edge
+2026-03-27 13:16:55.291 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-inflation] exited=[mkt-btc100k] active=5
+2026-03-27 13:16:55.291 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3342
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:57.296 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3342
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:16:59.305 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3342
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:01.318 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3342
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:03.326 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3342
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:05.332 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3342
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:07.347 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-starship, mkt-fed-cut] exited=[mkt-usd-eur, mkt-ai-agi] active=5
+2026-03-27 13:17:07.348 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4121
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:07.349 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3199
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:09.359 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4121
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:09.360 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3199
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:09.361 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=30
+active_markets=5
+orders_active=6
+fills_total=1
+fills_toxic=0
+pnl_trading=4.7505
+pnl_reward=2.0460
+pnl_total=6.7965
+fees=0.009500
+yes_exposure=0.00
+no_exposure=28.00
+net_exposure=28.00
+volatile_active_count=0
+crisis_active_count=0
+cooled_down=0
+cap_violation_count=0
+max_cap_seen=0.2500
+markets_over_cap=[]
+blocked_by_regime=[]
+blocked_by_cooldown=[]
+2026-03-27 13:17:09.361 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-btc100k edge=4.0945 cap=0.0% regime=VOLATILE fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 13:17:09.362 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=2.7968 cap=25.0% regime=NORMAL fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 13:17:09.362 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=1.7715 cap=25.0% regime=CALM fills=0 ppf=0.00 [Trump wins 2028 election?]
+2026-03-27 13:17:09.362 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.7565 cap=11.8% regime=NORMAL fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 13:17:09.362 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.6152 cap=0.0% regime=CALM fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 13:17:09.362 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-eth-merge edge=0.5500 cap=8.6% regime=CALM fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 13:17:09.363 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-inflation edge=0.5125 cap=8.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 13:17:09.363 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.3981 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 13:17:09.363 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.3032 cap=0.0% regime=NORMAL fills=1 ppf=0.55 [AGI achieved before 2030?]
+2026-03-27 13:17:09.363 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-sp500 edge=0.2765 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 13:17:11.368 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4121
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:11.368 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3199
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:13.386 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4121
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:13.387 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3199
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:15.395 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4121
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:15.396 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3199
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:17.410 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4121
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:17.410 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-trump28
+requested_cap=0.3199
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:19.417 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-sp500, mkt-btc100k] exited=[mkt-fed-cut, mkt-inflation] active=5
+2026-03-27 13:17:19.417 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-btc100k
+requested_cap=0.5656
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:21.430 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-btc100k
+requested_cap=0.5656
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:23.445 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-btc100k
+requested_cap=0.5656
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:25.459 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-btc100k
+requested_cap=0.5656
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:27.477 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-btc100k
+requested_cap=0.5656
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:29.487 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-btc100k
+requested_cap=0.5656
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:31.497 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-fed-cut] exited=[mkt-eth-merge] active=5
+2026-03-27 13:17:31.497 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4001
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:33.511 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4001
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:35.522 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4001
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:37.531 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4001
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:39.538 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4001
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:39.538 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [REAL_SNAPSHOT]
+cycle=45
+active_markets=5
+orders_active=6
+fills_total=1
+fills_toxic=0
+pnl_trading=4.7505
+pnl_reward=2.6196
+pnl_total=7.3701
+fees=0.009500
+yes_exposure=0.00
+no_exposure=28.00
+net_exposure=28.00
+volatile_active_count=0
+crisis_active_count=0
+cooled_down=0
+cap_violation_count=0
+max_cap_seen=0.2500
+markets_over_cap=[]
+blocked_by_regime=[]
+blocked_by_cooldown=[]
+2026-03-27 13:17:39.541 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-fed-cut edge=2.8307 cap=25.0% regime=NORMAL fills=0 ppf=0.00 [Fed rate cut before July 2026?]
+2026-03-27 13:17:39.542 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-sp500 edge=1.4406 cap=20.8% regime=CALM fills=0 ppf=0.00 [S&P 500 above 6000 by EOY?]
+2026-03-27 13:17:39.542 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-btc100k edge=1.0175 cap=14.7% regime=CALM fills=0 ppf=0.00 [Will Bitcoin hit $100k by Dec 2026?]
+2026-03-27 13:17:39.542 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-starship edge=0.8323 cap=12.0% regime=NORMAL fills=0 ppf=0.00 [SpaceX Starship orbital success?]
+2026-03-27 13:17:39.542 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   ACTIVE mkt-trump28 edge=0.8095 cap=11.7% regime=CALM fills=0 ppf=0.00 [Trump wins 2028 election?]
+2026-03-27 13:17:39.542 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-eth-merge edge=0.5334 cap=0.0% regime=CALM fills=0 ppf=0.00 [Ethereum above $5k by EOY?]
+2026-03-27 13:17:39.543 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-ai-agi edge=0.4749 cap=0.0% regime=CALM fills=1 ppf=0.55 [AGI achieved before 2030?]
+2026-03-27 13:17:39.543 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-usd-eur edge=0.4551 cap=0.0% regime=NORMAL fills=0 ppf=0.00 [EUR/USD above 1.15 by Q4?]
+2026-03-27 13:17:39.543 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-gdp-q2 edge=0.4043 cap=0.0% regime=CALM fills=0 ppf=0.00 [US GDP growth > 3% in Q2?]
+2026-03-27 13:17:39.543 [scheduling-1] INFO  com.agentbot.engine.TradingEngine -   SKIP:between_evals mkt-inflation edge=0.3614 cap=0.0% regime=CALM fills=0 ppf=0.00 [US inflation below 2% in 2026?]
+2026-03-27 13:17:41.551 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4001
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:43.567 [scheduling-1] INFO  c.a.engine.MarketRankingEngine - Market switching: entered=[mkt-usd-eur] exited=[mkt-starship] active=5
+2026-03-27 13:17:43.567 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4468
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:45.577 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4468
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit
+2026-03-27 13:17:47.591 [scheduling-1] INFO  com.agentbot.engine.TradingEngine - [CAP_CLAMP_REAL]
+market=mkt-fed-cut
+requested_cap=0.4468
+applied_cap=0.2500
+max_cap=0.2500
+reason=hard_limit

@@ -32,6 +32,7 @@ public class MarketRankingEngine {
     private static final double DECAY_K = 150.0;
 
     private final PerformanceTracker performanceTracker;
+    private final TradingConfig tradingConfig;
 
     @Getter
     private final Map<String, MarketEdgeHistory> edgeHistory = new ConcurrentHashMap<>();
@@ -138,6 +139,16 @@ public class MarketRankingEngine {
 
     private String evaluateEligibility(MarketScore ms, SimulatedMarket market) {
         if (market.isCrisis()) return "crisis_regime";
+
+        if (market.getRegime() == SimulatedMarket.VolatilityRegime.VOLATILE) {
+            if (tradingConfig.isBlockVolatileMarkets()) return "volatile_blocked_by_config";
+            double penalty = tradingConfig.getRegimePenaltyVolatile();
+            double penalizedEdge = ms.getEdgeScore().doubleValue() * penalty;
+            if (penalizedEdge < tradingConfig.getMinEdgeAfterPenalty()) {
+                return "volatile_low_penalized_edge=" + String.format("%.4f", penalizedEdge);
+            }
+        }
+
         if (market.isInformedFlowActive()) return "informed_flow";
 
         boolean isCurrentlyActive = activeMarketIds.contains(ms.getMarketId());

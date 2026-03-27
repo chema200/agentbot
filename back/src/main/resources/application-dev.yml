@@ -53,3 +53,19 @@ shadow:
   quote-aggressiveness: 0.5
   cycle-summary-interval: 15
   stale-order-timeout-sec: 30
+
+
+trading:
+  max-capital-share-per-market: 0.25
+  regime-penalty-calm: 1.0
+  regime-penalty-normal: 0.8
+  regime-penalty-volatile: 0.35
+  regime-penalty-crisis: 0.0
+  block-volatile-markets: false
+  cooldown-cycles: 15
+  min-edge-after-penalty: 0.3
+  max-yes-exposure: 500.0
+  max-no-exposure: 500.0
+  max-net-exposure: 300.0
+  snapshot-interval: 15
+  top-markets: 5

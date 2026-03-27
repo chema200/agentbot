@@ -1,6 +1,7 @@
 package com.agentbot.engine;
 
 import com.agentbot.engine.model.*;
+import com.agentbot.engine.model.SimulatedMarket.VolatilityRegime;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,15 +10,15 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class TradingEngine {
-
-    private static final int TOP_MARKETS = 5;
 
     private final MarketScanner marketScanner;
     private final MarketRankingEngine rankingEngine;
@@ -29,23 +30,30 @@ public class TradingEngine {
     private final PnLService pnlService;
     private final PerformanceTracker performanceTracker;
     private final RewardEngine rewardEngine;
+    private final TradingConfig cfg;
 
-    @Getter
-    private TradingEngineState state = TradingEngineState.STOPPED;
-
-    @Getter
-    private long cycleCount = 0;
-
-    @Getter
-    private List<MarketScore> latestRankings = List.of();
+    @Getter private TradingEngineState state = TradingEngineState.STOPPED;
+    @Getter private long cycleCount = 0;
+    @Getter private List<MarketScore> latestRankings = List.of();
 
     private int lastProcessedFillIndex = 0;
     private Set<String> previousActiveMarkets = Set.of();
 
+    private final Map<String, Long> cooldownUntilCycle = new ConcurrentHashMap<>();
+    private final AtomicInteger capViolationCount = new AtomicInteger(0);
+    private final AtomicInteger cooldownsTriggered = new AtomicInteger(0);
+    @Getter private BigDecimal maxCapSeen = BigDecimal.ZERO;
+
     public void start() {
         if (state == TradingEngineState.RUNNING) return;
         state = TradingEngineState.RUNNING;
-        log.info("Trading engine STARTED");
+        cycleCount = 0;
+        capViolationCount.set(0);
+        cooldownsTriggered.set(0);
+        maxCapSeen = BigDecimal.ZERO;
+        cooldownUntilCycle.clear();
+        log.info("Trading engine STARTED max_cap={} block_volatile={} cooldown_cycles={}",
+                cfg.getMaxCapitalSharePerMarket(), cfg.isBlockVolatileMarkets(), cfg.getCooldownCycles());
     }
 
     public void pause() {
@@ -63,7 +71,6 @@ public class TradingEngine {
     @Scheduled(fixedDelay = 2000)
     public void engineLoop() {
         if (state != TradingEngineState.RUNNING) return;
-
         try {
             runCycle();
             cycleCount++;
@@ -76,7 +83,7 @@ public class TradingEngine {
     private void runCycle() {
         marketScanner.tickAll();
 
-        latestRankings = rankingEngine.getTopMarkets(marketScanner.getAllMarkets(), TOP_MARKETS);
+        latestRankings = rankingEngine.getTopMarkets(marketScanner.getAllMarkets(), cfg.getTopMarkets());
 
         Set<String> currentActiveMarkets = rankingEngine.getActiveMarketIds();
         Set<String> exitedMarkets = rankingEngine.getExitedMarkets(previousActiveMarkets, currentActiveMarkets);
@@ -90,27 +97,85 @@ public class TradingEngine {
 
         riskManager.evaluateGlobalRisk(inventoryManager.getGlobalNetExposure());
 
+        BigDecimal maxCapShare = BigDecimal.valueOf(cfg.getMaxCapitalSharePerMarket());
         BigDecimal totalEdge = latestRankings.stream()
                 .map(MarketScore::getEdgeScore)
                 .filter(e -> e.compareTo(BigDecimal.ZERO) > 0)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        List<String> blockedByRegime = new ArrayList<>();
+        List<String> blockedByCooldown = new ArrayList<>();
+        List<String> marketsOverCap = new ArrayList<>();
+        BigDecimal cycleMaxCap = BigDecimal.ZERO;
+
         for (MarketScore scored : latestRankings) {
             SimulatedMarket market = marketScanner.getMarket(scored.getMarketId());
             if (market == null) continue;
+
+            // --- Regime blocking ---
+            VolatilityRegime regime = market.getRegime();
+            if (regime == VolatilityRegime.CRISIS) {
+                blockedByRegime.add(market.getMarketId());
+                log.info("[REGIME_BLOCK_REAL]\nmarket={}\nregime=CRISIS\nraw_edge={}\npenalized_edge=0.0000\nthreshold={}\nreason=crisis_never_active",
+                        market.getMarketId(), scored.getEdgeScore().setScale(4, RoundingMode.HALF_UP),
+                        cfg.getMinEdgeAfterPenalty());
+                continue;
+            }
+
+            if (regime == VolatilityRegime.VOLATILE) {
+                double penalty = cfg.getRegimePenaltyVolatile();
+                BigDecimal penalizedEdge = scored.getEdgeScore().multiply(BigDecimal.valueOf(penalty));
+                if (cfg.isBlockVolatileMarkets()) {
+                    blockedByRegime.add(market.getMarketId());
+                    log.info("[REGIME_BLOCK_REAL]\nmarket={}\nregime=VOLATILE\nraw_edge={}\npenalized_edge={}\nthreshold={}\nreason=block_volatile_flag",
+                            market.getMarketId(), scored.getEdgeScore().setScale(4, RoundingMode.HALF_UP),
+                            penalizedEdge.setScale(4, RoundingMode.HALF_UP), cfg.getMinEdgeAfterPenalty());
+                    continue;
+                }
+                if (penalizedEdge.doubleValue() < cfg.getMinEdgeAfterPenalty()) {
+                    blockedByRegime.add(market.getMarketId());
+                    log.info("[REGIME_BLOCK_REAL]\nmarket={}\nregime=VOLATILE\nraw_edge={}\npenalized_edge={}\nthreshold={}\nreason=volatile_low_penalized_edge",
+                            market.getMarketId(), scored.getEdgeScore().setScale(4, RoundingMode.HALF_UP),
+                            penalizedEdge.setScale(4, RoundingMode.HALF_UP), cfg.getMinEdgeAfterPenalty());
+                    continue;
+                }
+            }
+
+            // --- Cooldown blocking ---
+            if (isOnCooldown(market.getMarketId())) {
+                blockedByCooldown.add(market.getMarketId());
+                log.debug("[BLOCKED]\nmarket={}\nreason=cooldown\nremaining_cycles={}",
+                        market.getMarketId(), cooldownRemaining(market.getMarketId()));
+                continue;
+            }
 
             quoteSupervisor.supervise(market);
 
             InventoryPosition position = inventoryManager.getPosition(market.getMarketId());
             int activeForMarket = orderManager.activeOrderCountForMarket(market.getMarketId());
             int totalActive = orderManager.activeOrderCount();
-
             boolean allowed = riskManager.canTrade(market, position, activeForMarket, totalActive);
 
-            BigDecimal capitalShare = totalEdge.compareTo(BigDecimal.ZERO) > 0
-                    ? scored.getEdgeScore().max(BigDecimal.ZERO)
-                        .divide(totalEdge, 6, RoundingMode.HALF_UP)
-                    : new BigDecimal("0.2");
+            // --- Hard cap ---
+            BigDecimal rawCapShare = totalEdge.compareTo(BigDecimal.ZERO) > 0
+                    ? scored.getEdgeScore().max(BigDecimal.ZERO).divide(totalEdge, 6, RoundingMode.HALF_UP)
+                    : BigDecimal.valueOf(1.0 / Math.max(1, latestRankings.size()));
+
+            BigDecimal capitalShare = rawCapShare;
+            if (rawCapShare.compareTo(maxCapShare) > 0) {
+                capitalShare = maxCapShare;
+                log.info("[CAP_CLAMP_REAL]\nmarket={}\nrequested_cap={}\napplied_cap={}\nmax_cap={}\nreason=hard_limit",
+                        market.getMarketId(),
+                        rawCapShare.setScale(4, RoundingMode.HALF_UP),
+                        capitalShare.setScale(4, RoundingMode.HALF_UP),
+                        maxCapShare.setScale(4, RoundingMode.HALF_UP));
+            }
+            if (capitalShare.compareTo(maxCapShare) > 0) {
+                marketsOverCap.add(market.getMarketId());
+                capViolationCount.incrementAndGet();
+            }
+
+            cycleMaxCap = cycleMaxCap.max(capitalShare);
 
             strategyEngine.executeStrategy(market, position, allowed,
                     riskManager.getMaxOrdersPerSide(), scored, capitalShare);
@@ -121,8 +186,10 @@ public class TradingEngine {
             }
         }
 
-        if (cycleCount % 15 == 0) {
-            logSnapshot();
+        maxCapSeen = maxCapSeen.max(cycleMaxCap);
+
+        if (cycleCount % cfg.getSnapshotInterval() == 0) {
+            logRealSnapshot(blockedByRegime, blockedByCooldown, marketsOverCap, cycleMaxCap);
         }
     }
 
@@ -133,6 +200,9 @@ public class TradingEngine {
             EngineFill fill = allFills.get(i);
             inventoryManager.processFill(fill);
             pnlService.recordFill(fill);
+            if (fill.isToxicFlow()) {
+                applyCooldown(fill.getMarketId(), "toxic_fill");
+            }
         }
         lastProcessedFillIndex = currentSize;
     }
@@ -141,61 +211,107 @@ public class TradingEngine {
         orderManager.getActiveOrders().forEach(o -> orderManager.cancelOrder(o.getOrderId()));
     }
 
-    private void logSnapshot() {
+    // ── Cooldown ─────────────────────────────────────────────────────────
+
+    private void applyCooldown(String marketId, String reason) {
+        long until = cycleCount + cfg.getCooldownCycles();
+        cooldownUntilCycle.put(marketId, until);
+        cooldownsTriggered.incrementAndGet();
+        log.info("[COOLDOWN_REAL]\nmarket={}\nremaining_cycles={}\ntrigger={}",
+                marketId, cfg.getCooldownCycles(), reason);
+    }
+
+    private boolean isOnCooldown(String marketId) {
+        Long until = cooldownUntilCycle.get(marketId);
+        if (until == null) return false;
+        if (cycleCount >= until) {
+            cooldownUntilCycle.remove(marketId);
+            return false;
+        }
+        return true;
+    }
+
+    private long cooldownRemaining(String marketId) {
+        Long until = cooldownUntilCycle.get(marketId);
+        return until != null ? Math.max(0, until - cycleCount) : 0;
+    }
+
+    // ── Structured Logging ───────────────────────────────────────────────
+
+    private void logRealSnapshot(List<String> blockedByRegime, List<String> blockedByCooldown,
+                                  List<String> marketsOverCap, BigDecimal cycleMaxCap) {
         long totalFills = quoteSupervisor.getFills().size();
-        long toxicFills = quoteSupervisor.getFills().stream().filter(f -> f.isToxicFlow()).count();
+        long toxicFills = quoteSupervisor.getFills().stream().filter(EngineFill::isToxicFlow).count();
 
-        log.info("=== Cycle #{} ===", cycleCount);
-        log.info("  Orders: {} active | Fills: {} total ({} toxic)",
-                orderManager.activeOrderCount(), totalFills, toxicFills);
-        log.info("  Inventory: YES={} NO={} Net={}",
-                inventoryManager.getTotalYesExposure(),
-                inventoryManager.getTotalNoExposure(),
-                inventoryManager.getGlobalNetExposure());
-        log.info("  PnL: trading={} rewards={} total={} fees={} | Risk: {}",
-                pnlService.getTradingPnl().setScale(2, RoundingMode.HALF_UP),
-                pnlService.getTotalRewardPnl().setScale(2, RoundingMode.HALF_UP),
-                pnlService.getTotalPnl().setScale(2, RoundingMode.HALF_UP),
-                pnlService.getTotalFees().setScale(4, RoundingMode.HALF_UP),
-                riskManager.isGlobalTradingAllowed() ? "OK" : "PAUSED: " + riskManager.getPauseReason());
+        int volatileActive = countActiveByRegime(VolatilityRegime.VOLATILE);
+        int crisisActive = countActiveByRegime(VolatilityRegime.CRISIS);
+        long cooledDown = cooldownUntilCycle.values().stream().filter(v -> v > cycleCount).count();
 
-        log.info("  Rewards: eligible={} ineligible={} total_paid={}",
-                rewardEngine.getTotalEligibleOrders(),
-                rewardEngine.getTotalIneligibleOrders(),
-                rewardEngine.getTotalRewardsPaid().setScale(4, RoundingMode.HALF_UP));
-
-        log.info("  Market Selection: active={}/{} markets",
+        log.info("[REAL_SNAPSHOT]\ncycle={}\nactive_markets={}\norders_active={}\nfills_total={}\nfills_toxic={}" +
+                "\npnl_trading={}\npnl_reward={}\npnl_total={}\nfees={}" +
+                "\nyes_exposure={}\nno_exposure={}\nnet_exposure={}" +
+                "\nvolatile_active_count={}\ncrisis_active_count={}" +
+                "\ncooled_down={}\ncap_violation_count={}" +
+                "\nmax_cap_seen={}" +
+                "\nmarkets_over_cap={}" +
+                "\nblocked_by_regime={}" +
+                "\nblocked_by_cooldown={}",
+                cycleCount,
                 rankingEngine.getActiveMarketIds().size(),
-                marketScanner.getAllMarkets().size());
+                orderManager.activeOrderCount(),
+                totalFills, toxicFills,
+                pnlService.getTradingPnl().setScale(4, RoundingMode.HALF_UP),
+                pnlService.getTotalRewardPnl().setScale(4, RoundingMode.HALF_UP),
+                pnlService.getTotalPnl().setScale(4, RoundingMode.HALF_UP),
+                pnlService.getTotalFees().setScale(6, RoundingMode.HALF_UP),
+                inventoryManager.getTotalYesExposure().setScale(2, RoundingMode.HALF_UP),
+                inventoryManager.getTotalNoExposure().setScale(2, RoundingMode.HALF_UP),
+                inventoryManager.getGlobalNetExposure().setScale(2, RoundingMode.HALF_UP),
+                volatileActive, crisisActive,
+                cooledDown, capViolationCount.get(),
+                cycleMaxCap.setScale(4, RoundingMode.HALF_UP),
+                marketsOverCap,
+                blockedByRegime,
+                blockedByCooldown);
 
         BigDecimal logTotalEdge = rankingEngine.getLatestFullRanking().stream()
                 .filter(MarketScore::isSelected)
                 .map(MarketScore::getEdgeScore)
                 .filter(e -> e.compareTo(BigDecimal.ZERO) > 0)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal maxCap = BigDecimal.valueOf(cfg.getMaxCapitalSharePerMarket());
 
         for (MarketScore scored : rankingEngine.getLatestFullRanking()) {
             SimulatedMarket m = marketScanner.getMarket(scored.getMarketId());
             if (m == null) continue;
-            RewardEngine.RewardMetrics rm = rewardEngine.getMetricsByMarket().get(m.getMarketId());
-            String rewardInfo = rm != null
-                    ? String.format(" rwd=%.4f", rm.totalReward.doubleValue())
-                    : "";
             String status = scored.isSelected() ? "ACTIVE" : "SKIP:" + scored.getRejectionReason();
-            String capInfo = "";
+            BigDecimal capShare = BigDecimal.ZERO;
             if (scored.isSelected() && logTotalEdge.compareTo(BigDecimal.ZERO) > 0) {
-                BigDecimal capShare = scored.getEdgeScore().max(BigDecimal.ZERO)
-                        .divide(logTotalEdge, 4, RoundingMode.HALF_UP);
-                int fills = performanceTracker.getTotalFills(m.getMarketId());
-                double ppf = performanceTracker.getProfitPerFill(m.getMarketId());
-                capInfo = String.format(" cap=%.0f%% fills=%d ppf=%.2f",
-                        capShare.doubleValue() * 100, fills, ppf);
+                capShare = scored.getEdgeScore().max(BigDecimal.ZERO)
+                        .divide(logTotalEdge, 4, RoundingMode.HALF_UP).min(maxCap);
             }
-            log.info("  {} {} edge={} rwdEff={} volPen={} regime={} [{}]{}{}",
+            int fills = performanceTracker.getTotalFills(m.getMarketId());
+            double ppf = performanceTracker.getProfitPerFill(m.getMarketId());
+            log.info("  {} {} edge={} cap={}% regime={} fills={} ppf={} [{}]",
                     status, m.getMarketId(),
-                    scored.getEdgeScore(), scored.getRewardEfficiency(),
-                    scored.getVolatilityPenalty(),
-                    m.getRegime(), m.getName(), capInfo, rewardInfo);
+                    scored.getEdgeScore().setScale(4, RoundingMode.HALF_UP),
+                    capShare.multiply(BigDecimal.valueOf(100)).setScale(1, RoundingMode.HALF_UP),
+                    m.getRegime(), fills, BigDecimal.valueOf(ppf).setScale(2, RoundingMode.HALF_UP),
+                    m.getName());
         }
     }
+
+    private int countActiveByRegime(VolatilityRegime target) {
+        return (int) rankingEngine.getActiveMarketIds().stream()
+                .map(marketScanner::getMarket)
+                .filter(Objects::nonNull)
+                .filter(m -> m.getRegime() == target)
+                .count();
+    }
+
+    // ── Getters for validation/export ────────────────────────────────────
+
+    public int getCapViolationCount() { return capViolationCount.get(); }
+    public int getCooldownsTriggered() { return cooldownsTriggered.get(); }
+    public long getCooldownsActive() { return cooldownUntilCycle.values().stream().filter(v -> v > cycleCount).count(); }
 }

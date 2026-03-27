@@ -59,6 +59,22 @@
         </triggeringPolicy>
     </appender>
 
+    <appender name="APP_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/app.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
     <springProfile name="dev">
         <logger name="com.agentbot.shadow" level="DEBUG" additivity="true">
             <appender-ref ref="SHADOW_ENGINE_FILE"/>
@@ -74,6 +90,7 @@
         </logger>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="APP_FILE"/>
         </root>
     </springProfile>
 
@@ -92,6 +109,7 @@
         </logger>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="APP_FILE"/>
         </root>
     </springProfile>
 </configuration>
