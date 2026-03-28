@@ -1,0 +1,72 @@
+SESSION 1 SUMMARY
+=================
+Start: 2026-03-27 20:18:34
+End:   2026-03-27 20:51:00 (approx)
+Duration: ~32 min
+Config: unchanged (same as all sessions)
+
+FINAL METRICS:
+  cycles:          645
+  fills_total:     4486
+  toxic_fills:     0
+  order_rejects:   0
+  pnl_total:       +153.2458
+  fees:            5.9342
+  pnl_net:         +147.3116
+  max_drawdown:    0.0300
+  fill_rate:       99.8%
+  max_yes_exp:     11.00
+  max_no_exp:      0.00
+  max_net_exp:     11.00
+  recovery_mode:   never activated
+  time_since_last_fill: 0s (never stalled)
+
+DIAGNOSTICS (last cycle):
+  live_markets:           40
+  eligible_markets:       5
+  quoted_markets:         5
+  blocked_by_edge:        13
+  blocked_by_guard:       0
+  blocked_by_extreme:     20
+  blocked_by_bbo:         2
+  blocked_by_inventory:   0
+  blocked_by_cooldown:    0
+  blocked_by_regime:      0
+
+GUARD:
+  tracked:          9
+  hard_cooldown:    0 (at session end; 2 during session, expired)
+  soft_cooldown:    0
+  disabled:         0
+  hhi:              0.26
+  top_fill_share:   29.2%
+
+PER-MARKET BREAKDOWN:
+  5755687464050339  WINNER  fills=1224  pnl=+65.84  share=29.2%  consec_neg=0
+  9837039292118085  WINNER  fills=1222  pnl=+47.41  share=29.2%  consec_neg=0
+  4547104156900142  WINNER  fills=1222  pnl=+29.27  share=29.2%  consec_neg=0
+  2628049925444718  WINNER  fills=234   pnl=+2.74   share=5.6%   consec_neg=0
+  4949002902242971  NEUTRAL fills=102   pnl=-0.05   share=2.4%   consec_neg=1
+  1278262648715499  NEUTRAL fills=30    pnl=-0.15   share=0.7%   consec_neg=30
+  1033747022486178  NEUTRAL fills=30    pnl=-0.15   share=0.7%   consec_neg=30
+  8503345613285364  LOSER   fills=60    pnl=-0.30   share=1.4%   consec_neg=60
+  1603063245362742  LOSER   fills=60    pnl=-0.30   share=1.4%   consec_neg=60
+
+FILL REASONS:
+  bid_reached_quote:        293
+  bid_touched_within_tick:  284
+  mid_through_buy:          0
+  mid_through_sell:         0
+
+GO/NO-GO EVALUATION:
+  [GO] PnL > 0:                      YES (+153.25)
+  [GO] toxic fills = 0:              YES
+  [GO] order rejects = 0:            YES
+  [GO] no stalled periods:           YES (never stalled)
+  [GO] eligible/quoted stable:       YES (3-5 markets throughout)
+  [GO] guard not over-blocking:      YES (0 at end, 2 expired during session)
+  [GO] no single market > 35%:       YES (max 29.2%)
+  [GO] max drawdown reasonable:      YES (0.03)
+  [CONCERN] fill_rate 99.8%:         unrealistically high
+  [CONCERN] consecutive_neg=30-60:   on 4 markets (2 neutral, 2 loser)
+  [CONCERN] only 5/40 markets active: most blocked by extreme price or edge

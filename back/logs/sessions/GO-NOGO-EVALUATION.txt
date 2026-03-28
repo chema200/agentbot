@@ -1,0 +1,136 @@
+=====================================================
+GO / NO-GO EVALUATION - SHADOW TRADING ENGINE
+=====================================================
+Date: 2026-03-27
+Sessions: 3 x 30 min, same config, no parameter changes
+Config: application-dev.yml (unchanged between sessions)
+Logs: back/logs/sessions/session{1,2,3}-{shadow,review}.log
+
+=====================================================
+SESSION COMPARISON TABLE
+=====================================================
+
+                        Session 1       Session 2       Session 3
+                        ---------       ---------       ---------
+Duration (min)          ~32             ~30             ~30
+Cycles                  645             613             613
+Total fills             4486            4458            3257
+Toxic fills             0               14              9
+Toxic rate              0.00%           0.31%           0.28%
+Order rejects           0               0               0
+PnL total               +153.25         +102.07         +75.80
+PnL net (- fees)        +147.31         +96.91          +72.11
+Fees                    5.93            5.16            3.68
+Max drawdown            0.03            0.06            0.05
+Fill rate               99.8%           99.8%           99.9%
+Max YES exposure        11              355             13
+Max NO exposure         0               570             0
+Max net exposure        11              542             13
+Recovery mode           never           never           never
+Time since last fill    0s always       0s always       0s always
+Markets quoted          3-5             3               2-3
+Markets eligible        3-5             3               3-4
+Guard hard cooldowns    2               2               2
+Guard disabled          0               0               0
+HHI (concentration)     0.26            0.24            0.32
+Top fill share          29.2%           27.5%           37.5%
+
+Winner markets          4               3               2
+Neutral markets         2               5               5
+Loser markets           2               2               2
+Toxic markets           0               0               1
+
+=====================================================
+GO / NO-GO CRITERIA CHECK
+=====================================================
+
+CRITERION                                   S1      S2      S3      VERDICT
+--------------------------------------------+-------+-------+-------+--------
+3/3 sessions PnL > 0                        +153    +102    +76     GO
+0 toxic in >= 2/3 sessions                  0       14      9       NO-GO
+0 order rejects in 3/3                      0       0       0       GO
+Max drawdown reasonable                     0.03    0.06    0.05    GO
+Fills distributed (no mkt > 35%)            29.2%   27.5%   37.5%  NO-GO (S3)
+Hard cooldowns on few bad markets           2       2       2       GO
+No plateau with active_orders=0             never   never   never   GO
+No ORDER_REJECT recurrentes                 0       0       0       GO
+No TOXIC classification frecuente           0       0       1       WARN
+No consecutive_neg extremos                 60      20      123     NO-GO (S3)
+No demasiado universo bloqueado             ~60%    ~60%    ~65%    WARN
+
+=====================================================
+VERDICT: CONDITIONAL NO-GO
+=====================================================
+
+REASONS FOR NO-GO:
+1. Toxic fills in 2/3 sessions (14 and 9). Threshold is 0 toxic in >=2 sessions.
+   - S2 toxics: all from 1 market (1133..), that market was still +10.09 PnL.
+   - S3 toxics: scattered across 5 markets, guard caught the worst (TOXIC -> HARD_COOLDOWN).
+   - All toxic rates < 0.35%, minimal financial impact.
+
+2. Session 3 top market share = 37.5% (exceeds 35% threshold).
+   - Caused by fewer markets qualifying (only 2 WINNER markets in S3).
+   - S1 had 29.2%, S2 had 27.5% -- both within limit.
+
+3. Consecutive negative fills = 123 in S3 (market 3368949644926384).
+   - Market was correctly classified as LOSER and put in HARD_COOLDOWN.
+   - But 123 consecutive losses before cooldown triggers is excessive.
+
+WHAT WOULD FIX THE NO-GO:
+1. Toxic fills: tighten toxic detection threshold or add cooldown on first toxic fill.
+   Current: cooldown only on toxic fill event. The issue is small-quantity fills that
+   barely qualify as toxic. Could be reduced by:
+   - Stricter fill model (don't fill within-tick SELLs when bid is far from order price)
+   - Immediate cooldown on any toxic fill (already implemented, but cooldown is 15 cycles)
+
+2. Concentration: add a hard cap that prevents any market from receiving fills once
+   it reaches 35% fill share. Or increase market discovery/eligibility.
+
+3. Consecutive negatives: reduce guardMaxConsecutiveNegative from 10 back to 6-8.
+   Current threshold is too permissive for markets that lose consistently.
+
+=====================================================
+FILL MODEL CONCERN (major)
+=====================================================
+Fill rate of 99.8-99.9% is unrealistically high. In real Polymarket:
+- Fill rates are typically 5-20% for passive limit orders.
+- The shadow fill model uses:
+  * bid_reached_quote (BBO moved to order price) -- credible
+  * bid_touched_within_tick (BBO within 0.01 of order) -- somewhat generous
+  * mid_through fills -- none observed (good)
+
+The high fill rate means shadow PnL numbers are NOT directly predictive
+of real-money performance. Real fills would be much fewer, and the PnL
+would be proportionally lower. The directional signal (positive PnL) is
+valid, but the magnitude is inflated.
+
+=====================================================
+RECOMMENDATION
+=====================================================
+STATUS: CONDITIONAL NO-GO for paper-live / micro-real.
+
+REQUIRED BEFORE GO:
+1. Fix toxic fill handling (stricter cooldown or fill model adjustment)
+2. Add concentration hard cap at 35% fill share per market
+3. Lower guardMaxConsecutiveNegative to 6-8
+4. Run 3 more sessions after fixes to validate
+
+WHEN MOVING TO PAPER-LIVE:
+1. Use real order book data, not shadow fill model
+2. Start with minimum order size (5 units)
+3. Maximum 3 markets initially
+4. Hard kill switch if PnL < -5 in any 5-minute window
+5. Monitor fill rate -- if real fill rate is <10%, PnL projections need rebasing
+
+=====================================================
+SESSION LOGS LOCATION
+=====================================================
+back/logs/sessions/session1-shadow.log
+back/logs/sessions/session1-review.log
+back/logs/sessions/session1-summary.txt
+back/logs/sessions/session2-shadow.log
+back/logs/sessions/session2-review.log
+back/logs/sessions/session2-summary.txt
+back/logs/sessions/session3-shadow.log
+back/logs/sessions/session3-review.log
+back/logs/sessions/session3-summary.txt

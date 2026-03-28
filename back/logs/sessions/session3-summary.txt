@@ -1,0 +1,72 @@
+SESSION 3 SUMMARY
+=================
+Start: 2026-03-27 21:23:45
+End:   2026-03-27 21:54:00 (approx)
+Duration: ~30 min
+Config: unchanged (same as sessions 1 and 2)
+
+FINAL METRICS:
+  cycles:          613
+  fills_total:     3257
+  toxic_fills:     9
+  order_rejects:   0
+  pnl_total:       +75.7972
+  fees:            3.6828
+  pnl_net:         +72.1144
+  max_drawdown:    0.0521
+  fill_rate:       99.9%
+  max_yes_exp:     13.00
+  max_no_exp:      0.00
+  max_net_exp:     13.00
+  recovery_mode:   never activated
+  time_since_last_fill: 0s (never stalled)
+
+DIAGNOSTICS (last cycle):
+  live_markets:           40
+  eligible_markets:       3
+  quoted_markets:         2
+  blocked_by_edge:        9
+  blocked_by_guard:       2
+  blocked_by_extreme:     25
+  blocked_by_bbo:         1
+  blocked_by_inventory:   0
+  blocked_by_cooldown:    0
+  blocked_by_regime:      0
+
+GUARD:
+  tracked:          10
+  hard_cooldown:    2
+  soft_cooldown:    0
+  disabled:         0
+  hhi:              0.32
+  top_fill_share:   37.5%  <-- EXCEEDS 35% THRESHOLD
+
+PER-MARKET BREAKDOWN:
+  9837039292118085  WINNER  fills=1222  pnl=+47.41  share=37.5%  toxic=0   consec_neg=0
+  4547104156900142  WINNER  fills=1222  pnl=+29.27  share=37.5%  toxic=0   consec_neg=0
+  2672408519133456  TOXIC   fills=8     pnl=+0.08   share=0.2%   toxic=4   consec_neg=0
+  8220739585881642  NEUTRAL fills=2     pnl=-0.01   share=0.1%   toxic=1   consec_neg=2
+  7203620158869907  NEUTRAL fills=2     pnl=-0.01   share=0.1%   toxic=1   consec_neg=2
+  8072736164758027  NEUTRAL fills=4     pnl=-0.02   share=0.1%   toxic=2   consec_neg=4
+  7598436416758808  NEUTRAL fills=26    pnl=-0.14   share=0.8%   toxic=1   consec_neg=26
+  1000503873897966  NEUTRAL fills=36    pnl=-0.17   share=1.1%   toxic=0   consec_neg=36
+  4949002902242971  LOSER   fills=612   pnl=-0.31   share=18.8%  toxic=0   consec_neg=1
+  3368949644926384  LOSER   fills=123   pnl=-0.31   share=3.8%   toxic=0   consec_neg=123
+
+TOXIC FILL ANALYSIS:
+  9 toxic fills across 5 markets
+  Market 2672408519133456: 4 toxic (classified as TOXIC, in HARD_COOLDOWN - guard working)
+  Remaining 5 toxic: scattered across 4 markets, 1-2 each
+  Overall toxic rate: 9/3257 = 0.28%
+
+GO/NO-GO EVALUATION:
+  [GO]   PnL > 0:                    YES (+75.80)
+  [WARN] toxic fills:               9 (0.28% rate) - scattered, guard caught TOXIC market
+  [GO]   order rejects = 0:          YES
+  [GO]   no stalled periods:         YES
+  [GO]   eligible/quoted stable:     YES (2-3 markets)
+  [GO]   guard not over-blocking:    YES (2 hard cooldowns)
+  [FAIL] market > 35% fills:        YES - top market at 37.5%
+  [GO]   max drawdown reasonable:    YES (0.05)
+  [CONCERN] consecutive_neg=123:     market 3368949644926384, 123 consecutive negative
+  [CONCERN] fill_rate 99.9%:         unrealistically high
